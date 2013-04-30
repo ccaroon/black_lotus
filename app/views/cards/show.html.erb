@@ -21,6 +21,13 @@
 </p>
 
 <p>
+  <b>Editions:</b>
+  <% @card.editions.each do |e| %>
+    <li><%= e.name %></li>
+  <% end %>
+</p>
+
+<p>
   <b>Foil:</b>
   <%= @card.foil %>
 </p>

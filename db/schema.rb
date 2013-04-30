@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430141241) do
+ActiveRecord::Schema.define(:version => 20130430170933) do
 
   create_table "cards", :force => true do |t|
     t.string   "name",                          :null => false
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(:version => 20130430141241) do
     t.text     "text_box"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "cards_editions", :id => false, :force => true do |t|
+    t.integer "card_id",    :null => false
+    t.integer "edition_id", :null => false
+  end
+
+  create_table "editions", :force => true do |t|
+    t.string  "name",         :null => false
+    t.string  "code_name",    :null => false
+    t.string  "online_code"
+    t.date    "release_date", :null => false
+    t.integer "card_count",   :null => false
   end
 
 end
