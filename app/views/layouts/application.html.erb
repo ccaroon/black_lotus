@@ -7,8 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <div id="main_menu" class="ui-widget-header ui-corner-all">
+    <span style="font-size:larger">Black Lotus</span>
+    <a id="home" href="/">Home</a>
+    <a id="cards" href="<%= cards_path %>">Cards</a>
+  </div>
 <%= yield %>
+
+  <script type="text/javascript">
+    $('#home').button();
+    $('#cards').button();
+  </script>
 
 </body>
 </html>

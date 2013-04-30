@@ -1,39 +1,69 @@
-<h1>Listing cards</h1>
+<div class="ui-widget-content">
+  <div class="ui-widget-header">Cards</div>
+  <div><%= paginate @cards %></div>
+</div>
 
+<div class="ui-widget-content">
+  
 <table>
-  <tr>
+  <tr class="ui-widget-header">
     <th>Name</th>
-    <th>Mana cost</th>
-    <th>Main type</th>
-    <th>Sub type</th>
-    <th>Foil</th>
+    <th>Mana Cost</th>
+    <th>Main Type</th>
+    <th>Sub Type</th>
     <th>Rarity</th>
     <th>Count</th>
-    <th>Image name</th>
-    <th>Text box</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
+<% row = 0 %>
 <% @cards.each do |card| %>
-  <tr>
+  <tr class="<%= row % 2 == 0 ? 'ui-state-default' : 'ui-state-active' %>">
     <td><%= card.name %></td>
     <td><%= card.mana_cost %></td>
     <td><%= card.main_type %></td>
     <td><%= card.sub_type %></td>
-    <td><%= card.foil %></td>
     <td><%= card.rarity %></td>
     <td><%= card.count %></td>
-    <td><%= card.image_name %></td>
-    <td><%= card.text_box %></td>
-    <td><%= link_to 'Show', card %></td>
-    <td><%= link_to 'Edit', edit_card_path(card) %></td>
-    <td><%= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    
+    <td><%= link_to 'Show', card, :class => 'show_button' %></td>
+    <td><%= link_to 'Edit', edit_card_path(card), :class => 'edit_button' %></td>
+    <td><%= link_to 'Destroy', card, :class => 'delete_button', method: :delete, data: { confirm: "Delete '"+card.name+"'?" } %></td>
   </tr>
+  <% row = row + 1 %>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Card', new_card_path %>
+<%= link_to 'New Card', new_card_path, :id => 'new_card' %>
+
+</div>
+
+<script>
+  $('#new_card').button();
+  
+  $('.show_button').button({
+    text: false,
+    icons: {
+    primary: "ui-icon-search"
+    }
+  });
+
+  $('.edit_button').button({
+    text: false,
+    icons: {
+    primary: "ui-icon-pencil"
+    }
+  });
+
+  $('.delete_button').button({
+    text: false,
+    icons: {
+    primary: "ui-icon-trash"
+    }
+  });
+
+</script>
