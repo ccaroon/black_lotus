@@ -1,0 +1,39 @@
+<h1>Listing cards</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Mana cost</th>
+    <th>Main type</th>
+    <th>Sub type</th>
+    <th>Foil</th>
+    <th>Rarity</th>
+    <th>Count</th>
+    <th>Image name</th>
+    <th>Text box</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cards.each do |card| %>
+  <tr>
+    <td><%= card.name %></td>
+    <td><%= card.mana_cost %></td>
+    <td><%= card.main_type %></td>
+    <td><%= card.sub_type %></td>
+    <td><%= card.foil %></td>
+    <td><%= card.rarity %></td>
+    <td><%= card.count %></td>
+    <td><%= card.image_name %></td>
+    <td><%= card.text_box %></td>
+    <td><%= link_to 'Show', card %></td>
+    <td><%= link_to 'Edit', edit_card_path(card) %></td>
+    <td><%= link_to 'Destroy', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Card', new_card_path %>

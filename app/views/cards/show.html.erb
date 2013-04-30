@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @card.name %>
+</p>
+
+<p>
+  <b>Mana cost:</b>
+  <%= @card.mana_cost %>
+</p>
+
+<p>
+  <b>Main type:</b>
+  <%= @card.main_type %>
+</p>
+
+<p>
+  <b>Sub type:</b>
+  <%= @card.sub_type %>
+</p>
+
+<p>
+  <b>Foil:</b>
+  <%= @card.foil %>
+</p>
+
+<p>
+  <b>Rarity:</b>
+  <%= @card.rarity %>
+</p>
+
+<p>
+  <b>Count:</b>
+  <%= @card.count %>
+</p>
+
+<p>
+  <b>Image name:</b>
+  <%= @card.image_name %>
+</p>
+
+<p>
+  <b>Text box:</b>
+  <%= @card.text_box %>
+</p>
+
+
+<%= link_to 'Edit', edit_card_path(@card) %> |
+<%= link_to 'Back', cards_path %>

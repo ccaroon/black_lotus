@@ -1,0 +1,13 @@
+Notes
+=====
+
+
+Porting data
+------------
+1. Export from old db: sqlite3 old.db
+    - .mode insert
+    - .output file.sql
+    - select NULL,COLUMNS_IN_CORRECT_ORDER,datetime(),datetime() from TABLE;
+2. Search and replace "INTO table" with "INTO real_table_name"
+3. Import to new db: sqlite3 new.db
+    - .read file.sql
