@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430170933) do
+ActiveRecord::Schema.define(:version => 20130501193216) do
+
+  create_table "card_in_decks", :id => false, :force => true do |t|
+    t.integer "card_id",     :null => false
+    t.integer "deck_id",     :null => false
+    t.integer "main_copies", :null => false
+    t.integer "side_copies"
+  end
 
   create_table "cards", :force => true do |t|
     t.string   "name",                          :null => false
@@ -30,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20130430170933) do
   create_table "cards_editions", :id => false, :force => true do |t|
     t.integer "card_id",    :null => false
     t.integer "edition_id", :null => false
+  end
+
+  create_table "decks", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "format",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "editions", :force => true do |t|

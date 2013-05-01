@@ -1,4 +1,7 @@
 BlackLotus::Application.routes.draw do
+  resources :decks
+
+
   resources :cards
 
 
