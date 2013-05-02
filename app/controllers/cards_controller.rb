@@ -2,7 +2,9 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.order(:name).page(params[:page])
+    @cards = Card.where("name like '%#{params[:search_string]}%'") 
+                 .order(:name)
+                 .page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

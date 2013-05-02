@@ -47,8 +47,9 @@
           <span class="brand"><abbr title="{T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.">BlackLotus</abbr></span>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Cards", "/cards"  %></li>
-              <li><%= link_to "Decks", "/decks"  %></li>
+              <li class="<%= menu_item_active?('home') %>"><%= link_to "Home", root_path  %></li>
+              <li class="<%= menu_item_active?('cards') %>"><%= link_to "Cards", cards_path  %></li>
+              <li class="<%= menu_item_active?('decks') %>"><%= link_to "Decks", decks_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -58,8 +59,12 @@
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span2">
-          <div class="well sidebar-nav">
-            <img src="/assets/black_lotus.jpg">
+          <div class="well well-small sidebar-nav">
+            <p><img class="img-rounded" src="/assets/black_lotus.jpg"></p>
+            <ul class="nav nav-tabs nav-stacked">
+              <li><%= link_to "New Card", new_card_path %></li>
+              <li><%= link_to "New Deck", new_deck_path %></li>
+            </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span10">
@@ -68,8 +73,9 @@
         </div>
       </div><!--/row-->
 
+      <p></p>
       <footer>
-        <p>&copy; CNC 2013</p>
+        <p class="muted well well-small text-center">&copy; Craig N. Caroon 2013</p>
       </footer>
 
     </div> <!-- /container -->

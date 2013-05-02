@@ -1,15 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @deck.name %> &mdash; <%= @deck.format %> (<%= @deck.main_count %>/<%= @deck.side_count %>)</h1>
+  <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-mini" %>
+  <%= link_to 'Back', decks_path, :class => "btn btn-mini" %> 
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @deck.name %>
-</p>
-
-<p>
-  <b>Format:</b>
-  <%= @deck.format %>
-</p>
-
-
-<%= link_to 'Edit', edit_deck_path(@deck) %> |
-<%= link_to 'Back', decks_path %>
+<div class="containter">
+  <ul class="thumbnails">
+    <% @deck.card_in_deck.each do |card_in_deck| %>
+    <li class="span2">
+      <div class="thumbnail">
+        <img src="/card_images/abattoir_ghoul.jpg" alt="<%= card_in_deck.card.name %>" width="200">
+        <p class="text-center"><%= card_in_deck.main_copies %>/<%= card_in_deck.side_copies %></p>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,7 +1,7 @@
 class Deck < ActiveRecord::Base
   attr_accessible :format, :name
   
-  has_many :card_in_deck
+  has_many :card_in_deck, :order => 'main_copies asc'
   has_many :cards, :through => :card_in_deck
   ##############################################################################
   def main_count

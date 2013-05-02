@@ -15,4 +15,5 @@
 /tmp
 
 /public/assets
+app/assets/.DS_Store
 /public/card_images/*.jpg
