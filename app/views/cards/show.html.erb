@@ -1,57 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <img src="/card_images/<%= @card.image_name %>">
+    </div>
+    <div class="span7">
+      <p id="notice"><%= notice %></p>
+      
+      <dl>
+        <dt>Name</dt>
+        <dd><%= @card.name %></dd>
+        
+        <dt>Mana Cost</dt>
+        <dd class="badge"><%= @card.mana_cost %></dd>
+        
+        <dt>Type</dt>
+        <dd><%= @card.main_type %><%= raw @card.sub_type.blank? ? '' : " &mdash; #{@card.sub_type}" %></dd>
+        
+        <dt>Editions</dt>
+        <dd>
+          <% @card.editions.each do |e| %>
+            <%= e.name %><br>
+          <% end %>
+        </dd>
+        
+        <dt>Foil</dt>
+        <dd><%= @card.foil ? "Yes" : "No" %></dd>
+        
+        <dt>Rarity</dt>
+        <dd class="<%= rarity_to_html %>"><%= @card.rarity %></dd>
+      
+        <dt>Copies</dt>
+        <dd><%= @card.count %></dd>
 
-<p>
-  <b>Name:</b>
-  <%= @card.name %>
-</p>
-
-<p>
-  <b>Mana cost:</b>
-  <%= @card.mana_cost %>
-</p>
-
-<p>
-  <b>Main type:</b>
-  <%= @card.main_type %>
-</p>
-
-<p>
-  <b>Sub type:</b>
-  <%= @card.sub_type %>
-</p>
-
-<p>
-  <b>Editions:</b>
-  <% @card.editions.each do |e| %>
-    <li><%= e.name %></li>
-  <% end %>
-</p>
-
-<p>
-  <b>Foil:</b>
-  <%= @card.foil %>
-</p>
-
-<p>
-  <b>Rarity:</b>
-  <%= @card.rarity %>
-</p>
-
-<p>
-  <b>Count:</b>
-  <%= @card.count %>
-</p>
-
-<p>
-  <b>Image name:</b>
-  <%= @card.image_name %>
-</p>
-
-<p>
-  <b>Text box:</b>
-  <%= @card.text_box %>
-</p>
-
-
-<%= link_to 'Edit', edit_card_path(@card) %> |
-<%= link_to 'Back', cards_path %>
+        <div class="well"><%= raw @card.text_box.sub(/\n/, "<br>") %></div>      
+      </dl>
+      
+      <%= link_to 'Edit', edit_card_path(@card), :class => "btn" %>
+      <%= link_to 'Back', cards_path, :class => "btn" %>
+    </div>
+  </div>
+</div>
