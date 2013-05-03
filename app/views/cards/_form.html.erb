@@ -1,4 +1,4 @@
-<%= form_for(@card) do |f| %>
+<%= form_for @card, :html => {:class => 'form-horizontal'} do |f| %>
   <% if @card.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@card.errors.count, "error") %> prohibited this card from being saved:</h2>
@@ -11,43 +11,53 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class=> "control-label" %>
+    <div class="controls"><%= f.text_field :name %></div>
   </div>
-  <div class="field">
-    <%= f.label :mana_cost %><br />
-    <%= f.text_field :mana_cost %>
+
+  <div class="control-group">
+    <%= f.label :mana_cost, :class => "control-label" %>
+    <div class="controls"><%= f.text_field :mana_cost %></div>
   </div>
-  <div class="field">
-    <%= f.label :main_type %><br />
-    <%= f.text_field :main_type %>
+  
+  <div class="control-group">
+    <%= f.label :main_type, :class => "control-label" %>
+    <div class="controls">
+      <%= f.select :main_type, Card::CARD_TYPES %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :sub_type %><br />
-    <%= f.text_field :sub_type %>
+  
+  <div class="control-group">
+    <%= f.label :sub_type, :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :sub_type, :autocomplete => false, 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :foil %><br />
-    <%= f.check_box :foil %>
+
+  <div class="control-group">
+    <%= f.label :foil, :class => "control-label" %>
+    <div class="controls"><%= f.check_box :foil %></div>
   </div>
-  <div class="field">
-    <%= f.label :rarity %><br />
-    <%= f.text_field :rarity %>
+  
+  <div class="control-group">
+    <%= f.label :rarity, :class => "control-label" %>
+    <div class="controls">
+      <% Card::RARITIES.each do |r| %>
+        <%= f.radio_button :rarity,  r, :class => 'radio inline' %> <span class="badge <%= rarity_to_css(r) %>"><%= r %></span>
+      <% end %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :count %><br />
-    <%= f.number_field :count %>
+  
+  <div class="control-group">
+    <%= f.label :count, :class => "control-label" %>
+    <div class="controls"><%= f.number_field :count, :class => "input-mini" %></div>
   </div>
-  <div class="field">
-    <%= f.label :image_name %><br />
-    <%= f.text_field :image_name %>
-  </div>
-  <div class="field">
-    <%= f.label :text_box %><br />
-    <%= f.text_area :text_box %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  
+  <div class="control-group">
+    <div class="form-actions">
+      <%= f.submit nil, :class => "btn btn-primary" %>
+      <%= f.button "Cancel", :type => "button", :class => "btn" %>
+    </div>
   </div>
 <% end %>

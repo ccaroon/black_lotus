@@ -27,7 +27,7 @@
         <dd><%= @card.foil ? "Yes" : "No" %></dd>
         
         <dt>Rarity</dt>
-        <dd class="<%= rarity_to_html %>"><%= @card.rarity %></dd>
+        <dd class="<%= rarity_to_css(@card) %>"><%= @card.rarity %></dd>
       
         <dt>Copies</dt>
         <dd><%= @card.count %></dd>
