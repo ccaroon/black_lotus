@@ -9,7 +9,7 @@
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <li class="span2">
       <div class="thumbnail">
-        <img src="/card_images/abattoir_ghoul.jpg" alt="<%= card_in_deck.card.name %>" width="200">
+        <img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200">
         <p class="text-center"><%= card_in_deck.main_copies %>/<%= card_in_deck.side_copies %></p>
       </div>
     </li>

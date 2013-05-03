@@ -24,11 +24,11 @@
   <tr>
     <td>
       <a rel="popover" href="#"
-         data-placement="bottom"
+         data-placement="right"
          data-html="true"
          data-animation="false"
          data-trigger="hover"
-         data-content="<img src='/card_images/<%= card.image_name %>'>"><%= card.name %></a>
+         data-content="<img src='<%= card_image_path(card) %>'>"><%= card.name %></a>
     </td>
     <td><%= card.mana_cost %></td>
     <td><%= card.main_type %></td>
