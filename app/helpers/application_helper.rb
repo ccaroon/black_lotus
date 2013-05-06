@@ -1,10 +1,11 @@
 module ApplicationHelper
-  
+
+  ##############################################################################
   def menu_item_active?(name)
     active = params[:controller] == name ? 'active' : ''
     return active
   end
-  
+  ##############################################################################
   def card_image_path(card)
     image_path = File.exist?("#{Rails.public_path}/card_images/#{card.image_name}")  ?
       "/card_images/#{card.image_name}" :
@@ -12,5 +13,6 @@ module ApplicationHelper
 
     return image_path;
   end
+  ##############################################################################
   
 end

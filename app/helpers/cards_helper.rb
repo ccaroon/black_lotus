@@ -15,7 +15,16 @@ module CardsHelper
     return css_class;
   end
   
-  def mana_cost_to_html
+  def mana_cost_to_html(mana_cost)
+    html = mana_cost.dup
+    html.gsub!(/R/, '<span class="badge badge-important">R</span>')
+    html.gsub!(/G/, '<span class="badge badge-success">G</span>')
+    html.gsub!(/U/, '<span class="badge badge-info">U</span>')
+    html.gsub!(/B/, '<span class="badge badge-inverse">B</span>')
+    html.gsub!(/W/, '<span class="badge badge-default">W</span>')
+    html.gsub!(/(\d)/, '<strong>\1</strong>')
+
+    return html
   end
   
 end

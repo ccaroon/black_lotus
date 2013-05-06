@@ -26,10 +26,28 @@ class CardsController < ApplicationController
   # GET /cards/new
   # GET /cards/new.json
   def new
-    @card = Card.new
+    name = params[:name]
+    if (name.present?)
+      name = Card.title_case(name)
+      @card = Card.where(:name => name).first
+    end
+
+    @card = Card.new if @card.nil?
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {
+        if (@card.id.present?)
+          flash[:info] = "Found Card: '#{@card.name}'"
+          redirect_to :action => 'edit', :id => @card.id
+        else
+          if (name.present?)
+            @card.name = name
+            render
+          else
+            render :file => '/cards/new_search'
+          end
+        end
+      }
       format.json { render json: @card }
     end
   end
@@ -44,9 +62,10 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(params[:card])
 
-    # TODO: fetch info and update @card
-    
-    
+    @card.mana_cost.upcase!
+    @card.sub_type = Card.title_case(@card.sub_type)
+    @card.gen_image_name
+
     respond_to do |format|
       if @card.save
         format.html { redirect_to @card, notice: 'Card was successfully created.' }
@@ -63,8 +82,14 @@ class CardsController < ApplicationController
   def update
     @card = Card.find(params[:id])
 
+    @card.attributes = params[:card]
+    
+    @card.mana_cost.upcase!
+    @card.sub_type = Card.title_case(@card.sub_type)
+    @card.gen_image_name
+        
     respond_to do |format|
-      if @card.update_attributes(params[:card])
+      if @card.save
         format.html { redirect_to @card, notice: 'Card was successfully updated.' }
         format.json { head :no_content }
       else

@@ -4,14 +4,12 @@
       <img src="/card_images/<%= @card.image_name %>">
     </div>
     <div class="span7">
-      <p id="notice"><%= notice %></p>
-      
       <dl>
         <dt>Name</dt>
         <dd><%= @card.name %></dd>
         
         <dt>Mana Cost</dt>
-        <dd class="badge"><%= @card.mana_cost %></dd>
+        <dd><%= raw mana_cost_to_html(@card.mana_cost) %></dd>
         
         <dt>Type</dt>
         <dd><%= @card.main_type %><%= raw @card.sub_type.blank? ? '' : " &mdash; #{@card.sub_type}" %></dd>
@@ -32,7 +30,7 @@
         <dt>Copies</dt>
         <dd><%= @card.count %></dd>
 
-        <div class="well"><%= raw @card.text_box.sub(/\n/, "<br>") %></div>      
+        <div class="well"><%= raw @card.text_box.present? ? @card.text_box.sub(/\n/, "<br>") : '' %></div>      
       </dl>
       
       <%= link_to 'Edit', edit_card_path(@card), :class => "btn" %>

@@ -13,7 +13,7 @@
 
   <div class="control-group">
     <%= f.label :name, :class=> "control-label" %>
-    <div class="controls"><%= f.text_field :name %></div>
+    <div class="controls"><%= f.text_field :name, :autofocus => true %></div>
   </div>
 
   <div class="control-group">
@@ -31,7 +31,7 @@
   <div class="control-group">
     <%= f.label :sub_type, :class => "control-label" %>
     <div class="controls">
-      <%= f.text_field :sub_type, :autocomplete => false, 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
+      <%= f.text_field :sub_type, :autocomplete => 'off', 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
     </div>
   </div>
 
@@ -51,7 +51,13 @@
   
   <div class="control-group">
     <%= f.label :count, :class => "control-label" %>
-    <div class="controls"><%= f.number_field :count, :class => "input-mini" %></div>
+    <div class="controls">
+      <div class="input-prepend input-append">
+        <button id="card_count_dec" class="btn" type="button"><i class="icon-minus"></i></button>
+        <%= f.number_field :count, :class => "input-mini", :disabled => false %>  
+        <button id="card_count_inc" class="btn" type="button"><i class="icon-plus"></i></button>
+      </div>
+    </div>
   </div>
   
   <div class="control-group">
