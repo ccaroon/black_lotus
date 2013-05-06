@@ -36,6 +36,18 @@
   </div>
 
   <div class="control-group">
+    <%= f.label :editions, :class => "control-label" %>
+    <div class="controls">
+      <ul class="inline">
+        <% @card.editions.each do |e| %>
+          <li><span class="label label-default"><%= e.name %></span></li>
+        <% end %>
+      </ul>
+      <%= f.select :editions, @card.available_editions.collect {|e| [e.name, e.id] }, {:include_blank => true} %>
+    </div>
+  </div>
+  
+  <div class="control-group">
     <%= f.label :foil, :class => "control-label" %>
     <div class="controls"><%= f.check_box :foil %></div>
   </div>

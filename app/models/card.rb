@@ -32,20 +32,16 @@ class Card < ActiveRecord::Base
     'Mythic Rare'
   ]
 
+  before_validation :fixup_data
+  
   attr_accessible :count, :foil, :image_name, :main_type, :mana_cost, :name,
                   :rarity, :sub_type, :text_box
                   
-  has_and_belongs_to_many :editions
+  has_and_belongs_to_many :editions, :order => 'release_date'
   
   has_many :card_in_deck
   has_many :decks, :through => :card_in_deck
-  
-  def self.sub_types
-    Card.select("distinct sub_type")
-      .delete_if {|c| c.sub_type.blank? }
-      .collect! {|c| c.sub_type }
-  end
-
+  ##############################################################################
   def gen_image_name
       iname = self.name.downcase
       iname.gsub!(/\s/, '_')
@@ -53,7 +49,22 @@ class Card < ActiveRecord::Base
   
       self.image_name = iname + ".jpg"
   end
-
+  ##############################################################################
+  def available_editions
+    recent_editions = Edition.recent_editions
+    card_editions = self.editions
+    
+    avail_editions = recent_editions.keep_if do |e|
+      card_editions.find_index(e).nil?
+    end
+  end
+  ##############################################################################
+  def self.sub_types
+    Card.select("distinct sub_type")
+      .delete_if {|c| c.sub_type.blank? }
+      .collect! {|c| c.sub_type }
+  end
+  ##############################################################################
   def self.title_case(str)
     new_str = ""
 
@@ -71,6 +82,15 @@ class Card < ActiveRecord::Base
     new_str.chop!
 
     return new_str
+  end
+  ##############################################################################
+  private
+  
+  def fixup_data
+    self.name = Card.title_case(self.name)
+    self.mana_cost.upcase!
+    self.sub_type = Card.title_case(self.sub_type)
+    self.gen_image_name
   end
   
 end

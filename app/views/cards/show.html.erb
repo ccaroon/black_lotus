@@ -16,11 +16,13 @@
         
         <dt>Editions</dt>
         <dd>
-          <% @card.editions.each do |e| %>
-            <%= e.name %><br>
-          <% end %>
+          <ul class="inline">
+            <% @card.editions.each do |e| %>
+              <li><span class="label label-default"><%= e.name %></span></li>
+            <% end %>            
+          </ul>
         </dd>
-        
+
         <dt>Foil</dt>
         <dd><%= @card.foil ? "Yes" : "No" %></dd>
         

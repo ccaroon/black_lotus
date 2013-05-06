@@ -62,10 +62,6 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(params[:card])
 
-    @card.mana_cost.upcase!
-    @card.sub_type = Card.title_case(@card.sub_type)
-    @card.gen_image_name
-
     respond_to do |format|
       if @card.save
         format.html { redirect_to @card, notice: 'Card was successfully created.' }
@@ -82,12 +78,14 @@ class CardsController < ApplicationController
   def update
     @card = Card.find(params[:id])
 
+    #ed_id = params[:card].delete(:editions)
+    #if (ed_id.present?)
+    #  new_ed = Edition.find(ed_id)
+    #  @card.editions << new_ed
+    #end
+
     @card.attributes = params[:card]
-    
-    @card.mana_cost.upcase!
-    @card.sub_type = Card.title_case(@card.sub_type)
-    @card.gen_image_name
-        
+
     respond_to do |format|
       if @card.save
         format.html { redirect_to @card, notice: 'Card was successfully updated.' }
