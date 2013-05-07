@@ -1,7 +1,12 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span3">
-      <img src="/card_images/<%= @card.image_name %>">
+      <img src="<%= card_image_path(@card) %>">
+      
+      <% unless card_image_exists?(@card) %>
+        <p></p>
+        <%= link_to 'Fetch Info', fetch_card_info_path(@card), :class => "btn btn-primary" %>
+      <% end %>
     </div>
     <div class="span7">
       <dl>

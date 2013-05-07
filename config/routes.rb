@@ -5,6 +5,8 @@ BlackLotus::Application.routes.draw do
 
   root :to => 'home#index'
   
+  match 'cards/:id/fetch_info' => 'cards#fetch_info', :as => :fetch_card_info
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

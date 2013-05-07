@@ -60,7 +60,10 @@ class CardsController < ApplicationController
   # POST /cards
   # POST /cards.json
   def create
-    @card = Card.new(params[:card])
+    @card = Card.new()
+
+    add_edition()
+    @card.attributes = params[:card]
 
     respond_to do |format|
       if @card.save
@@ -78,12 +81,7 @@ class CardsController < ApplicationController
   def update
     @card = Card.find(params[:id])
 
-    #ed_id = params[:card].delete(:editions)
-    #if (ed_id.present?)
-    #  new_ed = Edition.find(ed_id)
-    #  @card.editions << new_ed
-    #end
-
+    add_edition()
     @card.attributes = params[:card]
 
     respond_to do |format|
@@ -107,5 +105,22 @@ class CardsController < ApplicationController
       format.html { redirect_to cards_url }
       format.json { head :no_content }
     end
+  end
+  ##############################################################################
+  def fetch_info
+    @card = Card.find(params[:id])
+    @card.fetch_info
+    
+    redirect_to @card, notice: 'Card information successfully updated.'
+  end
+  ##############################################################################
+  private
+  
+  def add_edition
+    ed_id = params[:card].delete(:editions)
+    if (ed_id.present?)
+      new_ed = Edition.find(ed_id)
+      @card.editions << new_ed
+    end    
   end
 end

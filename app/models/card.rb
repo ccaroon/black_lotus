@@ -59,6 +59,14 @@ class Card < ActiveRecord::Base
     end
   end
   ##############################################################################
+  def fetch_info
+    info = MagicCardsInfo.fetch(self.name)
+    
+    self.text_box = info[:card_text] unless info[:card_text].nil?
+   
+    self.save! 
+  end
+  ##############################################################################
   def self.sub_types
     Card.select("distinct sub_type")
       .delete_if {|c| c.sub_type.blank? }

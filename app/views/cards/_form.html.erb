@@ -43,7 +43,7 @@
           <li><span class="label label-default"><%= e.name %></span></li>
         <% end %>
       </ul>
-      <%= f.select :editions, @card.available_editions.collect {|e| [e.name, e.id] }, {:include_blank => true} %>
+      <%= f.collection_select :editions, @card.available_editions, :id, :name, {:include_blank => true} %>
     </div>
   </div>
   
