@@ -24,7 +24,18 @@ module CardsHelper
     html.gsub!(/W/, '<span class="badge badge-default">W</span>')
     html.gsub!(/(\d)/, '<strong>\1</strong>')
 
-    return html
+    return html.html_safe
+  end
+  
+  def display_error_if_error(attr)
+    html = '';
+    if @card.errors[attr.to_sym].present?
+      @card.errors[attr.to_sym].each do |msg|
+          html += "<span class='label label-important'>...#{msg.titlecase}</span>"
+      end
+    end
+
+    return html.html_safe
   end
   
 end

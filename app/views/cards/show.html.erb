@@ -14,7 +14,7 @@
         <dd><%= @card.name %></dd>
         
         <dt>Mana Cost</dt>
-        <dd><%= raw mana_cost_to_html(@card.mana_cost) %></dd>
+        <dd><%= mana_cost_to_html(@card.mana_cost) %></dd>
         
         <dt>Type</dt>
         <dd><%= @card.main_type %><%= raw @card.sub_type.blank? ? '' : " &mdash; #{@card.sub_type}" %></dd>

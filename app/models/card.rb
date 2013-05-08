@@ -32,10 +32,14 @@ class Card < ActiveRecord::Base
     'Mythic Rare'
   ]
 
-  validates_presence_of :name, :mana_cost, :main_type, :editions, :rarity
+  validates_presence_of :name, :mana_cost, :editions
   validates_numericality_of :count, :only_integer => true, :greater_than => 0
+  validates_format_of :mana_cost, :with => /^(\d+)?[RGUBW]*$/
+  validates_inclusion_of :main_type, :in => CARD_TYPES,
+    :message => "'%{value}' is not a valid main type"
+  validates_inclusion_of :rarity, :in => RARITIES,
+    :message => "'%{value}' is not a valid rarity"
 
-  validate :against_online_card_database
   before_validation :fixup_data
   
   attr_accessible :count, :foil, :image_name, :main_type, :mana_cost, :name,
@@ -69,10 +73,6 @@ class Card < ActiveRecord::Base
     self.text_box = info[:card_text] unless info[:card_text].nil?
    
     self.save! 
-  end
-  ##############################################################################
-  def against_online_card_database
-    errors.add(:name, " cannot contain 'Craig'") if self.name =~ /Craig/
   end
   ##############################################################################
   def self.sub_types
