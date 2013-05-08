@@ -3,13 +3,14 @@ require 'httparty'
 class MagicCardsInfo
   include HTTParty
   base_uri "http://magiccards.info"
-  
-  def self.fetch_image
-    #File.open( "/tmp/my_movie.mov", "w") do |movie|
-      #movie << HTTParty.get( "http://example.com/movie.mov" )
-    #end
+  ##############################################################################
+  def self.fetch_image(card, img_url)
+    card.gen_image_name
+    File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "w") do |img|
+      img << HTTParty.get( img_url )
+    end
   end
-  
+  ##############################################################################
   def self.fetch(card_name)
     r = self.get("/query?q=!#{card_name.sub(/\s+/, '+')}")
     raise r.message unless r.code == 200

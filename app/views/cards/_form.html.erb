@@ -1,19 +1,20 @@
 <%= form_for @card, :html => {:class => 'form-horizontal'} do |f| %>
   <% if @card.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@card.errors.count, "error") %> prohibited this card from being saved:</h2>
-
-      <ul>
-      <% @card.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <div class="alert alert-error">
+      <h4>Unable to save Card</h4>
     </div>
   <% end %>
 
-  <div class="control-group">
+  <div class="control-group <%= @card.errors[:name].present? ? "alert alert-error" : '' %>">
     <%= f.label :name, :class=> "control-label" %>
-    <div class="controls"><%= f.text_field :name, :autofocus => true %></div>
+    <div class="controls">
+      <%= f.text_field :name, :autofocus => true %>
+      <% if @card.errors[:name].present? %>
+        <% @card.errors[:name].each do |msg| %>
+          <span class="label label-important"><%= msg.titlecase %></span>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
   <div class="control-group">
