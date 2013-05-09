@@ -1,5 +1,3 @@
-require 'magic_cards_info'
-
 class Card < ActiveRecord::Base
   
   LOWER_WORDS = {
@@ -65,14 +63,6 @@ class Card < ActiveRecord::Base
     avail_editions = recent_editions.keep_if do |e|
       card_editions.find_index(e).nil?
     end
-  end
-  ##############################################################################
-  def fetch_info
-    info = MagicCardsInfo.fetch(self.name)
-    
-    self.text_box = info[:card_text] unless info[:card_text].nil?
-   
-    self.save! 
   end
   ##############################################################################
   def self.sub_types

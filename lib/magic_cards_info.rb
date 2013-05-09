@@ -6,12 +6,18 @@ class MagicCardsInfo
   ##############################################################################
   def self.fetch_image(card, img_url)
     card.gen_image_name
-    File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "w") do |img|
-      img << HTTParty.get( img_url )
+
+    r = self.get(img_url)
+    raise r.message unless r.code == 200
+
+    File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "wb") do |img|
+      img << r.body
     end
   end
   ##############################################################################
-  def self.fetch(card_name)
+  def self.fetch_info(card)
+    card_name = card.name
+
     r = self.get("/query?q=!#{card_name.sub(/\s+/, '+')}")
     raise r.message unless r.code == 200
     
@@ -19,7 +25,7 @@ class MagicCardsInfo
     html = r.body
 
     # Image URL
-    base_img_url = "http://magiccards.info/scans"
+    base_img_url = "/scans"
     while(html.sub!(/<img src="http:\/\/magiccards.info\/scans\/(.*)\.jpg"\s+alt="([^"]+)"/,''))
       img_name = $1
       alt_txt  = $2
@@ -43,7 +49,7 @@ class MagicCardsInfo
       (type, sub_type) =  type_info.split(/\xE2\x80\x94/, 2)
       type.strip!
       type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
-      info[:type] = type
+      info[:main_type] = type
       
       sub_type ||= ''
       sub_type.strip!
@@ -56,24 +62,24 @@ class MagicCardsInfo
 
       info[:mana_cost] = cost
 
-      converted_cost.gsub!(/(\(|\))/,'')
-      info[:converted_mana_cost] = converted_cost || cost
+      # TODO: uncomment after figuring out what to do with this
+      #converted_cost.gsub!(/(\(|\))/,'')
+      #info[:converted_mana_cost] = converted_cost || cost
 
       # Card Text
-      info[:card_text] = ''
+      info[:text_box] = ''
       if (!ctext.empty?)
-          info[:card_text] = ctext
-          info[:card_text].gsub!(/<br>/, "\n")
+          info[:text_box] = ctext
+          info[:text_box].gsub!(/<br>/, "\n")
       end
 
       # Flavor Text
-      info[:flavor_text] = ''
-      if (!ftext.empty?)
-          info[:flavor_text] = ftext
-          info[:flavor_text].gsub!(/<br>/,"\n")
-      end
-    else
-      info[:card_text] = nil
+      # TODO: uncomment after adding flavor text support
+      #info[:flavor_text] = ''
+      #if (!ftext.empty?)
+      #    info[:flavor_text] = ftext
+      #    info[:flavor_text].gsub!(/<br>/,"\n")
+      #end
     end
 
     return info

@@ -4,6 +4,16 @@
       <h4>Unable to save Card: <%= @card.errors.count %> errors.</h4>
     </div>
   <% end %>
+  
+  <% if @card_data_mismatches.present? %>
+    <div class="alert alert-info">
+      <ul>
+      <% @card_data_mismatches.each do |mm|%>
+        <li><%= mm[:name] %> -- <%= mm[:value] %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="control-group">
     <%= f.label :name, :class=> "control-label" %>

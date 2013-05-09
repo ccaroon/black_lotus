@@ -1,3 +1,5 @@
+require 'magic_cards_info'
+
 class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
@@ -64,10 +66,42 @@ class CardsController < ApplicationController
 
     add_edition()
     @card.attributes = params[:card]
+    success = @card.save
+
+    # fetch card info
+    
+    # if success, then compare values
+    # if all match, redirect to show page
+    # if not all match, redirect to edit page with array of mis-matches
+    
+    # if fetch fails, redirect to show with "failed to fetch" message
+
+    notice = 'Card was successfully created.'
+    redirect_action = :show
+    @card_data_mismatches = []
+    begin
+      info = MagicCardsInfo.fetch_info(@card)
+      MagicCardsInfo.fetch_image(@card, info[:image_url])
+      
+      info.delete(:image_url)
+      info.each_pair do |attr, val|
+        m = @card.method(attr)
+        @card_data_mismatches << {:name => attr, :value => val} unless m.call == val
+      end
+      redirect_action = :edit unless @card_data_mismatches.empty?
+    rescue Exception => e
+      flash[:alert] = "Failed to fetch card info for verification: #{e}"
+    end
 
     respond_to do |format|
-      if @card.save
-        format.html { redirect_to @card, notice: 'Card was successfully created.' }
+      if success
+        format.html {
+          if redirect_action == :edit
+            redirect_to :action => 'edit', :id => @card.id
+          else
+            redirect_to @card, notice: notice
+          end
+        }
         format.json { render json: @card, status: :created, location: @card }
       else
         format.html { render action: "new" }
@@ -105,13 +139,6 @@ class CardsController < ApplicationController
       format.html { redirect_to cards_url }
       format.json { head :no_content }
     end
-  end
-  ##############################################################################
-  def fetch_info
-    @card = Card.find(params[:id])
-    @card.fetch_info
-    
-    redirect_to @card, notice: 'Card information successfully updated.'
   end
   ##############################################################################
   private
