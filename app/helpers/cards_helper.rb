@@ -38,4 +38,13 @@ module CardsHelper
     return html.html_safe
   end
   
+  def display_data_mismatch_if_mismatch(attr)
+    html = '';
+    if @card_data_mismatches.present? and @card_data_mismatches.key?(attr.to_sym)
+      html = "<span class='label label-info'>...#{attr.to_s.titlecase} mis-match: '#{@card_data_mismatches[attr.to_sym]}'</span>"
+    end
+
+    return html.html_safe
+  end
+  
 end

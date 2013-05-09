@@ -68,25 +68,21 @@ class CardsController < ApplicationController
     @card.attributes = params[:card]
     success = @card.save
 
-    # fetch card info
-    
-    # if success, then compare values
-    # if all match, redirect to show page
-    # if not all match, redirect to edit page with array of mis-matches
-    
-    # if fetch fails, redirect to show with "failed to fetch" message
-
     notice = 'Card was successfully created.'
     redirect_action = :show
-    @card_data_mismatches = []
+    @card_data_mismatches = {}
     begin
       info = MagicCardsInfo.fetch_info(@card)
+
       MagicCardsInfo.fetch_image(@card, info[:image_url])
-      
       info.delete(:image_url)
+
+      @card.text_box = info.delete(:text_box)
+      @card.save
+      
       info.each_pair do |attr, val|
         m = @card.method(attr)
-        @card_data_mismatches << {:name => attr, :value => val} unless m.call == val
+        @card_data_mismatches[attr] = val unless m.call == val
       end
       redirect_action = :edit unless @card_data_mismatches.empty?
     rescue Exception => e
@@ -97,7 +93,7 @@ class CardsController < ApplicationController
       if success
         format.html {
           if redirect_action == :edit
-            redirect_to :action => 'edit', :id => @card.id
+            render 'cards/edit'
           else
             redirect_to @card, notice: notice
           end

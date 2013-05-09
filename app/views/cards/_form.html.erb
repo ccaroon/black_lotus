@@ -4,16 +4,6 @@
       <h4>Unable to save Card: <%= @card.errors.count %> errors.</h4>
     </div>
   <% end %>
-  
-  <% if @card_data_mismatches.present? %>
-    <div class="alert alert-info">
-      <ul>
-      <% @card_data_mismatches.each do |mm|%>
-        <li><%= mm[:name] %> -- <%= mm[:value] %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="control-group">
     <%= f.label :name, :class=> "control-label" %>
@@ -28,6 +18,7 @@
     <div class="controls">
       <%= f.text_field :mana_cost %>
       <%= display_error_if_error :mana_cost %>
+      <%= display_data_mismatch_if_mismatch :mana_cost %>
     </div>
   </div>
   
@@ -36,6 +27,7 @@
     <div class="controls">
       <%= f.select :main_type, Card::CARD_TYPES %>
       <%= display_error_if_error :main_type %>
+      <%= display_data_mismatch_if_mismatch :main_type %>
     </div>
   </div>
   
@@ -44,6 +36,7 @@
     <div class="controls">
       <%= f.text_field :sub_type, :autocomplete => 'off', 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
       <%= display_error_if_error :sub_type %>
+      <%= display_data_mismatch_if_mismatch :sub_type %>
     </div>
   </div>
 
