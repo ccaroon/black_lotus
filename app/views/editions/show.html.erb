@@ -1,5 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @edition.name %> (<%= @edition.cards.count %>/<%= @edition.card_count %>)</h1>
+  <%= link_to 'Edit', edit_edition_path(@edition), :class => "btn btn-mini" %>
+  <%= link_to 'Back', editions_path, :class => "btn btn-mini" %> 
+</div>
 
-
-<%= link_to 'Edit', edit_edition_path(@edition) %> |
-<%= link_to 'Back', editions_path %>
+<div class="containter">
+  <ul class="thumbnails">
+    <% @edition.cards.each do |card| %>
+    <li class="span2">
+      <div class="thumbnail">
+        <img src="<%= card_image_path(card) %>" alt="<%= card.name %>" width="200">
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>
