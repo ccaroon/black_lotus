@@ -1,7 +1,8 @@
 BlackLotus::Application.routes.draw do
 
-  resources :decks
   resources :cards
+  resources :decks
+  resources :editions
 
   root :to => 'home#index'
   
