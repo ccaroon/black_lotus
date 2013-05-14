@@ -1,23 +1,44 @@
-<h1>Listing editions</h1>
+<div class="page-header"><h1>Editions</h1></div>
 
-<table>
+<%= paginate @editions %>
+
+<table class="table table-striped table-condensed">
   <tr>
     <th>Name</th>
-    <th></th>
-    <th></th>
+    <th>Released</th>
+    <th>Cards</th>
+    <th>Progress</th>
     <th></th>
   </tr>
 
 <% @editions.each do |edition| %>
   <tr>
     <td><%= edition.name %></td>
-    <td><%= link_to 'Show', edition %></td>
-    <td><%= link_to 'Edit', edit_edition_path(edition) %></td>
-    <td><%= link_to 'Destroy', edition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= edition.release_date %></td>
+    <td>
+      <%= edition.cards.count %>/<%= edition.card_count %>
+    </td>
+    <td>
+      <% percent = ((edition.cards.count.to_f/edition.card_count) * 100).to_i %>
+      <div title="<%= percent %>%" class="progress progress-striped">
+        <div class="bar" style="width: <%= percent %>%;"></div>
+      </div>
+    </td>
+    <td>
+      <%= link_to edition, :class => "btn btn-small" do %>
+        <i class="icon-eye-open"></i>
+      <% end %>
+      <%= link_to edit_edition_path(edition), :class => "btn btn-small"  do %>
+        <i class="icon-pencil"></i>
+      <% end %>
+      <%= link_to edition, :class => "btn btn-small btn-danger", method: :delete, data: { confirm: "Delete '#{edition.name}'?" } do %>
+        <i class="icon-trash  "></i>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Edition', new_edition_path %>
+<%= link_to 'New Edition', new_edition_path, :class => "btn btn-primary" %>
