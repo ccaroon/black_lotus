@@ -64,29 +64,39 @@ class CardsController < ApplicationController
   def create
     @card = Card.new()
 
+    redirect_action = :show
+
     add_edition()
     @card.attributes = params[:card]
     success = @card.save
 
-    notice = 'Card was successfully created.'
-    redirect_action = :show
-    @card_data_mismatches = {}
-    begin
-      info = MagicCardsInfo.fetch_info(@card)
+    if (success)
+      notice = 'Card was successfully created.'
 
-      MagicCardsInfo.fetch_image(@card, info[:image_url])
-      info.delete(:image_url)
+      @card_data_mismatches = {}
+      begin
+        info = MagicCardsInfo.fetch_info(@card)
 
-      @card.text_box = info.delete(:text_box)
-      @card.save
-      
-      info.each_pair do |attr, val|
-        m = @card.method(attr)
-        @card_data_mismatches[attr] = val unless m.call == val
+        img_url = info.delete(:image_url)
+        MagicCardsInfo.fetch_image(@card, img_url) unless img_url.nil?
+
+        @card.text_box = info.delete(:text_box)
+        @card.save
+
+        info.each_pair do |attr, val|
+          m = @card.method(attr)
+          @card_data_mismatches[attr] = val unless m.call == val
+        end
+        redirect_action = :edit unless @card_data_mismatches.empty?
+      rescue Exception => e
+        case e.message
+        when /card .* not found/i
+          flash[:alert] = e.message
+          redirect_action = :edit
+        else
+          flash[:alert] = "Failed to fetch card info for verification: #{e}"
+        end
       end
-      redirect_action = :edit unless @card_data_mismatches.empty?
-    rescue Exception => e
-      flash[:alert] = "Failed to fetch card info for verification: #{e}"
     end
 
     respond_to do |format|

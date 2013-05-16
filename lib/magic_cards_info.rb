@@ -18,11 +18,15 @@ class MagicCardsInfo
   def self.fetch_info(card)
     card_name = card.name
 
-    r = self.get("/query?q=!#{card_name.sub(/\s+/, '+')}")
+    url = "/query?q=!#{card_name.sub(/\s+/, '+')}"
+    r = self.get(url)
     raise r.message unless r.code == 200
-    
+
     info = {}
     html = r.body
+
+    raise "MagicCardsInfo Error: Card named '#{card.name}' not found." if
+      html =~ /Your query did not match any cards/
 
     # Image URL
     base_img_url = "/scans"
