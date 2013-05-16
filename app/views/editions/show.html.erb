@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1><%= @edition.name %> (<%= @edition.cards.count %>/<%= @edition.card_count %>)</h1>
   <%= link_to 'Edit', edit_edition_path(@edition), :class => "btn btn-mini" %>
-  <%= link_to 'Back', editions_path, :class => "btn btn-mini" %> 
+  <%= link_to 'Back', :back, :class => "btn btn-mini" %>
 </div>
 
 <div class="containter">

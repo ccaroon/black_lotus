@@ -2,7 +2,9 @@ class EditionsController < ApplicationController
   # GET /editions
   # GET /editions.json
   def index
-    @editions = Edition.order(:release_date).page(params[:page])
+    @editions = Edition.where("name like '%#{params[:search_string]}%'")
+                       .order(:release_date)
+                       .page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
