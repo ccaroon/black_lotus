@@ -9,7 +9,12 @@
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <li class="span2">
       <div class="thumbnail">
-        <img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200">
+        <a rel="popover" href="#"
+           data-placement="right"
+           data-html="true"
+           data-animation="false"
+           data-trigger="hover"
+           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200"></a>
         <p class="text-center"><%= card_in_deck.main_copies %>/<%= card_in_deck.side_copies %></p>
       </div>
     </li>

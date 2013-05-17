@@ -9,7 +9,12 @@
     <% @edition.cards.each do |card| %>
     <li class="span2">
       <div class="thumbnail">
-        <img src="<%= card_image_path(card) %>" alt="<%= card.name %>" width="200">
+        <a rel="popover" href="#"
+           data-placement="right"
+           data-html="true"
+           data-animation="false"
+           data-trigger="hover"
+           data-content='<%= (render :partial => 'shared/card', :object => card).html_safe %>'><img src="<%= card_image_path(card) %>" alt="<%= card.name %>" width="200"></a>        
       </div>
     </li>
     <% end %>
