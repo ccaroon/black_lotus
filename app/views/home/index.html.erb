@@ -1,7 +1,35 @@
 <div class="hero-unit">
   <h1>BlackLotus</h1>
-  <p>A Magic: The Gathering card database.</p>
+  <p>A <strong><a href="http://www.wizards.com/Magic/TCG/Default.aspx" target="_blank">Magic: The Gathering</a></strong> card database.</p>
   <p>
     <a href="<%= cards_path %>" class="btn btn-primary btn-large">Start Using</a>
   </p>
+</div>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="well span7">
+      <p class="text-center">
+        <h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Card.count) %> Unique Cards</h3>
+        <h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Edition.count) %> Editions spanning <%= Edition.order(:release_date).first.release_date.year %> to <%= Edition.order(:release_date).last.release_date.year%></h3>
+        <h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Card.total) %> Total Cards</h3>
+        <h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Deck.count) %> Total Decks</h3>
+      </p>   
+    </div>
+    <div class="span3">
+      <div id="card_slides" class="carousel slide">
+      
+        <!-- items -->
+        <div class="carousel-inner">
+          <% is_first = true %>
+          <% @cards.each do |card| %>
+            <div class="<%= is_first ? 'active' : ''%> item">
+              <img src="<%= card_image_path(card)%>">
+            </div>
+            <% is_first = false %>
+          <% end %>
+        </div>
+      </div>      
+    </div>
+  </div>
 </div>

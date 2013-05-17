@@ -92,6 +92,11 @@ class Card < ActiveRecord::Base
     return new_str
   end
   ##############################################################################
+  def self.total
+    total = Card.connection.select_one("select sum(count) as count from cards")
+    return(total['count'])
+  end
+  ##############################################################################
   private
   
   def fixup_data
