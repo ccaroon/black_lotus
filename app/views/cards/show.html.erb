@@ -14,20 +14,17 @@
         <dt>Type</dt>
         <dd><%= @card.main_type %><%= raw @card.sub_type.blank? ? '' : " &mdash; #{@card.sub_type}" %></dd>
         
-        <dt>Editions</dt>
+        <dt>Editions/Rarity</dt>
         <dd>
           <ul class="inline">
             <% @card.editions.each do |e| %>
-              <li><span class="label label-default"><%= e.name %></span></li>
+              <li><span class="<%= rarity_to_css(@card) %>"><%= e.name %></span></li>
             <% end %>            
           </ul>
         </dd>
 
         <dt>Foil</dt>
         <dd><%= @card.foil ? "Yes" : "No" %></dd>
-        
-        <dt>Rarity</dt>
-        <dd class="<%= rarity_to_css(@card) %>"><%= @card.rarity %></dd>
       
         <dt>Copies</dt>
         <dd><%= @card.count %></dd>
