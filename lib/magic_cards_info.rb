@@ -18,7 +18,7 @@ class MagicCardsInfo
   def self.fetch_info(card)
     card_name = card.name
 
-    url = "/query?q=!#{card_name.sub(/\s+/, '+')}"
+    url = "/query?q=!#{card_name.gsub(/\s+/, '+')}"
     r = self.get(url)
     raise r.message unless r.code == 200
 
