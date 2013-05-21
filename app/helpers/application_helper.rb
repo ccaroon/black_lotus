@@ -18,5 +18,15 @@ module ApplicationHelper
     return image_path;
   end
   ##############################################################################
+  def display_error_if_error(model, attr)
+    html = '';
+    if model.errors[attr.to_sym].present?
+      model.errors[attr.to_sym].each do |msg|
+        html += "<span class='label label-important'>...#{msg.titlecase}</span>"
+      end
+    end
+
+    return html.html_safe
+  end
   
 end

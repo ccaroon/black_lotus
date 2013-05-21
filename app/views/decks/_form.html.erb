@@ -1,26 +1,31 @@
 <%= form_for(@deck) do |f| %>
   <% if @deck.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@deck.errors.count, "error") %> prohibited this deck from being saved:</h2>
-
-      <ul>
-      <% @deck.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <div class="alert alert-error">
+      <h4>Unable to save Deck: <%= @deck.errors.count %> errors.</h4>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class=> "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name, :autofocus => true %>
+      <%= deck_error? :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :format %><br />
-    <%= f.text_field :format %>
+
+  <div class="control-group">
+    <%= f.label :format, :class => "control-label" %>
+    <div class="controls">
+      <%= f.select :format, Deck::FORMATS.keys.collect {|n| [n,n] } %>
+      <%= deck_error? :format %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-    <%= link_to 'Back', :back, :class => "btn" %>
+
+  <div class="control-group">
+    <div class="form-actions">
+      <%= f.submit nil, :class => "btn btn-primary" %>
+      <%= link_to 'Back', :back, :class => "btn" %>
+    </div>
   </div>
+
 <% end %>

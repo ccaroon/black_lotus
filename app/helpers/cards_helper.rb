@@ -26,19 +26,12 @@ module CardsHelper
 
     return html.html_safe
   end
-  
-  def display_error_if_error(attr)
-    html = '';
-    if @card.errors[attr.to_sym].present?
-      @card.errors[attr.to_sym].each do |msg|
-          html += "<span class='label label-important'>...#{msg.titlecase}</span>"
-      end
-    end
 
-    return html.html_safe
+  def card_error?(attr)
+    display_error_if_error @card, attr
   end
-  
-  def display_data_mismatch_if_mismatch(attr)
+
+  def card_data_mismatch?(attr)
     html = '';
     if @card_data_mismatches.present? and @card_data_mismatches.key?(attr.to_sym)
       html = "<span class='label label-info'>...#{attr.to_s.titlecase} mis-match: '#{@card_data_mismatches[attr.to_sym]}'</span>"

@@ -9,7 +9,7 @@
     <%= f.label :name, :class=> "control-label" %>
     <div class="controls">
       <%= f.text_field :name, :autofocus => true %>
-      <%= display_error_if_error :name %>
+      <%= card_error? :name %>
     </div>
   </div>
 
@@ -17,8 +17,8 @@
     <%= f.label :mana_cost, :class => "control-label" %>
     <div class="controls">
       <%= f.text_field :mana_cost %>
-      <%= display_error_if_error :mana_cost %>
-      <%= display_data_mismatch_if_mismatch :mana_cost %>
+      <%= card_error? :mana_cost %>
+      <%= card_data_mismatch? :mana_cost %>
     </div>
   </div>
   
@@ -26,8 +26,8 @@
     <%= f.label :main_type, :class => "control-label" %>
     <div class="controls">
       <%= f.select :main_type, Card::CARD_TYPES %>
-      <%= display_error_if_error :main_type %>
-      <%= display_data_mismatch_if_mismatch :main_type %>
+      <%= card_error? :main_type %>
+      <%= card_data_mismatch? :main_type %>
     </div>
   </div>
   
@@ -35,8 +35,8 @@
     <%= f.label :sub_type, :class => "control-label" %>
     <div class="controls">
       <%= f.text_field :sub_type, :autocomplete => 'off', 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
-      <%= display_error_if_error :sub_type %>
-      <%= display_data_mismatch_if_mismatch :sub_type %>
+      <%= card_error? :sub_type %>
+      <%= card_data_mismatch? :sub_type %>
     </div>
   </div>
 
@@ -49,7 +49,7 @@
         <% end %>
       </ul>
       <%= f.collection_select :editions, @card.available_editions, :id, :name, {:include_blank => true} %>
-      <%= display_error_if_error :editions %>
+      <%= card_error? :editions %>
     </div>
   </div>
   
@@ -57,7 +57,7 @@
     <%= f.label :foil, :class => "control-label" %>
     <div class="controls">
       <%= f.check_box :foil %>
-      <%= display_error_if_error :foil %>
+      <%= card_error? :foil %>
     </div>
   </div>
   
@@ -67,7 +67,7 @@
       <% Card::RARITIES.each do |r| %>
         <%= f.radio_button :rarity,  r, :class => 'radio inline' %> <span class="badge <%= rarity_to_css(r) %>"><%= r %></span>
       <% end %>
-      <%= display_error_if_error :rarity %>
+      <%= card_error? :rarity %>
     </div>
   </div>
   
@@ -79,7 +79,7 @@
         <%= f.number_field :count, :class => "input-mini", :disabled => false %>  
         <button id="card_count_inc" class="btn" type="button"><i class="icon-plus"></i></button>
       </div>
-      <%= display_error_if_error :count %>
+      <%= card_error? :count %>
     </div>
   </div>
   
