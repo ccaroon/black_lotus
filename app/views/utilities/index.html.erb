@@ -1,0 +1,28 @@
+<div class="page-header"><h1>Utilities</h1></div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span10 well">
+    
+      <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#export" data-toggle="tab">Export...</a></li>
+          <li><a href="#sync" data-toggle="tab">Sync...</a></li>
+          <li><a href="#fetch" data-toggle="tab">Fetch...</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="export">
+            <%= link_to "Export Card Database", utils_export_cards_path, :class => "btn btn-primary" %>
+          </div>
+          <div class="tab-pane" id="sync">
+            Sync tools here
+          </div>
+          <div class="tab-pane" id="fetch">
+            Fetch tools here
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

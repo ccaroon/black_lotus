@@ -4,6 +4,12 @@ BlackLotus::Application.routes.draw do
   resources :decks
   resources :editions
 
+  # Utility routes
+  match 'utilities/(index)' => 'utilities#index', 
+    :via => :get, :as => :utilities
+  match 'utilities/export_cards' => 'utilities#export_cards', 
+    :as => :utils_export_cards
+
   root :to => 'home#index'
   
   # The priority is based upon order of creation:
