@@ -1,0 +1,13 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "file_exclude_patterns": ["black_lotus.sublime-workspace"]
+        }
+    ],
+    "settings":
+    {
+        "tab_size": 2
+    }
+}
