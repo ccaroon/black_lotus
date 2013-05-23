@@ -1,5 +1,6 @@
 class Deck < ActiveRecord::Base
   
+  #TODO: Factor these FORMATS out to their own class
   FORMAT_STANDARD = {
     :name           => 'Standard',
     :min_cards      => 60,
@@ -12,7 +13,8 @@ class Deck < ActiveRecord::Base
       'Avacyn Restored',
       'Magic 2013',
       'Return to Ravnica',
-      'Gatecrash'
+      'Gatecrash',
+      'Dragon\'s Maze'
     ],
     :has_banned_cards     => 0,
     :has_restricted_cards => 0
