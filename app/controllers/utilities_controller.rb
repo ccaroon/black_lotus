@@ -5,6 +5,11 @@ class UtilitiesController < ApplicationController
   end
   #############################################################################
   def export_cards
-    render
+    Utilities.export_cards
+    render :json => {:message => "Success"}, :status => 200
   end
+  #############################################################################
+  def export_cards_progress
+  end
+
 end
