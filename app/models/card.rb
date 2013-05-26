@@ -1,27 +1,27 @@
 class Card < ActiveRecord::Base
   
   LOWER_WORDS = {
-    :the  => true,
-    :in   => true,
-    :of   => true,
-    :a    => true,
-    :to   => true,
-    :by   => true,
-    :from => true
+    the:  true,
+    in:   true,
+    of:   true,
+    a:    true,
+    to:   true,
+    by:   true,
+    from: true
   }
     
-  CARD_TYPES = [
-    'Basic Land',
-    'Creature',
-    'Instant',
-    'Sorcery',
-    'Land',
-    'Artifact',
-    'Artifact Creature',
-    'Legendary Creature',
-    'Enchantment',
-    'Planeswalker'
-  ]
+  CARD_TYPES = {
+    basic_land:         'Basic Land',
+    creature:           'Creature',
+    instand:            'Instant',
+    sorcery:            'Sorcery',
+    land:               'Land',
+    artifact:           'Artifact',
+    artifact_creature:  'Artifact Creature',
+    legendary_creature: 'Legendary Creature',
+    enchantment:        'Enchantment',
+    planeswalker:       'Planeswalker'
+  }
   
   RARITIES = [
     'Common',
@@ -35,7 +35,7 @@ class Card < ActiveRecord::Base
     :unless => Proc.new {|card| card.main_type =~ /Land$/ }
   validates_numericality_of :count, :only_integer => true, :greater_than => 0
   validates_format_of :mana_cost, :with => /^(X|\d+)?[RGUBW]*$/
-  validates_inclusion_of :main_type, :in => CARD_TYPES,
+  validates_inclusion_of :main_type, :in => CARD_TYPES.values,
     :message => "'%{value}' is not a valid main type"
   validates_inclusion_of :rarity, :in => RARITIES,
     :message => "'%{value}' is not a valid rarity"
@@ -117,10 +117,13 @@ class Card < ActiveRecord::Base
   private
   
   def fixup_data
-    self.name = Card.title_case(self.name)
-    self.mana_cost.upcase!
-    self.sub_type = Card.title_case(self.sub_type)
-    self.gen_image_name
+    unless (self.name.nil?)
+      self.name = Card.title_case(self.name)
+      self.gen_image_name
+    end
+
+    self.mana_cost.upcase! unless self.mana_cost.nil?
+    self.sub_type = Card.title_case(self.sub_type) unless self.sub_type.nil?
   end
   
 end

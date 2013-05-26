@@ -25,7 +25,7 @@
   <div class="control-group">
     <%= f.label :main_type, :class => "control-label" %>
     <div class="controls">
-      <%= f.select :main_type, Card::CARD_TYPES %>
+      <%= f.select :main_type, Card::CARD_TYPES.values %>
       <%= card_error? :main_type %>
       <%= card_data_mismatch? :main_type %>
     </div>
