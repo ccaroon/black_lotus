@@ -1,4 +1,6 @@
+# encoding: utf-8
 require 'httparty'
+require 'nokogiri'
 
 class MagicCardsInfo
   include HTTParty
@@ -22,71 +24,52 @@ class MagicCardsInfo
     r = self.get(url)
     raise r.message unless r.code == 200
 
-    info = {}
     html = r.body
 
     raise "MagicCardsInfo Error: Card named '#{card.name}' not found." if
       html =~ /Your query did not match any cards/
 
-    # Image URL
-    base_img_url = "/scans"
-    while(html.sub!(/<img src="http:\/\/magiccards.info\/scans\/(.*)\.jpg"\s+alt="([^"]+)"/,''))
-      img_name = $1
-      alt_txt  = $2
-
-      if (alt_txt.downcase == card_name.downcase)
-          info[:image_url] = "#{base_img_url}/#{img_name}.jpg"
-          break
-      end
-    end
-
-    # Type, Subtype, Mana Cost, Card Text & Flavor Text
-    if (html.match(/<p>(.*)<\/p>\s*<p class="ctext"><b>(.*?)<\/b><\/p>\s+<p><i>(.*?)<\/i><\/p>/m))
-      type_str = $1
-      ctext    = $2
-      ftext    = $3
-
-      type_str.gsub!(/\n/,'')
-      (type_info, mana_cost) =  type_str.split(/,/, 2)
-
-      # Type & Subtype
-      (type, sub_type) =  type_info.split(/\xE2\x80\x94/, 2)
-      type.strip!
-      type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
-      info[:main_type] = type
-      
-      sub_type ||= ''
-      sub_type.strip!
-      sub_type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
-      info[:sub_type] = sub_type
-
-      # Mana Cost
-      mana_cost.strip!
-      (cost, converted_cost) =  mana_cost.split(/\s+/, 2)
-
-      info[:mana_cost] = cost
-
-      # TODO: uncomment after figuring out what to do with this
-      #converted_cost.gsub!(/(\(|\))/,'')
-      #info[:converted_mana_cost] = converted_cost || cost
-
-      # Card Text
-      info[:text_box] = ''
-      if (!ctext.empty?)
-          info[:text_box] = ctext
-          info[:text_box].gsub!(/<br>/, "\n")
-      end
-
-      # Flavor Text
-      # TODO: uncomment after adding flavor text support
-      #info[:flavor_text] = ''
-      #if (!ftext.empty?)
-      #    info[:flavor_text] = ftext
-      #    info[:flavor_text].gsub!(/<br>/,"\n")
-      #end
-    end
+    info = self.parse_html(html)
 
     return info
   end
-  
+  ##############################################################################
+  def self.parse_html(html)
+
+    info = {}
+    doc = Nokogiri::HTML(html)
+
+    info[:image_url] = doc.at_xpath('/html/body/table[3]/tr/td/img').attr(:src)
+    info[:image_url].sub!(/^http:\/\/magiccards.info/, '')
+
+    type_str = doc.at_xpath('/html/body/table[3]/tr/td[2]/p').content
+    type_str.gsub!(/\n/,'')
+    (type_info, mana_cost) =  type_str.split(/,/, 2)
+
+    # Type & Subtype
+    (type, sub_type) =  type_info.split(/\xE2\x80\x94/, 2)
+    type.strip!
+    type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
+    info[:main_type] = type
+    
+    sub_type ||= ''
+    sub_type.strip!
+    sub_type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
+    info[:sub_type] = sub_type
+
+    # Mana Cost
+    mana_cost.strip!
+    (cost, converted_cost) =  mana_cost.split(/\s+/, 2)
+    info[:mana_cost] = cost
+
+    ctext = doc.at_xpath('/html/body/table[3]/tr/td[2]/p[2]/b').content
+    info[:text_box] = ''
+    if (!ctext.empty?)
+      info[:text_box] = ctext
+      info[:text_box].gsub!(/<br>/, "\n")
+    end
+
+    return (info)
+  end
+
 end
