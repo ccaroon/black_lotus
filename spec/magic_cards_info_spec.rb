@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "MagicCardsInfo" do
   it "can parse HTML" do
-    html = File.open('/home/ccaroon/Desktop/card.html') do |file|
+    html = File.open("#{Rails.root}/spec/fixtures/card.html") do |file|
       file.read
     end
 
