@@ -7,7 +7,7 @@ FactoryGirl.define do
     sequence (:rarity) {|i| Card::RARITIES[i%4]}
     mana_cost "G"
     foil false
-    count { rand 999 + 1 }
+    count { (rand 999) + 1 }
     editions { FactoryGirl.build_list(:edition, 2) }
   end
 end

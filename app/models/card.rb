@@ -34,7 +34,8 @@ class Card < ActiveRecord::Base
   validates_presence_of :mana_cost,
     :unless => Proc.new {|card| card.main_type =~ /Land$/ }
   validates_numericality_of :count, :only_integer => true, :greater_than => 0
-  validates_format_of :mana_cost, :with => /^(X|\d+)?[RGUBW]*$/
+  validates_format_of :mana_cost, 
+    :with => /^(X|\d+)?({[RGUBW]\/[RGUBW]}|[RGUBW])*$/
   validates_inclusion_of :main_type, :in => CARD_TYPES.values,
     :message => "'%{value}' is not a valid main type"
   validates_inclusion_of :rarity, :in => RARITIES,

@@ -19,28 +19,120 @@ describe Card do
       c.errors.messages.should have_key :editions
     end
 
-    it "should require a mana_cost if main_type is not land" do
-      c = FactoryGirl.build(
-        :card, 
-        :mana_cost => nil, 
-        :main_type => Card::CARD_TYPES[:creature]
-      )
+    describe "mana_cost" do
+      it "should require a mana_cost if main_type is not land" do
+        c = FactoryGirl.build(
+          :card, 
+          :mana_cost => nil, 
+          :main_type => Card::CARD_TYPES[:creature]
+        )
 
-      c.mana_cost.should be_nil
-      c.should_not be_valid
-      c.errors.messages.should have_key :mana_cost
-    end
+        c.mana_cost.should be_nil
+        c.should_not be_valid
+        c.errors.messages.should have_key :mana_cost
+      end
 
-    it "should not require mana_cost if main_type is a land" do
-      c = FactoryGirl.build(
-        :card, 
-        :mana_cost => nil, 
-        :main_type => Card::CARD_TYPES[:land]
-      )
+      it "should not require mana_cost if main_type is a land" do
+        c = FactoryGirl.build(
+          :card, 
+          :mana_cost => nil, 
+          :main_type => Card::CARD_TYPES[:land]
+        )
 
-      c.mana_cost.should be_nil
-      c.should be_valid
-      c.errors.messages.should_not have_key :mana_cost
+        c.mana_cost.should be_nil
+        c.should be_valid
+        c.errors.messages.should_not have_key :mana_cost
+      end
+
+      it "should be correctly formatted" do
+        c = FactoryGirl.build(:card)
+
+        c.mana_cost = 'XRGB'
+        c.should be_valid
+
+        c.mana_cost = '2RGB'
+        c.should be_valid
+
+        c.mana_cost = 'RGB'
+        c.should be_valid
+
+        c.mana_cost = 'X'
+        c.should be_valid
+
+        c.mana_cost = '7'
+        c.should be_valid
+
+        c.mana_cost = 'red'
+        c.should_not be_valid
+
+        # spaces not allowed
+        c.mana_cost = 'r g b'
+        c.should_not be_valid
+
+        # Can't contain X and a digit
+        c.mana_cost = 'X7'
+        c.should_not be_valid
+        c.errors.messages.should have_key :mana_cost
+
+        c.mana_cost = '7X'
+        c.should_not be_valid
+        c.errors.messages.should have_key :mana_cost
+
+        # X must be a the beginning
+        c.mana_cost = 'RGBX'
+        c.should_not be_valid
+        c.errors.messages.should have_key :mana_cost      
+
+        # digits must be at the beginning
+        c.mana_cost = 'RGB7'
+        c.should_not be_valid
+        c.errors.messages.should have_key :mana_cost      
+
+      end
+
+      it "supports either-or colors, i.e. {B/R}" do
+        c = FactoryGirl.build(:card)
+
+        c.mana_cost = '2{B/R}{B/R}'
+        c.should be_valid
+
+        c.mana_cost = '{G/W}'
+        c.should be_valid
+
+        c.mana_cost = 'X{U/R}'
+        c.should be_valid
+
+        c.mana_cost = 'X{U/R}G'
+        c.should be_valid
+
+        c.mana_cost = 'X{U/R}G{U/R}'
+        c.should be_valid
+
+        # Only one slash allowed
+        c.mana_cost = '2{R/B/G}'
+        c.should_not be_valid
+
+        # Must include a slash
+        c.mana_cost = '{RR}'
+        c.should_not be_valid
+
+        # missing second color
+        c.mana_cost = '{R/}'
+        c.should_not be_valid
+
+        # missing first color
+        c.mana_cost = '{/G}'
+        c.should_not be_valid
+
+        # too many first colors
+        c.mana_cost = '{RR/B}'
+        c.should_not be_valid
+
+        # too many second colors
+        c.mana_cost = '{R/BB}'
+        c.should_not be_valid
+      end
+
     end
 
     it "should require count to be an integer greater than zero" do
@@ -57,16 +149,6 @@ describe Card do
       c.count = 0
       c.should_not be_valid
       c.errors.messages.should have_key :count
-    end
-
-    it "should require that mana_cost have the correct format" do
-      c = FactoryGirl.build(
-        :card, 
-        :mana_cost => 'hello',
-      )
-
-      c.should_not be_valid
-      c.errors.messages.should have_key :mana_cost      
     end
 
     it "should require a valid main_type" do
