@@ -68,25 +68,10 @@ class CardsController < ApplicationController
 
     add_edition()
     @card.attributes = params[:card]
-    success = @card.save
 
-    if (success)
-      notice = 'Card was successfully created.'
-
-      @card_data_mismatches = {}
+    if (@card.valid?)
       begin
-        info = MagicCardsInfo.fetch_info(@card)
-
-        img_url = info.delete(:image_url)
-        MagicCardsInfo.fetch_image(@card, img_url) unless img_url.nil?
-
-        @card.text_box = info.delete(:text_box)
-        @card.save
-
-        info.each_pair do |attr, val|
-          m = @card.method(attr)
-          @card_data_mismatches[attr] = val unless m.call == val
-        end
+        @card_data_mismatches = Utility.fetch_card_info(@card)
         redirect_action = :edit unless @card_data_mismatches.empty?
       rescue Exception => e
         case e.message
@@ -100,12 +85,12 @@ class CardsController < ApplicationController
     end
 
     respond_to do |format|
-      if success
+      if @card.save
         format.html {
           if redirect_action == :edit
             render 'cards/edit'
           else
-            redirect_to @card, notice: notice
+            redirect_to @card, notice: 'Card was successfully created.'
           end
         }
         format.json { render json: @card, status: :created, location: @card }
@@ -144,6 +129,18 @@ class CardsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cards_url }
       format.json { head :no_content }
+    end
+  end
+  ##############################################################################
+  def fetch_info
+    @card = Card.find(params[:id])
+    @card_data_mismatches = Utility.fetch_card_info(@card)
+
+    if (@card_data_mismatches.empty?)
+      @card.save
+      redirect_to @card, notice: 'Success!'
+    else
+      render 'cards/edit'
     end
   end
   ##############################################################################

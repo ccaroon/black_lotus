@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span3">
-      <img src="<%= card_image_path(@card) %>">      
+      <img src="<%= card_image_path(@card) %>">
+      <%= button_to 'Re-fetch Info', card_fetch_info_path, :class => "btn btn-small btn-inverse"%>
     </div>
     <div class="span7">
       <dl>
@@ -29,7 +30,7 @@
         <dt>Copies</dt>
         <dd><%= @card.count %></dd>
 
-        <div class="well"><%= raw @card.text_box.present? ? @card.text_box.sub(/\n/, "<br>") : '' %></div>      
+        <div class="well"><%= raw @card.text_box.present? ? @card.text_box.sub(/\n/, "<br>") : '' %></div>
       </dl>
       
       <%= link_to 'Edit', edit_card_path(@card), :class => "btn" %>

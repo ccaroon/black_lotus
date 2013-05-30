@@ -1,6 +1,8 @@
 BlackLotus::Application.routes.draw do
 
   resources :cards
+  match 'cards/:id/fetch_info' => 'cards#fetch_info', :as => :card_fetch_info
+
   resources :decks
   resources :editions
 

@@ -58,9 +58,11 @@ class MagicCardsInfo
     info[:sub_type] = sub_type
 
     # Mana Cost
-    mana_cost.strip!
-    (cost, converted_cost) =  mana_cost.split(/\s+/, 2)
-    info[:mana_cost] = cost
+    unless (mana_cost.nil?)
+      mana_cost.strip!
+      (cost, converted_cost) =  mana_cost.split(/\s+/, 2)
+      info[:mana_cost] = cost
+    end
 
     ctext = doc.at_xpath('/html/body/table[3]/tr/td[2]/p[2]/b').inner_html
     info[:text_box] = ''
