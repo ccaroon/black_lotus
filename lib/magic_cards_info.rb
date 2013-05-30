@@ -62,7 +62,7 @@ class MagicCardsInfo
     (cost, converted_cost) =  mana_cost.split(/\s+/, 2)
     info[:mana_cost] = cost
 
-    ctext = doc.at_xpath('/html/body/table[3]/tr/td[2]/p[2]/b').content
+    ctext = doc.at_xpath('/html/body/table[3]/tr/td[2]/p[2]/b').inner_html
     info[:text_box] = ''
     if (!ctext.empty?)
       info[:text_box] = ctext

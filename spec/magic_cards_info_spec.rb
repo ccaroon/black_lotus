@@ -16,6 +16,6 @@ describe "MagicCardsInfo" do
     info[:main_type].should == 'Creature'
     info[:sub_type].should  == 'Human Soldier'
     info[:mana_cost].should == '2W'
-    info[:text_box].should  == "Whenever Haazda Snare Squad attacks, you may pay {W}. If you do, tap target creature an opponent controls."
+    info[:text_box].should  == "Whenever Haazda Snare Squad attacks, you may pay {W}. If you do, tap target creature an opponent controls.\n\nHello World!"
   end
 end
