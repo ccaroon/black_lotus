@@ -1,18 +1,58 @@
-<%= form_for(@edition) do |f| %>
+<%= form_for @edition, :html => {:class => 'form-horizontal'} do |f| %>
   <% if @edition.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@edition.errors.count, "error") %> prohibited this edition from being saved:</h2>
-
-      <ul>
-      <% @edition.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <div class="alert alert-error">
+      <h4>Unable to save Edition: <%= @edition.errors.count %> errors.</h4>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-    <%= link_to 'Back', :back, :class => "btn" %>
+  <div class="control-group">
+    <%= f.label :name, :class=> "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name, :autofocus => true %>
+      <%= edition_error? :name %>
+    </div>
   </div>
+
+  <div class="control-group">
+    <%= f.label :code_name, :class=> "control-label" %>
+    <div class="controls">
+      <%= f.text_field :code_name %>
+      <%= edition_error? :code_name %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :online_code, :class=> "control-label" %>
+    <div class="controls">
+      <%= f.text_field :online_code %>
+      <%= edition_error? :online_code %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :card_count, :class=> "control-label" %>
+    <div class="controls">
+      <%= f.text_field :card_count %>
+      <%= edition_error? :card_count %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :release_date, :class=> "control-label" %>
+    <div class="controls">
+      <div class="input-append date" id="release_date" data-date="<% Date.today.to_s %>" data-date-format="yyyy-mm-dd">
+        <%= f.text_field :release_date %>
+        <span class="add-on"><i class="icon-calendar"></i></span>
+      </div>
+      <%= edition_error? :release_date %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="form-actions">
+      <%= f.submit nil, :class => "btn btn-primary" %>
+      <%= link_to 'Back', :back, :class => "btn" %>
+    </div>
+  </div>
+
 <% end %>
