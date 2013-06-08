@@ -4,6 +4,8 @@ BlackLotus::Application.routes.draw do
   match 'cards/:id/fetch_info' => 'cards#fetch_info', :as => :card_fetch_info
 
   resources :decks
+  match 'decks/:id/build' => 'decks#build', :as => :build_deck
+
   resources :editions
 
   # Utility routes

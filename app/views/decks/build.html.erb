@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1>Building <%= @deck.name %> &mdash; <%= @deck.format %>
+</div>
+
+<script type="text/javascript">
+  function reveal_card()
+  {
+    var deck = $('#main_deck');
+    deck.prepend('<%=raw (render :partial => "build_card", :locals => { :card => @deck.cards[0]}).gsub("\n", '') %>');
+    var card = $('#card_11');
+    card.slideDown("slow", "linear");
+  }
+</script>
+
+<form class="form-search">
+  <input type="text" class="input-medium search-query" autofocus >
+  <button type="button" class="btn btn-primary" onClick="reveal_card()">Add Card</button>
+</form>
+
+<div class="containter">
+  <ul id="main_deck" class="thumbnails">
+    <% @deck.card_in_deck.each do |card_in_deck| %>
+    <li class="span2">
+      <div id="card_<%= card_in_deck.card.id %>" class="thumbnail">
+        <img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>">
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>

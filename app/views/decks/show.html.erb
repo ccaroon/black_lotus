@@ -1,21 +1,42 @@
 <div class="page-header">
   <h1><%= @deck.name %> &mdash; <%= @deck.format %> (<%= @deck.main_count %>/<%= @deck.side_count %>)</h1>
   <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-mini" %>
+  <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-mini" %>
   <%= link_to 'Back', :back, :class => "btn btn-mini" %>
 </div>
 
+<h2 class="text-center">Main Deck</h2>
 <div class="containter">
-  <ul class="thumbnails">
+  <ul id="main_deck" class="thumbnails">
     <% @deck.card_in_deck.each do |card_in_deck| %>
+    <% next unless card_in_deck.main_copies > 0 %>
     <li class="span2">
       <div class="thumbnail">
-        <a rel="popover" href="#"
-           data-placement="right"
+        <a rel="popover" href="javascript:void(0)"
+           data-placement="top"
            data-html="true"
            data-animation="false"
-           data-trigger="hover"
+           data-trigger="focus"
            data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200"></a>
-        <p class="text-center"><%= card_in_deck.main_copies %>/<%= card_in_deck.side_copies %></p>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+<h2 class="text-center">Side Deck</h2>
+<div class="containter">
+  <ul id="side_deck" class="thumbnails">
+    <% @deck.card_in_deck.each do |card_in_deck| %>
+    <% next unless card_in_deck.side_copies > 0 %>
+    <li class="span2">
+      <div class="thumbnail">
+        <a rel="popover" href="javascript:void(0)"
+           data-placement="top"
+           data-html="true"
+           data-animation="false"
+           data-trigger="focus"
+           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200"></a>
       </div>
     </li>
     <% end %>

@@ -69,6 +69,10 @@ class DecksController < ApplicationController
     end
   end
 
+  def build
+    @deck = Deck.find(params[:id])
+  end
+
   # DELETE /decks/1
   # DELETE /decks/1.json
   def destroy
