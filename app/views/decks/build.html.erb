@@ -3,18 +3,41 @@
 </div>
 
 <script type="text/javascript">
-  function reveal_card()
+// TODO: move this to decks.js.coffee
+  function find_card()
+  {
+    var card_name = $('#card_name').val();
+
+    $.ajax({
+      url: "/cards.json?search_string="+card_name,
+      dataType: "json"
+    }).done(function (data, status, req) {
+      // TODO: handle ZERO cards found
+      // TODO: handle multiple cards found
+      var c = data[0];
+      insert_card(data[0]);
+      $('#card_name').select();
+    }).fail(function (req, status, err) {
+      // TODO: better error handling
+      alert("AJAX request failed: " + err);
+      console.log("=====> build.html.erb #18 --> ["+status+"] ["+err+"]");
+    })
+  }
+
+  function insert_card(card)
   {
     var deck = $('#main_deck');
-    deck.prepend('<%=raw (render :partial => "build_card", :locals => { :card => @deck.cards[0]}).gsub("\n", '') %>');
-    var card = $('#card_11');
+    deck.prepend('<li class="span2"><div id="card_'+card.id+'" class="thumbnail" style="display:none"><img src="/card_images/'+card.image_name+'" ></div></li>');
+    var card = $('#card_'+card.id);
     card.slideDown("slow", "linear");
   }
 </script>
 
-<form class="form-search">
-  <input type="text" class="input-medium search-query" autofocus >
-  <button type="button" class="btn btn-primary" onClick="reveal_card()">Add Card</button>
+<form class="form-search" onSubmit="find_card();return false;">
+  <div class="input-append">
+    <input id="card_name" type="text" name="card_name" class="input-medium search-query" autofocus >
+    <i class="add-on icon-search"></i>
+  </div>
 </form>
 
 <div class="containter">
