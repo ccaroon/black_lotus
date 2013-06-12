@@ -1,13 +1,23 @@
 <div class="page-header">
-  <h1>Building <%= @deck.name %> &mdash; <%= @deck.format %>
+  <h1>Building <%= @deck.name %> &mdash; <%= @deck.format %></h1>
 </div>
 
-<form class="form-search" onSubmit="find_card;return false;">
-  <div class="input-append">
-    <input id="card_name" type="text" name="card_name" class="input-medium search-query" autofocus >
-    <i class="add-on icon-search"></i>
+<div class="navbar">
+  <div class="navbar-inner">
+    <form class="navbar-search pull-left" onSubmit="card_search();return false;">
+      <div class="input-append">
+        <input id="search_string" 
+               type="text" 
+               name="search_string" 
+               class="search-query"
+               autocomplete="off"
+               placeholder="Search Cards..."
+               autofocus >
+      </div>
+      <span id="search_error"></span>
+    </form>
   </div>
-</form>
+</div>
 
 <div class="containter">
   <ul id="main_deck" class="thumbnails">

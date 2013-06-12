@@ -1,28 +1,54 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+@card_search = ->
+    clear_search_error();
 
-find_card = ->
-    card_name = $('#card_name').val();
+    search_string = $('#search_string').val();
+
+    if search_string.length <= 3
+        set_search_error("Search string too short: '#{search_string}'");
+        return false;
 
     $.ajax(
-      url: "/cards.json?search_string="+card_name,
-      dataType: "json"
+        url: "/cards.json?search_string="+search_string,
+        dataType: "json"
     ).done((data, status, req) ->
-      c = data[0];
-      insert_card(data[0]);
-      $('#card_name').select();
-      return false;
+        if data.length == 0
+            set_search_error("No Cards Found for '#{search_string}'!")
+        else
+            card_to_insert = null;
+
+            if data.length > 1
+                $('#search_string').typeahead({
+                    source:  ->
+                        card_names = [];
+                        card_names.push card.name for card in data;
+                        card_names;
+                })
+                return false;
+            else
+                card_to_insert = data[0];
+
+            insert_card(card_to_insert);
+        return false;
     ).fail((req, status, err) ->
-        alert(err);
-        false;
+        set_search_error("Network error '#{status}' | '#{error}'");
+        return false;
     );
 
-    false;
+    $('#search_string').select();
+
+    return false;
+
+set_search_error = (msg) ->
+    $('#search_error').addClass('alert').text(msg);
+    return false;
+
+clear_search_error = ->
+    $('#search_error').removeClass('alert').text('');
+    return false;
 
 insert_card = (card) ->
     deck = $('#main_deck');
     deck.prepend('<li class="span2"><div id="card_'+card.id+'" class="thumbnail" style="display:none"><img src="/card_images/'+card.image_name+'" ></div></li>');
     card = $('#card_'+card.id);
     card.slideDown("slow", "linear");
-    false;
+    return false;
