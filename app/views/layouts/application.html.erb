@@ -45,7 +45,11 @@
       <div class="row-fluid">
         <div class="span2">
           <div class="well well-small sidebar-nav">
-            <p><%= image_tag "black_lotus.jpg", :class => 'img-rounded' %></p>
+            <% if Rails.env == 'development' %>
+              <p><%= image_tag 'http://placehold.it/251x204/888888/000000&text=Bl', :class => 'img-rounded', :alt => 'Bl Development'%></p>
+            <% else %>
+              <p><%= image_tag "black_lotus.jpg", :class => 'img-rounded' %></p>
+            <% end %>
             <ul class="nav nav-tabs nav-stacked">
               <li><%= link_to "New Card", new_card_path %></li>
               <li><%= link_to "New Deck", new_deck_path %></li>
