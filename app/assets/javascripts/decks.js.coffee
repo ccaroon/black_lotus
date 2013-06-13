@@ -17,12 +17,8 @@
             card_to_insert = null;
 
             if data.length > 1
-                $('#search_string').typeahead({
-                    source:  ->
-                        card_names = [];
-                        card_names.push card.name for card in data;
-                        card_names;
-                })
+                card_names = [];
+                card_names.push card.name for card in data;
                 return false;
             else
                 card_to_insert = data[0];
