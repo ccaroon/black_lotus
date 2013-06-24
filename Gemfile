@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails',        "~> 3.2.13"
-gem "sqlite3",      "~> 1.3.7"
-gem "thin",         "~> 1.5.1"
-gem "kaminari",     "~> 0.14.1"
-gem "jquery-rails", "~> 2.2.1"
-gem 'httparty',     "~> 0.11.0"
-gem 'nokogiri',     "~> 1.5.9"
+gem 'rails',         "~> 3.2.13"
+gem "sqlite3",       "~> 1.3.7"
+gem "thin",          "~> 1.5.1"
+gem "kaminari",      "~> 0.14.1"
+gem "jquery-rails",  "~> 2.2.1"
+gem 'httparty',      "~> 0.11.0"
+gem "httmultiparty", "~> 0.3.10"
+gem 'nokogiri',      "~> 1.5.9"
 gem "twitter-bootstrap-rails", "~> 2.2.6"
 
 # Gems used only for assets and not required

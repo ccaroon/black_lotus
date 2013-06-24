@@ -3,8 +3,8 @@ require 'csv'
 class Utility
   ##############################################################################
   def self.export_cards
-    file = "#{Rails.root}/tmp/cards-#{Time.now.to_s.gsub(/[^0-9]/, '')}.csv"
-    CSV.open(file, "wb") do |csv|
+    file_name = "#{Rails.root}/tmp/cards-#{Time.now.to_s.gsub(/[^0-9]/, '')}.csv"
+    CSV.open(file_name, "wb") do |csv|
       Card.all.each do |card|
         edition_str = card.editions.map {|e| e.name}.join('|')
         # Order needs to match order of HanDbase cols
@@ -13,6 +13,8 @@ class Utility
                 card.count, nil, card.image_name]
       end
     end
+
+    return (file_name)
   end
   ##############################################################################
   def self.fetch_card_info(card)

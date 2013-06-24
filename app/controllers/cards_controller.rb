@@ -1,4 +1,5 @@
 require 'magic_cards_info'
+require 'utility'
 
 class CardsController < ApplicationController
   # GET /cards

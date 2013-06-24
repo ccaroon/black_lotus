@@ -49,6 +49,9 @@ GEM
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     hike (1.2.2)
+    httmultiparty (0.3.10)
+      httparty (>= 0.7.3)
+      multipart-post
     httparty (0.11.0)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
@@ -69,6 +72,7 @@ GEM
     mime-types (1.23)
     multi_json (1.7.2)
     multi_xml (0.5.3)
+    multipart-post (1.2.0)
     nokogiri (1.5.9)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -150,6 +154,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   factory_girl_rails (~> 4.0)
+  httmultiparty (~> 0.3.10)
   httparty (~> 0.11.0)
   jquery-rails (~> 2.2.1)
   kaminari (~> 0.14.1)
