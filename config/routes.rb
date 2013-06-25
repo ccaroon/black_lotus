@@ -13,6 +13,8 @@ BlackLotus::Application.routes.draw do
     :via => :get, :as => :utilities
   match 'utilities/export_cards' => 'utilities#export_cards', 
     :as => :utils_export_cards
+  match 'utilities/sync_db' => 'utilities#sync_db', 
+    :as => :utils_sync_db
 
   root :to => 'home#index'
   

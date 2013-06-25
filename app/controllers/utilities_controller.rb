@@ -7,11 +7,23 @@ class UtilitiesController < ApplicationController
     render
   end
   ##############################################################################
+  # New File Delivered is a CSV file
+  # Importing CSV File
+  # Magic Cards.PDB
+  # Found existing database
+  # Received CSV File OK
+  ##############################################################################
   def sync_db
     host = params[:host]
-    HanDBaseSync.sync_db(host)
 
-    redirect_to :index
+    begin
+      HanDBaseSync.sync_db(host)
+      flash[:notice] = "Card Database successfully sync'd."
+    rescue Exception => e
+      flash[:alert] = "Unable to sync Card Database: #{e}"
+    end
+
+    redirect_to utilities_path
   end
   #############################################################################
   def export_cards
