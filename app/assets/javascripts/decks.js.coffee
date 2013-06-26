@@ -3,7 +3,7 @@
 
     search_string = $('#search_string').val();
 
-    if search_string.length <= 3
+    if search_string.length < 3
         set_search_error("Search string too short: '#{search_string}'");
         return false;
 
@@ -14,16 +14,21 @@
         if data.length == 0
             set_search_error("No Cards Found for '#{search_string}'!")
         else
-            card_to_insert = null;
+            # card_to_insert = null;
 
-            if data.length > 1
-                card_names = [];
-                card_names.push card.name for card in data;
-                return false;
-            else
-                card_to_insert = data[0];
+            # if data.length > 1
+            #     card_names = [];
+            #     card_names.push card.name for card in data;
+            #     return false;
+            # else
+            #     card_to_insert = data[0];
 
-            insert_card(card_to_insert);
+            for card in data
+                insert_card(card);
+                $("#card_#{card.id}").click( -> 
+                    remove_card($(this));
+                );
+
         return false;
     ).fail((req, status, err) ->
         set_search_error("Network error '#{status}' | '#{error}'");
@@ -44,7 +49,21 @@ clear_search_error = ->
 
 insert_card = (card) ->
     deck = $('#main_deck');
-    deck.prepend('<li class="span2"><div id="card_'+card.id+'" class="thumbnail" style="display:none"><img src="/card_images/'+card.image_name+'" ></div></li>');
-    card = $('#card_'+card.id);
-    card.slideDown("slow", "linear");
+    deck.prepend("<li id='card_#{card.id}' data-id='#{card.id}' class='span2'><div id='card_img_#{card.id}' class='thumbnail' style='display:none'><img src='/card_images/#{card.image_name}'></div></li>");
+    card_img = $("#card_img_#{card.id}");
+    card_img.slideDown("slow", "linear");
+
+    cards_to_add = $('#cards_to_add');
+    cards_to_add.append("<input id='add_card_#{card.id}' type='hidden' name='add_card_#{card.id}' value='#{card.id}'>");
+
     return false;
+
+remove_card = (card_element) ->
+    card_id = card_element.data('id');
+    card_element.remove();
+
+    $("#add_card_#{card_id}").remove();
+
+    return false;
+
+

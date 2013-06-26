@@ -73,6 +73,17 @@ class DecksController < ApplicationController
     @deck = Deck.find(params[:id])
   end
 
+  def build_save
+    deck = Deck.find(params[:id])
+
+    params.each do |key, card_id|
+      next unless key =~ /^add_card_\d+$/
+      Rails.logger.debug("=====> decks_controller.rb #81 --> [#{key}] -- [#{card_id}] \n")
+    end
+
+    redirect_to build_deck_path
+  end
+
   # DELETE /decks/1
   # DELETE /decks/1.json
   def destroy
