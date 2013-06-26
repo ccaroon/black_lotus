@@ -75,8 +75,8 @@ class Deck < ActiveRecord::Base
     count = 0
     card_in_deck.each do |a|
       count += a.main_copies
-    end
     
+    end
     return (count);
   end
   ##############################################################################
@@ -88,5 +88,16 @@ class Deck < ActiveRecord::Base
     
     return (count);
   end
-  
+  ##############################################################################
+  def add_card(card, options = {:main_copies => 1, :side_copies => 0})
+    card_in_deck = CardInDeck.new(
+      :deck => self,
+      :card => card,
+      :main_copies => options[:main_copies],
+      :side_copies => options[:side_copies]
+    )
+
+    card_in_deck.save!
+  end
+
 end

@@ -78,7 +78,9 @@ class DecksController < ApplicationController
 
     params.each do |key, card_id|
       next unless key =~ /^add_card_\d+$/
-      Rails.logger.debug("=====> decks_controller.rb #81 --> [#{key}] -- [#{card_id}] \n")
+
+      card = Card.find(card_id)
+      deck.add_card(card)
     end
 
     redirect_to build_deck_path
