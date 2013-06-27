@@ -17,7 +17,7 @@
            data-html="true"
            data-animation="false"
            data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200"></a>
+           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
       </div>
     </li>
     <% end %>
@@ -36,7 +36,7 @@
            data-html="true"
            data-animation="false"
            data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>" width="200"></a>
+           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
       </div>
     </li>
     <% end %>
