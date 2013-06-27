@@ -76,14 +76,24 @@ class DecksController < ApplicationController
   def build_save
     deck = Deck.find(params[:id])
 
-    params.each do |key, card_id|
-      next unless key =~ /^add_card_\d+$/
+    add_count = 0
+    rm_count  = 0
 
-      card = Card.find(card_id)
-      deck.add_card(card)
+    params.each do |key, card_id|
+      case key
+      when (/^add_card_\d+$/)
+        card = Card.find(card_id)
+        deck.add_card(card)
+        add_count+=1
+      when (/^remove_card_\d+$/)
+        card = Card.find(card_id)
+        deck.remove_card(card)
+        rm_count+=1
+      end
     end
 
-    redirect_to build_deck_path
+    redirect_to build_deck_path, 
+      :notice => "Deck successfully updated. Added [#{add_count}] cards. Removed [#{rm_count}] cards."
   end
 
   # DELETE /decks/1

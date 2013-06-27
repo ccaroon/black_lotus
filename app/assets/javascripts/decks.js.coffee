@@ -1,3 +1,12 @@
+$(document).ready ->
+
+    # set up click handler to remove cards already part of the deck
+    $('.existing_card').click ->
+        card_id = $(this).data('id');
+        $(this).remove();
+        cards_to_rm = $('#cards_to_remove');
+        cards_to_rm.append("<input id='remove_card_#{card_id}' type='hidden' name='remove_card_#{card_id}' value='#{card_id}'>");
+
 @card_search = ->
     clear_search_error();
 
@@ -65,5 +74,3 @@ remove_card = (card_element) ->
     $("#add_card_#{card_id}").remove();
 
     return false;
-
-

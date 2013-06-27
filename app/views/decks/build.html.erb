@@ -21,10 +21,10 @@
 
 <div class="containter">
   <ul id="main_deck" class="thumbnails">
-    <% @deck.card_in_deck.each do |card_in_deck| %>
-    <li class="span2">
-      <div id="card_<%= card_in_deck.card.id %>" class="thumbnail">
-        <img src="<%= card_image_path(card_in_deck.card) %>" alt="<%= card_in_deck.card.name %>">
+    <% @deck.cards.each do |card| %>
+    <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
+      <div id="card_img_<%= card.id %>" class="thumbnail">
+        <img src="<%= card_image_path(card) %>">
       </div>
     </li>
     <% end %>
@@ -33,8 +33,8 @@
 
 <div>
   <form id="deck_builder_form" method="post" action="<%= save_build_deck_path %>">
-    <div id="cards_to_add">
-    </div>
+    <div id="cards_to_add"></div>
+    <div id="cards_to_remove"></div>
     <button class="btn btn-primary">Save</button>
     <%= link_to "Done", @deck, :class => "btn btn-small" %>
   </form>

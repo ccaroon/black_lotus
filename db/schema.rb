@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501193216) do
+ActiveRecord::Schema.define(:version => 20130627182703) do
 
-  create_table "card_in_decks", :id => false, :force => true do |t|
+  create_table "card_in_decks", :force => true do |t|
     t.integer "card_id",     :null => false
     t.integer "deck_id",     :null => false
     t.integer "main_copies", :null => false
