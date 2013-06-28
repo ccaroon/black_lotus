@@ -5,7 +5,12 @@ $(document).ready ->
         card_id = $(this).data('id');
         $(this).remove();
         cards_to_rm = $('#cards_to_remove');
-        cards_to_rm.append("<input id='remove_card_#{card_id}' type='hidden' name='remove_card_#{card_id}' value='#{card_id}'>");
+        html = "
+         <input id='remove_card_#{card_id}' 
+                type='hidden' 
+                name='remove_card_#{card_id}' 
+                value='#{card_id}'>";
+        cards_to_rm.append(html);
 
 @card_search = ->
     clear_search_error();
@@ -58,12 +63,25 @@ clear_search_error = ->
 
 insert_card = (card) ->
     deck = $('#main_deck');
-    deck.prepend("<li id='card_#{card.id}' data-id='#{card.id}' class='span2'><div id='card_img_#{card.id}' class='thumbnail' style='display:none'><img src='/card_images/#{card.image_name}'></div></li>");
+
+    html = "
+    <li id='card_#{card.id}' data-id='#{card.id}' class='span2'>
+        <div id='card_img_#{card.id}' class='thumbnail' style='display:none'>
+            <img src='/card_images/#{card.image_name}'>
+        </div>
+    </li>";
+    deck.prepend(html);
     card_img = $("#card_img_#{card.id}");
     card_img.slideDown("slow", "linear");
 
     cards_to_add = $('#cards_to_add');
-    cards_to_add.append("<input id='add_card_#{card.id}' type='hidden' name='add_card_#{card.id}' value='#{card.id}'>");
+
+    html = "
+    <input id='add_card_#{card.id}' 
+           type='hidden' 
+           name='add_card_#{card.id}' 
+           value='#{card.id}'>";
+    cards_to_add.append(html);
 
     return false;
 
