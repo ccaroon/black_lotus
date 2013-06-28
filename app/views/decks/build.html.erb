@@ -19,16 +19,39 @@
   </div>
 </div>
 
-<div class="containter">
-  <ul id="main_deck" class="thumbnails">
-    <% @deck.cards.each do |card| %>
-    <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
-      <div id="card_img_<%= card.id %>" class="thumbnail">
-        <img src="<%= card_image_path(card) %>">
-      </div>
-    </li>
-    <% end %>
-  </ul>
+<div class="well">
+  <h1>Main Deck</h1>
+  <div class="container">
+    <ul id="main_deck" class="thumbnails">
+      <% @deck.card_in_deck.each do |cid| %>
+      <% next unless cid.main_copies > 0 %>
+      <% card = cid.card %>
+      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
+        <div id="card_img_<%= card.id %>" class="thumbnail">
+          <img src="<%= card_image_path(card) %>">
+        </div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="well">
+  <h1>Side Deck</h1>
+  <div class="container">
+    <ul id="side_deck" class="thumbnails">
+      <% @deck.card_in_deck.each do |cid| %>
+      <% next unless cid.side_copies > 0 %>
+      <% card = cid.card %>
+      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
+        <div id="card_img_<%= card.id %>" class="thumbnail">
+          <img src="<%= card_image_path(card) %>">
+        </div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
 </div>
 
 <div>
