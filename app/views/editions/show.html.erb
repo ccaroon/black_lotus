@@ -14,7 +14,7 @@
            data-html="true"
            data-animation="false"
            data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :object => card).html_safe %>'><img src="<%= card_image_path(card) %>" alt="<%= card.name %>" style="cursor: help" width="200"></a>        
+           data-content='<%= (render :partial => 'shared/card', locals: {card: card, count: card.count } ).html_safe %>'><img src="<%= card_image_path(card) %>" alt="<%= card.name %>" style="cursor: help" width="200"></a>        
       </div>
     </li>
     <% end %>

@@ -5,7 +5,7 @@
   <%= link_to 'Back', :back, :class => "btn btn-mini" %>
 </div>
 
-<h2 class="text-center">Main Deck</h2>
+<h2 class="text-center">Main Deck (<%= @deck.main_count %>)</h2>
 <div class="containter">
   <ul id="main_deck" class="thumbnails">
     <% @deck.card_in_deck.each do |card_in_deck| %>
@@ -17,14 +17,14 @@
            data-html="true"
            data-animation="false"
            data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
+           data-content='<%= (render :partial => 'shared/card', :locals => {card: card_in_deck.card, count: card_in_deck.main_copies} ).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
       </div>
     </li>
     <% end %>
   </ul>
 </div>
 
-<h2 class="text-center">Side Deck</h2>
+<h2 class="text-center">Side Deck (<%= @deck.side_count %>)</h2>
 <div class="containter">
   <ul id="side_deck" class="thumbnails">
     <% @deck.card_in_deck.each do |card_in_deck| %>
@@ -36,7 +36,7 @@
            data-html="true"
            data-animation="false"
            data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :object => card_in_deck.card).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
+           data-content='<%= (render :partial => 'shared/card', :locals => {card: card_in_deck.card, count: card_in_deck.side_copies}).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
       </div>
     </li>
     <% end %>
