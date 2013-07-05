@@ -16,8 +16,10 @@ $(document).ready ->
     return false;
 ##############################################################################
 @card_search = ->
+
     clear_search_error();
-# TODO: new search clears search results
+    clear_search_results();
+
     search_string = $('#search_string').val();
 
     if search_string.length < 3
@@ -46,26 +48,30 @@ $(document).ready ->
 display_search_results = (cards) ->
     sr_list = $('#search_results');
 
-# TODO: partial for adding card to deck
-# TODO: Add to Main x 1, Add to Main x 5, Add to Main x 10
-# TODO: Add to Side x 1, Add to Side x 5, Add to Side x 10
-    partial = "Hello, Card -- ZZZZZZZZZ";
-
-
     for card in cards
-        html = "
-        <li id='sr_card_#{card.id}' data-id='#{card.id}' class='span2'>
-            <div id='sr_card_img_#{card.id}' class='thumbnail' style='display:none'>
-                <a rel='popover' id='sr_card_po_#{card.id}'
-                   href='javascript:void(0)'
-                   data-placement='top'
-                   data-html='true'
-                   data-animation='false'
-                   data-trigger='click'
-                   data-original-title='#{card.name}'
-                   data-content='#{partial}'><img src='/card_images/#{card.image_name}'></a>
+        html = """
+        <li id="sr_card_#{card.id}" data-id="#{card.id}" class="span2 search_result">
+            <div id="sr_card_img_#{card.id}" class="thumbnail" style="display:none">
+                <img src="/card_images/#{card.image_name}">
+                <p>
+                <div class="btn-group">
+                    <button class="btn btn-small btn-primary" disabled="1">Main</button>
+                    <button class="btn btn-small" onClick="add_card('main_deck', #{card.id}, '#{card.image_name}', 1)">+1</button>
+                    <button class="btn btn-small" onClick="add_card('main_deck', #{card.id}, '#{card.image_name}', 5)">+5</button>
+                    <button class="btn btn-small" onClick="add_card('main_deck', #{card.id}, '#{card.image_name}', 10)">+10</button>
+                </div>
+                </p>
+                <p>
+                <div class="btn-group">
+                    <button class="btn btn-small btn-inverse" disabled="1">Side</button>
+                    <button class="btn btn-small" onClick="add_card('side_deck', #{card.id}, '#{card.image_name}', 1)">+1</button>
+                    <button class="btn btn-small" onClick="add_card('side_deck', #{card.id}, '#{card.image_name}', 5)">+5</button>
+                    <button class="btn btn-small" onClick="add_card('side_deck', #{card.id}, '#{card.image_name}', 10)">+10</button>
+                </div>
+                </p>
             </div>
-        </li>";
+        </li>
+        """;
         sr_list.prepend(html);
         $("#sr_card_po_#{card.id}").popover();
 
@@ -78,33 +84,37 @@ set_search_error = (msg) ->
     $('#search_error').addClass('alert').text(msg);
     return false;
 
+clear_search_results = ->
+    $('.search_result').remove();
+
 clear_search_error = ->
     $('#search_error').removeClass('alert').text('');
     return false;
 
-# insert_card = (card) ->
-#     deck = $('#cards_found');
+@add_card = (deck_type, id, image_name, count) ->
+    deck = $("##{deck_type}");
 
-#     html = "
-#     <li id='card_#{card.id}' data-id='#{card.id}' class='span2'>
-#         <div id='card_img_#{card.id}' class='thumbnail' style='display:none'>
-#             <img src='/card_images/#{card.image_name}'>
-#         </div>
-#     </li>";
-#     deck.prepend(html);
-#     card_img = $("#card_img_#{card.id}");
-#     card_img.slideDown("slow", "linear");
+    html = "
+    <li id='card_#{id}' data-id='#{id}' class='span2'>
+        <div id='card_img_#{id}' class='thumbnail' style='display:none'>
+            <img src='/card_images/#{image_name}'>
+        </div>
+    </li>";
+    deck.prepend(html);
+    card_img = $("#card_img_#{id}");
+    card_img.slideDown("slow", "linear");
 
-#     cards_to_add = $('#cards_to_add');
+    cards_to_add = $('#cards_to_add');
 
-#     html = "
-#     <input id='add_card_#{card.id}' 
-#            type='hidden' 
-#            name='add_card_#{card.id}' 
-#            value='#{card.id}'>";
-#     cards_to_add.append(html);
+    # TODO: need to suppply card id, deck (main or side) and count
+    html = "
+    <input id='add_card_#{id}' 
+           type='hidden' 
+           name='add_card_#{id}' 
+           value='#{id}|#{deck_type}|#{count}'>";
+    cards_to_add.append(html);
 
-#     return false;
+    return false;
 
 # remove_card = (card_element) ->
 #     card_id = card_element.data('id');

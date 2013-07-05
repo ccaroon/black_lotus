@@ -1,29 +1,33 @@
+<!-- DECK BUILDER TODOS -->
+<!-- don't allow adding more than are available -->
+<!-- don't show unavailabe cards in search results -->
+<!-- removing should not remove them all, but just a certain number -->
+
+
 <div class="page-header">
-  <h1>Building <%= @deck.name %> &mdash; <%= @deck.format %></h1>
+  <h1>Deck Builder:  <%= @deck.name %> &mdash; <%= @deck.format %></h1>
 </div>
 
 <div class="navbar">
   <div class="navbar-inner">
     <form class="navbar-search pull-left" onSubmit="card_search();return false;">
-      <div class="input-append">
-        <input id="search_string" 
-               type="text" 
-               name="search_string" 
-               class="search-query"
-               autocomplete="off"
-               placeholder="Search Cards..."
-               autofocus >
-      </div>
+      <input id="search_string" 
+             type="text" 
+             name="search_string" 
+             class="search-query"
+             autocomplete="off"
+             placeholder="Search Cards..."
+             autofocus >
       <span id="search_error"></span>
     </form>
   </div>
 </div>
 
-<div class="well">
+<!-- <div class="well"> -->
   <div class="container">
-  <ul id="search_results" class="thumbnails"></ul>
+    <ul id="search_results" class="thumbnails"></ul>
   </div>
-</div>
+<!-- </div> -->
 
 <div class="well">
   <h1>Main Deck</h1>
@@ -35,6 +39,7 @@
       <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
         <div id="card_img_<%= card.id %>" class="thumbnail">
           <img src="<%= card_image_path(card) %>">
+          <p class="text-center"><strong>x <%= cid.main_copies %></strong></p>
         </div>
       </li>
       <% end %>
@@ -52,6 +57,7 @@
       <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
         <div id="card_img_<%= card.id %>" class="thumbnail">
           <img src="<%= card_image_path(card) %>">
+          <p class="text-center"><strong>x <%= cid.side_copies %></strong></p>
         </div>
       </li>
       <% end %>
