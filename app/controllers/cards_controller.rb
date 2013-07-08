@@ -5,7 +5,15 @@ class CardsController < ApplicationController
   # GET /cards
   # GET /cards.json
   def index
-    @cards = Card.where("name like '%#{params[:search_string]}%'") 
+
+    where_str = "";
+    if (params[:search_string].present?)
+      where_str = "name like '%#{params[:search_string]}%'";
+    elsif (params[:card].present? and params[:card][:main_type].present?)
+      where_str = "main_type = '#{params[:card][:main_type]}'";
+    end
+
+    @cards = Card.where(where_str)
                  .order(:name)
                  .page(params[:page])
 

@@ -2,13 +2,17 @@
 
 <%= paginate @cards %>
 
-<form class="form-search">
+<form class="form-search form-inline">
   <div class="input-append">
-    <input type="text" name="search_string" class=" input-medium search-query" autofocus>
+    <input type="text" name="search_string" class=" input-medium search-query" autofocus placeholder="Card Name">
     <i class="add-on icon-search"></i>
   </div>
+  <div class="input-append">
+    <%= select :card, :main_type, Card::CARD_TYPES.values, {include_blank: 'Card Type...'} %>
+    <button class="btn">Filter</button>
+  </div>
 </form>
-    
+
 <table class="table table-striped table-condensed">
   <tr>
     <th>Name</th>
