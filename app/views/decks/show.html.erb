@@ -6,7 +6,7 @@
 </div>
 
 <h2 class="text-center">Main Deck (<%= @deck.main_count %>)</h2>
-<div class="containter">
+<div class="container-fluid">
   <ul id="main_deck" class="thumbnails">
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <% next unless card_in_deck.main_copies > 0 %>
@@ -25,7 +25,7 @@
 </div>
 
 <h2 class="text-center">Side Deck (<%= @deck.side_count %>)</h2>
-<div class="containter">
+<div class="container-fluid">
   <ul id="side_deck" class="thumbnails">
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <% next unless card_in_deck.side_copies > 0 %>

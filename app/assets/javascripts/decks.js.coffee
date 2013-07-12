@@ -56,17 +56,17 @@ display_search_results = (cards) ->
                 <p>
                 <div class="btn-group">
                     <button class="btn btn-small btn-primary" disabled="1">Main</button>
-                    <button class="btn btn-small" onClick="add_card('main_deck', #{card.id}, '#{card.image_name}', 1)">+1</button>
-                    <button class="btn btn-small" onClick="add_card('main_deck', #{card.id}, '#{card.image_name}', 5)">+5</button>
-                    <button class="btn btn-small" onClick="add_card('main_deck', #{card.id}, '#{card.image_name}', 10)">+10</button>
+                    <button class="btn btn-small" onClick="add_card('main', #{card.id}, '#{card.image_name}', 1)">+1</button>
+                    <button class="btn btn-small" onClick="add_card('main', #{card.id}, '#{card.image_name}', 4)">+4</button>
+                    <button class="btn btn-small" onClick="add_card('main', #{card.id}, '#{card.image_name}', 10)">+10</button>
                 </div>
                 </p>
                 <p>
                 <div class="btn-group">
                     <button class="btn btn-small btn-inverse" disabled="1">Side</button>
-                    <button class="btn btn-small" onClick="add_card('side_deck', #{card.id}, '#{card.image_name}', 1)">+1</button>
-                    <button class="btn btn-small" onClick="add_card('side_deck', #{card.id}, '#{card.image_name}', 5)">+5</button>
-                    <button class="btn btn-small" onClick="add_card('side_deck', #{card.id}, '#{card.image_name}', 10)">+10</button>
+                    <button class="btn btn-small" onClick="add_card('side', #{card.id}, '#{card.image_name}', 1)">+1</button>
+                    <button class="btn btn-small" onClick="add_card('side', #{card.id}, '#{card.image_name}', 4)">+4</button>
+                    <button class="btn btn-small" onClick="add_card('side', #{card.id}, '#{card.image_name}', 10)">+10</button>
                 </div>
                 </p>
             </div>
@@ -93,26 +93,39 @@ clear_search_error = ->
 
 @add_card = (deck_type, id, image_name, count) ->
     deck = $("##{deck_type}");
+    card_x = "add_card_#{deck_type}_#{id}";
 
-    html = "
-    <li id='card_#{id}' data-id='#{id}' class='span2'>
-        <div id='card_img_#{id}' class='thumbnail' style='display:none'>
-            <img src='/card_images/#{image_name}'>
-        </div>
-    </li>";
-    deck.prepend(html);
-    card_img = $("#card_img_#{id}");
-    card_img.slideDown("slow", "linear");
+    added_card = $(card_x);
+    # TODO: added_card is an Object no matter what
+    if (added_card)
+        curr_value = added_card.val();
+        parts = curr_value.split('|');
+        old_count = parts[2];
+        new_count = old_count + count;
 
-    cards_to_add = $('#cards_to_add');
+        added_card.val("#{id}|#{deck_type}|#{new_count}");
 
-    # TODO: need to suppply card id, deck (main or side) and count
-    html = "
-    <input id='add_card_#{id}' 
-           type='hidden' 
-           name='add_card_#{id}' 
-           value='#{id}|#{deck_type}|#{count}'>";
-    cards_to_add.append(html);
+        card_img = $("#card_img_#{id}");
+        card_img.fadeOut("slow");
+        card_img.fadeIn("slow");
+    else
+        html = "
+        <li id='card_#{id}' data-id='#{id}' class='span2'>
+            <div id='card_img_#{id}' class='thumbnail' style='display:none'>
+                <img src='/card_images/#{image_name}'>
+            </div>
+        </li>";
+        deck.prepend(html);
+        card_img = $("#card_img_#{id}");
+        card_img.slideDown("slow", "linear");
+
+        cards_to_add = $('#cards_to_add');
+        html = "
+        <input id='#{card_x}' 
+               type='hidden' 
+               name='#{card_x}' 
+               value='#{id}|#{deck_type}|#{count}'>";
+        cards_to_add.append(html);
 
     return false;
 

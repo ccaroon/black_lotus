@@ -79,14 +79,28 @@ class DecksController < ApplicationController
     add_count = 0
     rm_count  = 0
 
-    params.each do |key, card_id|
+    params.each do |key, card_data|
       case key
-      when (/^add_card_\d+$/)
-        card = Card.find(card_id)
-        deck.add_card(card)
+      when (/^add_card_/)
+        parts = card_data.split('|')
+
+        copy_opts = {
+          :main_copies => 0,
+          :side_copies => 0
+        };
+
+        case parts[1]
+        when 'main' 
+          copy_opts[:main_copies]  = parts[2]
+        when 'side'
+          copy_opts[:side_copies]  = parts[2]
+        end
+
+        card = Card.find(parts[0])
+        deck.add_card(card, copy_opts)
         add_count+=1
-      when (/^remove_card_\d+$/)
-        card = Card.find(card_id)
+      when (/^remove_card_/)
+        card = Card.find(card_data)
         deck.remove_card(card)
         rm_count+=1
       end
