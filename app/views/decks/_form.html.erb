@@ -16,7 +16,7 @@
   <div class="control-group">
     <%= f.label :format, :class => "control-label" %>
     <div class="controls">
-      <%= f.select :format, Deck::FORMATS.keys.collect {|n| [n,n] } %>
+      <%= f.select :format, Format::FORMATS.keys.collect {|n| [n,n] } %>
       <%= deck_error? :format %>
     </div>
   </div>
