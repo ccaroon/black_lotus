@@ -94,20 +94,19 @@ clear_search_error = ->
 @add_card = (deck_type, id, image_name, count) ->
     deck = $("##{deck_type}");
     card_x = "add_card_#{deck_type}_#{id}";
-
-    added_card = $(card_x);
-    # TODO: added_card is an Object no matter what
-    if (added_card)
+    
+    added_card = $("##{card_x}");
+    if (added_card.length)
         curr_value = added_card.val();
         parts = curr_value.split('|');
         old_count = parts[2];
-        new_count = old_count + count;
+        new_count = Number(old_count) + Number(count);
 
         added_card.val("#{id}|#{deck_type}|#{new_count}");
 
         card_img = $("#card_img_#{id}");
-        card_img.fadeOut("slow");
-        card_img.fadeIn("slow");
+        card_img.fadeOut("fast");
+        card_img.fadeIn("fast");
     else
         html = "
         <li id='card_#{id}' data-id='#{id}' class='span2'>

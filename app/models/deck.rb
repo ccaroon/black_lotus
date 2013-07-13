@@ -20,6 +20,57 @@ class Deck < ActiveRecord::Base
     :has_restricted_cards => 0
   }
 
+  FORMAT_MODERN = {
+    :name           => 'Modern',
+    :min_cards      => 60,
+    :max_cards      => nil,
+    :sideboard_size => 15,
+    :max_copies     => 4,
+    :legal_editions => [
+      'Eighth Edition',
+      'Mirrodin',
+      'Darksteel',
+      'Fifth Dawn',
+      'Champions of Kamigawa',
+      'Betrayers of Kamigawa',
+      'Saviors of Kamigawa',
+      'Ninth Edition',
+      'Ravnica: City of Guilds',
+      'Guildpact',
+      'Dissension',
+      'Coldsnap',
+      'Time Spiral',
+      'Planar Chaos',
+      'Future Sight',
+      'Tenth Edition',
+      'Lorwyn',
+      'Morningtide',
+      'Shadowmoor',
+      'Eventide',
+      'Shards of Alara',
+      'Conflux',
+      'Alara Reborn',
+      'Magic 2010',
+      'Zendikar',
+      'Worldwake',
+      'Rise of the Eldrazi',
+      'Magic 2011',
+      'Scars of Mirrodin',
+      'Mirrodin Besieged',
+      'New Phyrexia',
+      'Magic 2012',
+      'Innistrad',
+      'Dark Ascension',
+      'Avacyn Restored',
+      'Magic 2013',
+      'Return to Ravnica',
+      'Gatecrash',
+      'Dragon\'s Maze'
+    ],
+    :has_banned_cards     => 1,
+    :has_restricted_cards => 0
+  }
+
   FORMAT_VINTAGE = {
     :name           => 'Vintage',
     :min_cards      => 60,
@@ -59,6 +110,7 @@ class Deck < ActiveRecord::Base
 
   FORMATS = {
     FORMAT_STANDARD[:name]  => FORMAT_STANDARD,
+    FORMAT_MODERN[:name]    => FORMAT_MODERN,
     FORMAT_LEGACY[:name]    => FORMAT_LEGACY,
     FORMAT_VINTAGE[:name]   => FORMAT_VINTAGE,
     FORMAT_COMMANDER[:name] => FORMAT_COMMANDER
