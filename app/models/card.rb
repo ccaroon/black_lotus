@@ -68,7 +68,7 @@ class Card < ActiveRecord::Base
     end
   end
   ##############################################################################
-  def legal?(format = Deck::FORMAT_STANDARD)
+  def legal?(format = Format::STANDARD)
     legal = false
 
     if (format[:legal_editions] == nil)

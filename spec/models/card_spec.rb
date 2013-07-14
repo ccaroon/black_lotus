@@ -205,17 +205,17 @@ describe Card do
     recent_card = FactoryGirl.build(:card, :editions => [e])
     old_card    = FactoryGirl.build(:card)
 
-    recent_card.should  be_legal Deck::FORMAT_STANDARD
-    old_card.should_not be_legal Deck::FORMAT_STANDARD
+    recent_card.should  be_legal Format::STANDARD
+    old_card.should_not be_legal Format::STANDARD
 
-    recent_card.should be_legal Deck::FORMAT_VINTAGE
-    old_card.should    be_legal Deck::FORMAT_VINTAGE
+    recent_card.should be_legal Format::VINTAGE
+    old_card.should    be_legal Format::VINTAGE
 
-    recent_card.should be_legal Deck::FORMAT_LEGACY
-    old_card.should    be_legal Deck::FORMAT_LEGACY
+    recent_card.should be_legal Format::LEGACY
+    old_card.should    be_legal Format::LEGACY
 
-    recent_card.should be_legal Deck::FORMAT_COMMANDER
-    old_card.should    be_legal Deck::FORMAT_COMMANDER
+    recent_card.should be_legal Format::COMMANDER
+    old_card.should    be_legal Format::COMMANDER
   end
 
   it "can generate a list of sub_type strings" do

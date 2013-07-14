@@ -1,0 +1,31 @@
+Todo
+====
+
+Decks
+-----
+1. Validate deck
+    - all cards are from legal editions
+    - min/max card count
+    - sideboard size
+    - number of copes
+    - no card on banned or restricted list
+2. Deck list
+    - if deck not legal, show row in red
+3. Filters on Deck list page
+    - format
+    - name search 
+
+Deck Builder
+------------
+1. Restrict search to...
+    - only show non-banned/restricted, legal edition cards
+    - don't show cards when there are non available, i.e. all used in other decks
+2. New interface similar to Magic 2014 app
+
+Cards
+-----
+1. More filters on list page
+    - color
+    - rarity
+    - sub type
+2. When fetching image, fetch image from newest edition of owned editions

@@ -24,9 +24,9 @@
   </ul>
 </div>
 
-<h2 class="text-center">Side Deck (<%= @deck.side_count %>)</h2>
+<h2 class="text-center">Sideboard (<%= @deck.side_count %>)</h2>
 <div class="container-fluid">
-  <ul id="side_deck" class="thumbnails">
+  <ul id="sideboard" class="thumbnails">
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <% next unless card_in_deck.side_copies > 0 %>
     <li class="span2">

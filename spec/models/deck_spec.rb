@@ -22,6 +22,6 @@ describe Deck do
 
   it "can count the number of cards in the main deck"
 
-  it "can count the number of card in the side deck"
+  it "can count the number of card in the sideboard"
 
 end
