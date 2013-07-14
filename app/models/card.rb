@@ -18,11 +18,20 @@ class Card < ActiveRecord::Base
     land:               'Land',
     artifact:           'Artifact',
     artifact_creature:  'Artifact Creature',
+    legendary_artifact: 'Legendary Artifact',
     legendary_creature: 'Legendary Creature',
     enchantment:        'Enchantment',
     planeswalker:       'Planeswalker'
   }
   
+  COLORS = {
+    red:   { name: 'Red',   code: 'R' },
+    green: { name: 'Green', code: 'G' },
+    blue:  { name: 'Blue',  code: 'U' },
+    black: { name: 'Black', code: 'B' },
+    white: { name: 'White', code: 'W' }
+  }
+
   RARITIES = [
     'Common',
     'Uncommon',

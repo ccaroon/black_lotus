@@ -24,8 +24,9 @@ Deck Builder
 
 Cards
 -----
-1. More filters on list page
-    - color
-    - rarity
-    - sub type
+X. More filters on list page
+    X color
+    X rarity
+    X sub type
 2. When fetching image, fetch image from newest edition of owned editions
+X. show count on list page

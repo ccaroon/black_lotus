@@ -6,16 +6,29 @@ class CardsController < ApplicationController
   # GET /cards.json
   def index
 
-    where_str = "";
-    if (params[:search_string].present?)
-      where_str = "name like '%#{params[:search_string]}%'";
-    elsif (params[:card].present? and params[:card][:main_type].present?)
-      where_str = "main_type = '#{params[:card][:main_type]}'";
+    where = [];
+    if (params[:card].present?)
+      params[:card].each do |key,value|
+        next unless value.present?
+
+        case key
+        when 'name'
+          where << "name like \"%#{value}%\""
+        when 'color'
+          where << "mana_cost like \"%#{value}%\""
+        else
+          where << "#{key} = \"#{value}\""
+        end
+      end
     end
 
+    where_str = where.join(' and ')
     @cards = Card.where(where_str)
                  .order(:name)
                  .page(params[:page])
+
+    @card_count = Card.where(where_str).count
+    @total_card_count = Card.count
 
     respond_to do |format|
       format.html # index.html.erb
