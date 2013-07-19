@@ -21,6 +21,10 @@ Deck Builder
     - only show non-banned/restricted, legal edition cards
     - don't show cards when there are non available, i.e. all used in other decks
 2. New interface similar to Magic 2014 app
+3. Show card count
+4. Show deck stats
+    - by color
+    - by type (creature, sorcery, land)
 
 Cards
 -----

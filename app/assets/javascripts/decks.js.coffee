@@ -27,7 +27,7 @@ $(document).ready ->
         return false;
 
     $.ajax(
-        url: "/cards.json?search_string="+search_string,
+        url: "/cards.json?card[name]="+search_string,
         dataType: "json"
     ).done((data, status, req) ->
         if data.length == 0
