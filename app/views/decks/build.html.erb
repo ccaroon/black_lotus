@@ -1,9 +1,3 @@
-<!-- DECK BUILDER TODOS -->
-<!-- don't allow adding more than are available -->
-<!-- don't show unavailabe cards in search results -->
-<!-- removing should not remove them all, but just a certain number -->
-
-
 <div class="page-header">
   <h1>Deck Builder:  <%= @deck.name %> &mdash; <%= @deck.format %></h1>
 </div>
@@ -23,6 +17,14 @@
   </div>
 </div>
 
+<div class="well">
+  <ul class="inline">
+  <% @deck.stats[:main_type].sort.each do |mt| %>
+    <li><span class="label label-info"><%= mt[0] %>: <%= mt[1] %></span></li>
+  <% end %>
+</ul>
+</div>
+
 <!-- <div class="well"> -->
   <div class="container-fluid">
     <ul id="search_results" class="thumbnails"></ul>
@@ -30,7 +32,7 @@
 <!-- </div> -->
 
 <div class="well">
-  <h1>Main Deck</h1>
+  <h1>Main Deck (<%= @deck.main_count %>)</h1>
   <div class="container-fluid">
     <ul id="main" class="thumbnails">
       <% @deck.card_in_deck.each do |cid| %>
@@ -48,7 +50,7 @@
 </div>
 
 <div class="well">
-  <h1>Sideboard</h1>
+  <h1>Sideboard (<%= @deck.side_count %>)</h1>
   <div class="container-fluid">
     <ul id="side" class="thumbnails">
       <% @deck.card_in_deck.each do |cid| %>

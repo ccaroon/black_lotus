@@ -94,6 +94,30 @@ class Card < ActiveRecord::Base
     return(legal)
   end
   ##############################################################################
+  def is_red?
+    !(mana_cost =~ /#{COLORS[:red][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_green?
+    !(mana_cost =~ /#{COLORS[:green][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_blue?
+    !(mana_cost =~ /#{COLORS[:blue][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_black?
+    !(mana_cost =~ /#{COLORS[:black][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_white?
+    !(mana_cost =~ /#{COLORS[:white][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_colorless?
+    !mana_cost.empty? and !is_red? and !is_green? and !is_blue? and !is_black? and !is_white?
+  end
+  ##############################################################################
   def self.sub_types
     Card.select("distinct sub_type")
       .delete_if {|c| c.sub_type.blank? }

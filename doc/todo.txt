@@ -19,9 +19,12 @@ Deck Builder
 ------------
 1. Restrict search to...
     - only show non-banned/restricted, legal edition cards
-    - don't show cards when there are non available, i.e. all used in other decks
+    - don't show cards when they are not available, i.e. all used in other decks
+    - don't allow adding more than are available
+    - don't show unavailabe cards in search results
+2. Removing should not remove them all, but just a certain number
 2. New interface similar to Magic 2014 app
-3. Show card count
+X. Show card count
 4. Show deck stats
     - by color
     - by type (creature, sorcery, land)

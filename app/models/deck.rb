@@ -26,6 +26,45 @@ class Deck < ActiveRecord::Base
     return (count);
   end
   ##############################################################################
+  def stats
+    stats = {
+      :main_type => {},
+      :color     => {
+        :red        => 0,
+        :green      => 0,
+        :blue       => 0,
+        :black      => 0,
+        :white      => 0,
+        :colorless  => 0
+      }
+    };
+
+    card_in_deck.each do |cid|
+      next unless cid.main_copies > 0
+
+      card = cid.card
+      copies = cid.main_copies
+
+      # Main Type
+      if (stats[:main_type][card.main_type].nil?)
+        stats[:main_type][card.main_type] = copies
+      else
+        stats[:main_type][card.main_type] += copies
+      end
+
+      # Color
+      stats[:color][:red]       += copies if card.is_red?
+      stats[:color][:green]     += copies if card.is_green?
+      stats[:color][:blue]      += copies if card.is_blue?
+      stats[:color][:black]     += copies if card.is_black?
+      stats[:color][:white]     += copies if card.is_white?
+      stats[:color][:colorless] += copies if card.is_colorless?
+
+    end
+
+    return (stats)
+  end
+  ##############################################################################
   def add_card(card, options = {:main_copies => 1, :side_copies => 0})
     card_in_deck = CardInDeck.new(
       :deck => self,
