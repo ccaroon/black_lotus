@@ -12,12 +12,8 @@
     <% next unless card_in_deck.main_copies > 0 %>
     <li class="span2">
       <div class="thumbnail">
-        <a rel="popover" href="javascript:void(0)"
-           data-placement="top"
-           data-html="true"
-           data-animation="false"
-           data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :locals => {card: card_in_deck.card, count: card_in_deck.main_copies} ).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
+        <img src="<%= card_image_path(card_in_deck.card) %>">
+        <p class="text-center"><strong>x <%= card_in_deck.main_copies %></strong></p>
       </div>
     </li>
     <% end %>
@@ -31,12 +27,8 @@
     <% next unless card_in_deck.side_copies > 0 %>
     <li class="span2">
       <div class="thumbnail">
-        <a rel="popover" href="javascript:void(0)"
-           data-placement="top"
-           data-html="true"
-           data-animation="false"
-           data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', :locals => {card: card_in_deck.card, count: card_in_deck.side_copies}).html_safe %>'><img src="<%= card_image_path(card_in_deck.card) %>" style="cursor: help" alt="<%= card_in_deck.card.name %>" width="200"></a>
+        <img src="<%= card_image_path(card_in_deck.card) %>">
+        <p class="text-center"><strong>x <%= card_in_deck.side_copies %></strong></p>
       </div>
     </li>
     <% end %>

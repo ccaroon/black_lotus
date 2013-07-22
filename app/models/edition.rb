@@ -9,9 +9,9 @@ class Edition < ActiveRecord::Base
   has_and_belongs_to_many :cards, :order => :name
   ##############################################################################
   def self.recent_editions
-    one_yr_ago = Time.now - 1.year
+    yrs_ago = Time.now - 2.year
     re = Edition
-      .where("release_date between :one_yr_ago and :now", {one_yr_ago: one_yr_ago, now: Time.now})
+      .where("release_date between :yrs_ago and :now", {yrs_ago: yrs_ago, now: Time.now})
       .order('release_date')
 
     return re

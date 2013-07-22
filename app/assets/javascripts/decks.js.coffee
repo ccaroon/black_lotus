@@ -102,6 +102,10 @@ clear_search_error = ->
         old_count = parts[2];
         new_count = Number(old_count) + Number(count);
 
+        # TODO: get this working
+        # count_element = $("card_#{id}_count");
+        # count_element.html(new_count);
+
         added_card.val("#{id}|#{deck_type}|#{new_count}");
 
         card_img = $("#card_img_#{id}");
@@ -112,6 +116,7 @@ clear_search_error = ->
         <li id='card_#{id}' data-id='#{id}' class='span2'>
             <div id='card_img_#{id}' class='thumbnail' style='display:none'>
                 <img src='/card_images/#{image_name}'>
+                <p class='text-center'><strong>x <span id='card_#{id}_count'>#{count}</span></strong></p>
             </div>
         </li>";
         deck.prepend(html);

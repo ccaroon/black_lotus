@@ -23,6 +23,14 @@
     <li><span class="label label-info"><%= mt[0] %>: <%= mt[1] %></span></li>
   <% end %>
 </ul>
+
+  <ul class="inline">
+    <% @deck.stats[:color].sort.each do |color|%>
+        <% next if color[1] <= 0 %>
+        <li><span class="badge <%=color_to_badge(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
+    <% end %>
+  </ul>
+
 </div>
 
 <!-- <div class="well"> -->
@@ -32,7 +40,7 @@
 <!-- </div> -->
 
 <div class="well">
-  <h1>Main Deck (<%= @deck.main_count %>)</h1>
+  <h2 class="text-center">Main Deck (<%= @deck.main_count %>)</h2>
   <div class="container-fluid">
     <ul id="main" class="thumbnails">
       <% @deck.card_in_deck.each do |cid| %>
@@ -50,7 +58,7 @@
 </div>
 
 <div class="well">
-  <h1>Sideboard (<%= @deck.side_count %>)</h1>
+  <h2 class="text-center">Sideboard (<%= @deck.side_count %>)</h2>
   <div class="container-fluid">
     <ul id="side" class="thumbnails">
       <% @deck.card_in_deck.each do |cid| %>
