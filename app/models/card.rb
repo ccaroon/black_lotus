@@ -21,7 +21,8 @@ class Card < ActiveRecord::Base
     legendary_artifact: 'Legendary Artifact',
     legendary_creature: 'Legendary Creature',
     enchantment:        'Enchantment',
-    planeswalker:       'Planeswalker'
+    planeswalker:       'Planeswalker',
+    scheme:             'Scheme'
   }
   
   COLORS = {
@@ -75,6 +76,10 @@ class Card < ActiveRecord::Base
     avail_editions = recent_editions.keep_if do |e|
       card_editions.find_index(e).nil?
     end
+  end
+  ##############################################################################
+  def latest_edition
+    return (editions.last)
   end
   ##############################################################################
   def legal?(format = Format::STANDARD)
