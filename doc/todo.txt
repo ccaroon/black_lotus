@@ -28,6 +28,9 @@ X. Show card count
 4. Show deck stats
     - by color
     - by type (creature, sorcery, land)
+5. Use `content_for` to...
+   - include builder.js.coffee (move builder JS from decks.js.coffee)
+   - show deck stats in left sidebar
 
 Cards
 -----
