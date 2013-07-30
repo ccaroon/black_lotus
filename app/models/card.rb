@@ -70,10 +70,10 @@ class Card < ActiveRecord::Base
   end
   ##############################################################################
   def available_editions
-    recent_editions = Edition.recent_editions
+    all_editions = Edition.order('release_date').all
     card_editions = self.editions
     
-    avail_editions = recent_editions.keep_if do |e|
+    avail_editions = all_editions.keep_if do |e|
       card_editions.find_index(e).nil?
     end
   end

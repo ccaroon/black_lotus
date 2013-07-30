@@ -9,8 +9,10 @@ class MagicCardsInfo
   ##############################################################################
   def self.fetch_card_list(edition)
     code = edition.online_code
-    r = self.get("/#{code}/en.html")
-    raise r.message unless r.code == 200
+    url = "/#{code}/en.html"
+
+    r = self.get(url)
+    raise "#{url} -- #{r.message}" unless r.code == 200
 
     doc = Nokogiri::HTML(r.body)
 
@@ -35,7 +37,7 @@ class MagicCardsInfo
     card.gen_image_name
 
     r = self.get(img_url)
-    raise r.message unless r.code == 200
+    raise "#{img_url} -- #{r.message}" unless r.code == 200
 
     File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "wb") do |img|
       img << r.body
@@ -51,7 +53,7 @@ class MagicCardsInfo
 
     url = "/#{ed_code}/en/#{card_num}.html"
     r = self.get(url)
-    raise r.message unless r.code == 200
+    raise "#{url} -- #{r.message}" unless r.code == 200
 
     html = r.body
 
@@ -74,7 +76,8 @@ class MagicCardsInfo
 
     card_number = nil
     CSV.foreach(card_list_file) do |row|
-      if (row[1] == card.name)
+      # Case insensitive compare
+      if (row[1].casecmp(card.name) == 0)
         card_number = row[0]
         break
       end

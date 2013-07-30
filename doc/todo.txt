@@ -40,3 +40,6 @@ X. More filters on list page
     X sub type
 2. When fetching image, fetch image from newest edition of owned editions
 X. show count on list page
+3. Info/Image Fetching
+    - use image of the latest version owned
+    - re-vamp to use `http://magiccards.info/ONLINE_CODE/en.html` card list

@@ -1,10 +1,21 @@
 require 'utility'
 require 'magic_cards_info'
 
-Card.all.each do |card|
-  next if card.main_type == 'Scheme'
-  next if card.main_type == 'Basic Land'
+start_name = ARGV.shift
 
-  puts card.name
+do_fetch = false
+total = Card.count
+index = 0
+Card.order('name').all.each do |card|
+  index+=1
+  next if card.main_type == 'Scheme'
+
+  if (card.name == start_name)
+    do_fetch = true
+  end
+  next unless do_fetch
+
+  puts "#{card.name} -- #{index}/#{total}"
   Utility.fetch_card_info(card)
+
 end
