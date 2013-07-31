@@ -6,6 +6,75 @@ require 'nokogiri'
 class MagicCardsInfo
   include HTTParty
   base_uri "http://magiccards.info"
+
+  INDEX = {
+    number:    0,
+    name:      1,
+    type_line: 2,
+    mana_cost: 3,
+    rarity:    4,
+    artist:    5,
+    edition:   6    
+  }
+
+  ##############################################################################
+  def self.info(key,card,edition = nil)
+    raise "Unknown key [#{key}]" unless INDEX.key?(key.to_sym)
+
+    edition = card.latest_edition if edition.nil?
+
+    card_data = find_data_for(card,edition)
+    key_index = INDEX[key.to_sym]
+
+    return (card_data[key_index])
+  end
+  ##############################################################################
+  def self.download_image(card, edition = nil)
+    card.gen_image_name
+    img_url = image_url(card, edition)
+
+    r = self.get(img_url)
+    raise "#{img_url} -- #{r.message}" unless r.code == 200
+
+    File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "wb") do |img|
+      img << r.body
+    end
+  end
+  ##############################################################################
+  def self.fetch_info(card)
+
+    card_num = self.info(:number, card)
+    ed_code = card.latest_edition.online_code
+    raise "Edition code not set for '#{card.latest_edition.name}'" if ed_code.nil?
+
+    url = "/#{ed_code}/en/#{card_num}.html"
+    r = self.get(url)
+    raise "#{url} -- #{r.message}" unless r.code == 200
+
+    html = r.body
+
+    raise "MagicCardsInfo Error: Card named '#{card.name}' not found." if
+      html =~ /Your query did not match any cards/
+
+    info = parse_html(html)
+
+    info[:image_url] = image_url(card)
+    info[:rarity]    = self.info(:rarity, card)
+
+    return info
+  end
+  ##############################################################################
+  private
+  ##############################################################################
+  def self.image_url(card, edition = nil)
+    edition = card.latest_edition if edition.nil?
+    ed_code = edition.online_code
+    card_num = self.info(:number, card, edition)
+
+    url = "/scans/en/#{ed_code}/#{card_num}.jpg"
+
+    return(url)
+  end
   ##############################################################################
   def self.fetch_card_list(edition)
     code = edition.online_code
@@ -33,59 +102,26 @@ class MagicCardsInfo
     end
   end
   ##############################################################################
-  def self.fetch_image(card, img_url)
-    card.gen_image_name
-
-    r = self.get(img_url)
-    raise "#{img_url} -- #{r.message}" unless r.code == 200
-
-    File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "wb") do |img|
-      img << r.body
-    end
-  end
-  ##############################################################################
-  def self.fetch_info(card)
-
-    card_num = self.card_number(card)
-    card_name = card.name
-    ed_code = card.latest_edition.online_code
-    raise "Edition code not set for '#{card.latest_edition.name}'" if ed_code.nil?
-
-    url = "/#{ed_code}/en/#{card_num}.html"
-    r = self.get(url)
-    raise "#{url} -- #{r.message}" unless r.code == 200
-
-    html = r.body
-
-    raise "MagicCardsInfo Error: Card named '#{card.name}' not found." if
-      html =~ /Your query did not match any cards/
-
-    info = self.parse_html(html)
-    info[:image_url] = "/scans/en/#{ed_code}/#{card_num}.jpg"
-
-    return info
-  end
-  ##############################################################################
-  def self.card_number(card)
-    ed_code = card.latest_edition.online_code
-
+  def self.find_data_for(card, edition)
+    ed_code = edition.online_code
     card_list_file = "#{Rails.root}/tmp/card_list_#{ed_code}.csv"
     unless (File.exists?(card_list_file))
-      self.fetch_card_list(card.latest_edition)
+      fetch_card_list(edition)
     end
 
-    card_number = nil
+    card_row = []
     CSV.foreach(card_list_file) do |row|
       # Case insensitive compare
-      if (row[1].casecmp(card.name) == 0)
-        card_number = row[0]
+      if (row[INDEX[:name]].casecmp(card.name) == 0)
+        card_row = row
         break
       end
     end
 
-    return (card_number)
+    return (card_row)
   end
   ##############################################################################
+  # TODO: change to use edition card list
   def self.parse_html(html)
 
     info = {}
