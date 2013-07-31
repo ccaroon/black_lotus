@@ -57,9 +57,7 @@ class MagicCardsInfo
       html =~ /Your query did not match any cards/
 
     info = parse_html(html)
-
-    info[:image_url] = image_url(card)
-    info[:rarity]    = self.info(:rarity, card)
+    info[:rarity] = self.info(:rarity, card)
 
     return info
   end

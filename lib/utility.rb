@@ -20,8 +20,7 @@ class Utility
   def self.fetch_card_info(card)
       info = MagicCardsInfo.fetch_info(card)
 
-      img_url = info.delete(:image_url)
-      MagicCardsInfo.fetch_image(card, img_url) unless img_url.nil?
+      MagicCardsInfo.download_image(card)
 
       card.text_box = info.delete(:text_box)
 
