@@ -55,13 +55,16 @@
               <li><%= link_to "New Deck", new_deck_path %></li>
               <li><%= link_to "Utilities", utilities_path %></li>
             </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+          </div>
+          <div>
+            <%= yield(:sidebar) %>
+          </div>
+        </div>
         <div class="span10">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-      </div><!--/row-->
+      </div>
 
       <p></p>
       <footer>

@@ -17,22 +17,6 @@
   </div>
 </div>
 
-<div class="well">
-  <ul class="inline">
-  <% @deck.stats[:main_type].sort.each do |mt| %>
-    <li><span class="label label-info"><%= mt[0] %>: <%= mt[1] %></span></li>
-  <% end %>
-</ul>
-
-  <ul class="inline">
-    <% @deck.stats[:color].sort.each do |color|%>
-        <% next if color[1] <= 0 %>
-        <li><span class="badge <%=color_to_badge(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
-    <% end %>
-  </ul>
-
-</div>
-
 <!-- <div class="well"> -->
   <div class="container-fluid">
     <ul id="search_results" class="thumbnails"></ul>
@@ -84,3 +68,21 @@
     <%= link_to "Done", @deck, :class => "btn btn-small" %>
   </form>
 </div>
+
+<% content_for :sidebar do %>
+<div class="well">
+  <ul class="inline">
+  <% @deck.stats[:main_type].sort.each do |mt| %>
+    <li><span class="label label-inverse"><%= mt[0] %>: <%= mt[1] %></span></li>
+  <% end %>
+  </ul>
+
+  <ul class="inline">
+    <% @deck.stats[:color].sort.each do |color|%>
+        <% next if color[1] <= 0 %>
+        <li><span class="badge <%=color_to_badge(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
+    <% end %>
+  </ul>
+
+</div>
+<% end %>

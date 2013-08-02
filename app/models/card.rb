@@ -123,6 +123,26 @@ class Card < ActiveRecord::Base
     !mana_cost.empty? and !is_red? and !is_green? and !is_blue? and !is_black? and !is_white?
   end
   ##############################################################################
+  def converted_mana_cost
+    cost = nil
+    mc = self.mana_cost
+
+    # Find instances of either/or colors and change to M for Multi b/c they will
+    # only count as 1
+    mc.gsub!(/{.\/.}/, 'M')
+
+    if mc.sub!(/^(\d)/, '')
+      cost = $1.to_i
+      cost += mc.length
+    elsif mc.sub!(/^X/, '')
+      cost = mc.length + 1
+    else
+      cost = mc.length
+    end
+
+    return(cost)
+  end
+  ##############################################################################
   def self.sub_types
     Card.select("distinct sub_type")
       .delete_if {|c| c.sub_type.blank? }

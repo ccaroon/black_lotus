@@ -188,6 +188,38 @@ describe Card do
     c.sub_type.should == 'Human Fisherman'
   end
 
+  it "should be able to compute converted mana cost" do
+    card = FactoryGirl.build(:card, :mana_cost => '2W')
+    card.converted_mana_cost.should == 3
+
+    card.mana_cost = 'X'
+    card.converted_mana_cost.should == 1
+
+    card.mana_cost = '7'
+    card.converted_mana_cost.should == 7
+
+    card.mana_cost = 'W'
+    card.converted_mana_cost.should == 1
+
+    card.mana_cost = '{G/W}'
+    card.converted_mana_cost.should == 1
+
+    card.mana_cost = 'X{U/R}G{U/R}'
+    card.converted_mana_cost.should == 4
+
+    card.mana_cost = '3{U/R}G{U/R}'
+    card.converted_mana_cost.should == 6
+
+    card.mana_cost= 'WG'
+    card.converted_mana_cost.should == 2
+
+    card.mana_cost= 'WGGG'
+    card.converted_mana_cost.should == 4
+
+    card.mana_cost = 'XW'
+    card.converted_mana_cost.should == 2
+  end
+
   it "can determine available editions" do
     editions = FactoryGirl.create_list(:edition, 5,
       :release_date => '2013-01-01')

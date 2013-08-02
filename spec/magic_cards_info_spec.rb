@@ -12,7 +12,6 @@ describe "MagicCardsInfo" do
     info = MagicCardsInfo.parse_html(html)
     info.should be_present
 
-    info[:image_url].should == '/scans/en/dgm/2.jpg'
     info[:main_type].should == 'Creature'
     info[:sub_type].should  == 'Human Soldier'
     info[:mana_cost].should == '2W'
