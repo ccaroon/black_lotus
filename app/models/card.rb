@@ -82,23 +82,6 @@ class Card < ActiveRecord::Base
     return (editions.last)
   end
   ##############################################################################
-  def legal?(format = Format::STANDARD)
-    legal = false
-
-    if (format[:legal_editions] == nil)
-      legal = true
-    else
-      self.editions.each do |e|
-        found_ed = format[:legal_editions].find do |ed_name|
-          ed_name == e.name
-        end
-        legal = found_ed.nil? ? false : true
-      end
-    end
-
-    return(legal)
-  end
-  ##############################################################################
   def is_red?
     !(mana_cost =~ /#{COLORS[:red][:code]}/).nil?
   end

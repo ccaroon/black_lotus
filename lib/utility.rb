@@ -9,7 +9,7 @@ class Utility
         edition_str = card.editions.map {|e| e.name}.join('|')
         # Order needs to match order of HanDbase cols
         csv << [card.name, card.main_type, card.sub_type, edition_str, 
-                card.mana_cost, card.legal?, card.foil, card.rarity,
+                card.mana_cost, 0, card.foil, card.rarity,
                 card.count, nil, card.image_name]
       end
     end

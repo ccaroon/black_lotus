@@ -232,24 +232,6 @@ describe Card do
     avail_eds[2].name.should == editions[3].name
   end
 
-  it "can determine if it's legal in different deck formats" do
-    e = FactoryGirl.build(:edition, :name => "Dragon's Maze")
-    recent_card = FactoryGirl.build(:card, :editions => [e])
-    old_card    = FactoryGirl.build(:card)
-
-    recent_card.should  be_legal Format::STANDARD
-    old_card.should_not be_legal Format::STANDARD
-
-    recent_card.should be_legal Format::VINTAGE
-    old_card.should    be_legal Format::VINTAGE
-
-    recent_card.should be_legal Format::LEGACY
-    old_card.should    be_legal Format::LEGACY
-
-    recent_card.should be_legal Format::COMMANDER
-    old_card.should    be_legal Format::COMMANDER
-  end
-
   it "can generate a list of sub_type strings" do
     FactoryGirl.create_list(:card, 25)
 
