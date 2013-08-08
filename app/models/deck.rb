@@ -26,7 +26,7 @@ class Deck < ActiveRecord::Base
     return (count);
   end
   ##############################################################################
-  def is_valid?
+  def validate
     reasons = []
     is_valid = true
     format = Format::FORMATS[self.format]
@@ -35,7 +35,7 @@ class Deck < ActiveRecord::Base
     unless format[:min_cards].nil?
       if self.main_count < format[:min_cards]
         is_valid = false
-        reasons << "Not enough cards in main deck."
+        reasons << "Not enough cards in main deck (#{self.main_count})."
       end
     end
 
@@ -43,7 +43,7 @@ class Deck < ActiveRecord::Base
     unless format[:max_cards].nil?
       if self.main_count > format[:max_cards]
         is_valid = false
-        reasons << "Too many cards in main deck."
+        reasons << "Too many cards in main deck (#{self.main_count})."
       end
     end
 
@@ -55,43 +55,52 @@ class Deck < ActiveRecord::Base
       end
     end
 
-    # max copies of each card
-    self.card_in_deck.each do |cid|
-      next if cid.card.main_type == Card::CARD_TYPES[:basic_land]
+    banned_cards = format[:banned_cards].nil? ? [] : format[:banned_cards]
+    restricted_cards = format[:restricted_cards].nil? ? [] : format[:restricted_cards]
 
+    self.card_in_deck.each do |cid|
+      card = cid.card
+      next if card.main_type == Card::CARD_TYPES[:basic_land]
+
+      # Max copies of each card
       if (cid.main_copies > 4 || cid.side_copies > 4)
         is_valid = false
-        reasons << "Too many copies of #{cid.card.name} in deck."
-        break
+        reasons << "Too many copies of '#{card.name}' in deck."
       end
-    end
 
-    # TODO: legal editions
+      # legal editions
+      unless format[:legal_editions].nil?
+        is_legal = false
+        card.editions.each do |e|
+          if format[:legal_editions].include?(e.name)
+            is_legal = true
+            break
+          end
+        end
 
-    # TODO: combine banned and restricted cases for performance
-    # banned cards
-    unless format[:banned_cards].nil?
-      format[:banned_cards].each do |bc_name|
-        if !(self.cards.index {|card| card.name == bc_name}).nil?
+        unless is_legal
           is_valid = false
-          reasons << "Banned Card: '#{bc_name}'"
-          break
+          reasons << "No legal edition for '#{card.name}'"
         end
       end
-    end
 
-    # restricted cards
-    unless format[:restricted_cards].nil?
-      format[:restricted_cards].each do |res_name|
-        if !(self.cards.index {|card| card.name == res_name}).nil?
+      # banned cards
+      if banned_cards.include?(card.name)
+        is_valid = false
+        reasons << "Banned Card: '#{card.name}'"
+      end
+
+      # restricted cards -- can only have 1 copy in deck
+      if restricted_cards.include?(card.name)
+        if (cid.main_copies > 1 || cid.side_copies > 1)
           is_valid = false
-          reasons << "Restricted Card: #{res_name}"
-          break
+          reasons << "Too many copies of restricted card: '#{card.name}'"
         end
       end
+
     end
-Rails.logger.debug("=====> deck.rb #91 --> #{self.name} -- #{reasons.inspect} \n")
-    return (is_valid)
+
+    return (reasons)
   end
   ##############################################################################
   def stats

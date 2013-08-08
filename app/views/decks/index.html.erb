@@ -11,7 +11,7 @@
   </tr>
 
 <% @decks.each do |deck| %>
-  <tr class="<%= deck.is_valid? ? '' : 'error' %>">
+  <tr class="<%= deck.validate.empty? ? '' : 'error' %>">
     <td><%= deck.name %></td>
     <td><%= deck.format %></td>
     
