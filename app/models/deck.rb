@@ -26,6 +26,74 @@ class Deck < ActiveRecord::Base
     return (count);
   end
   ##############################################################################
+  def is_valid?
+    reasons = []
+    is_valid = true
+    format = Format::FORMATS[self.format]
+
+    # min cards
+    unless format[:min_cards].nil?
+      if self.main_count < format[:min_cards]
+        is_valid = false
+        reasons << "Not enough cards in main deck."
+      end
+    end
+
+    # max cards
+    unless format[:max_cards].nil?
+      if self.main_count > format[:max_cards]
+        is_valid = false
+        reasons << "Too many cards in main deck."
+      end
+    end
+
+    # sideboard size
+    unless format[:sideboard_size].nil?
+      if self.side_count != 0 && self.side_count != format[:sideboard_size]
+        is_valid = false
+        reasons << "Sideboard does not have exactly #{format[:sideboard_size]} cards."
+      end
+    end
+
+    # max copies of each card
+    self.card_in_deck.each do |cid|
+      next if cid.card.main_type == Card::CARD_TYPES[:basic_land]
+
+      if (cid.main_copies > 4 || cid.side_copies > 4)
+        is_valid = false
+        reasons << "Too many copies of #{cid.card.name} in deck."
+        break
+      end
+    end
+
+    # TODO: legal editions
+
+    # TODO: combine banned and restricted cases for performance
+    # banned cards
+    unless format[:banned_cards].nil?
+      format[:banned_cards].each do |bc_name|
+        if !(self.cards.index {|card| card.name == bc_name}).nil?
+          is_valid = false
+          reasons << "Banned Card: '#{bc_name}'"
+          break
+        end
+      end
+    end
+
+    # restricted cards
+    unless format[:restricted_cards].nil?
+      format[:restricted_cards].each do |res_name|
+        if !(self.cards.index {|card| card.name == res_name}).nil?
+          is_valid = false
+          reasons << "Restricted Card: #{res_name}"
+          break
+        end
+      end
+    end
+Rails.logger.debug("=====> deck.rb #91 --> #{self.name} -- #{reasons.inspect} \n")
+    return (is_valid)
+  end
+  ##############################################################################
   def stats
     stats = {
       :main_type => {},
