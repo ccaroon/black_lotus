@@ -44,3 +44,4 @@ X. show count on list page
     X use image of the latest version owned
     - re-vamp to use `http://magiccards.info/ONLINE_CODE/en.html` card list for
       `fetch_info`
+4. Cards can have X and N in their cost, i.e. X2B (Soul Burn)

@@ -11,15 +11,17 @@ class Card < ActiveRecord::Base
   }
     
   CARD_TYPES = {
+    land:               'Land',
     basic_land:         'Basic Land',
     creature:           'Creature',
-    instand:            'Instant',
-    sorcery:            'Sorcery',
-    land:               'Land',
-    artifact:           'Artifact',
     artifact_creature:  'Artifact Creature',
-    legendary_artifact: 'Legendary Artifact',
     legendary_creature: 'Legendary Creature',
+    snow_creature:      'Snow Creature',
+    instant:            'Instant',
+    sorcery:            'Sorcery',
+    artifact:           'Artifact',
+    snow_artifact:      'Snow Artifact',
+    legendary_artifact: 'Legendary Artifact',
     enchantment:        'Enchantment',
     planeswalker:       'Planeswalker',
     scheme:             'Scheme'
