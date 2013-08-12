@@ -34,3 +34,14 @@
     <% end %>
   </ul>
 </div>
+
+<% content_for :sidebar do %>
+<% reasons = @deck.validate %>
+<% if reasons.present? %>
+  <div>
+    <% reasons.each do |r|%>
+      <li><%= r %></li>
+    <% end %>
+  </div>
+<% end %>
+<% end %>
