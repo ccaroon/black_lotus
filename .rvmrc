@@ -1,1 +1,1 @@
-rvm --create use ruby-1.9.3-p392@black_lotus
+rvm --create use ruby-2.0.0-p247@black_lotus

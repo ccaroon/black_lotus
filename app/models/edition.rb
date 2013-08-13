@@ -6,7 +6,7 @@ class Edition < ActiveRecord::Base
     :only_integer => true, :greater_than => 0
 
   attr_accessible :card_count, :code_name, :name, :online_code, :release_date
-  has_and_belongs_to_many :cards, :order => :name
+  has_and_belongs_to_many :cards, -> {order :name}
   ##############################################################################
   def self.recent_editions
     yrs_ago = Time.now - 2.year

@@ -2,7 +2,7 @@
   <div class="row-fluid">
     <div class="span3">
       <img src="<%= card_image_path(@card) %>">
-      <%= button_to 'Re-fetch Info', card_fetch_info_path, :class => "btn btn-small btn-inverse"%>
+      <%= button_to 'Re-fetch Info', card_fetch_info_path, method: :get, class: "btn btn-small btn-inverse"%>
     </div>
     <div class="span7">
       <dl>
