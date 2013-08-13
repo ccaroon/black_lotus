@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'magic_cards_info'
 
 describe "MagicCardsInfo" do
   it "can parse HTML" do

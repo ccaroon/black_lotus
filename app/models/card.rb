@@ -72,7 +72,7 @@ class Card < ActiveRecord::Base
   end
   ##############################################################################
   def available_editions
-    all_editions = Edition.order('release_date').all
+    all_editions = Edition.order('release_date').to_a
     card_editions = self.editions
     
     avail_editions = all_editions.keep_if do |e|
