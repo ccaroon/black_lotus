@@ -69,11 +69,17 @@ describe Card do
         c.mana_cost = 'r g b'
         c.should_not be_valid
 
-        # Can't contain X and a digit
-        c.mana_cost = 'X7'
-        c.should_not be_valid
-        c.errors.messages.should have_key :mana_cost
+        # Can contain X and a number i.e. Soul Burn
+        c.mana_cost = 'X2'
+        c.should be_valid
 
+        c.mana_cost = 'X2B'
+        c.should be_valid
+
+        c.mana_cost = 'X12GW'
+        c.should be_valid
+
+        # If contain number and X, X must be first
         c.mana_cost = '7X'
         c.should_not be_valid
         c.errors.messages.should have_key :mana_cost
