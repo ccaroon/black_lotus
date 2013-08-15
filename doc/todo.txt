@@ -3,14 +3,15 @@ Todo
 
 Decks
 -----
-1. Validate deck
-    - all cards are from legal editions
-    - min/max card count
-    - sideboard size
-    - number of copes
-    - no card on banned or restricted list
+X. Validate deck
+    X all cards are from legal editions
+    X min/max card count
+    X sideboard size
+    X number of copies
+    X no card on banned or restricted list
 2. Deck list
-    - if deck not legal, show row in red
+    X if deck not legal, show row in red
+    - Indicate why deck is not legal
 3. Filters on Deck list page
     - format
     - name search 
@@ -25,12 +26,12 @@ Deck Builder
 2. Removing should not remove them all, but just a certain number
 2. New interface similar to Magic 2014 app
 X. Show card count
-4. Show deck stats
-    - by color
-    - by type (creature, sorcery, land)
+X. Show deck stats
+    X by color
+    X by type (creature, sorcery, land)
 5. Use `content_for` to...
    - include builder.js.coffee (move builder JS from decks.js.coffee)
-   - show deck stats in left sidebar
+   X show deck stats in left sidebar
 
 Cards
 -----
@@ -38,10 +39,10 @@ X. More filters on list page
     X color
     X rarity
     X sub type
-2. When fetching image, fetch image from newest edition of owned editions
+X. When fetching image, fetch image from newest edition of owned editions
 X. show count on list page
 3. Info/Image Fetching
     X use image of the latest version owned
     - re-vamp to use `http://magiccards.info/ONLINE_CODE/en.html` card list for
       `fetch_info`
-4. Cards can have X and N in their cost, i.e. X2B (Soul Burn)
+X. Cards can have X and N in their cost, i.e. X2B (Soul Burn)
