@@ -4,8 +4,8 @@ BlackLotus::Application.routes.draw do
   get 'cards/:id/fetch_info' => 'cards#fetch_info', :as => :card_fetch_info
 
   resources :decks
-  get 'decks/:id/build'      => 'decks#build',      :as => :build_deck
-  get 'decks/:id/build_save' => 'decks#build_save', :as => :save_build_deck
+  get 'decks/:id/build'       => 'decks#build',      :as => :build_deck
+  post 'decks/:id/build_save' => 'decks#build_save', :as => :save_build_deck
 
   resources :editions
 

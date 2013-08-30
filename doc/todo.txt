@@ -1,6 +1,10 @@
 Todo
 ====
 
+Misc
+----
+X. Get rid of coffeescript.
+
 Decks
 -----
 X. Validate deck

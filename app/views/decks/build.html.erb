@@ -4,7 +4,7 @@
 
 <div class="navbar">
   <div class="navbar-inner">
-    <form class="navbar-search pull-left" onSubmit="card_search();return false;">
+    <form class="navbar-search pull-left" onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
       <input id="search_string" 
              type="text" 
              name="search_string" 
@@ -69,6 +69,8 @@
   </form>
 </div>
 
+<!-- ####################################################################### -->
+
 <% content_for :sidebar do %>
 <div class="well">
   <ul class="inline">
@@ -85,4 +87,10 @@
   </ul>
 
 </div>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  BlackLotus.Deckbuilder.init();
+</script>
 <% end %>
