@@ -27,8 +27,16 @@ class UtilitiesController < ApplicationController
   end
   #############################################################################
   def export_cards
-    file_name = Utility.export_cards
-    render :json => {:message => "Success"}, :status => 200
+    
+    begin
+      file_name = Utility.export_cards
+      flash[:notice] = "Card Database exported to #{file_name}."
+    rescue Exception => e
+      flash[:alert] = "Failed to export card database: #{e}"
+    end
+
+    # render :json => {:message => "Success"}, :status => 200
+    redirect_to utilities_path
   end
   #############################################################################
   def export_cards_progress

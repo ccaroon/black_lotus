@@ -11,7 +11,7 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="export">
-            <button id="export_button" class="btn btn-primary">Export Cards</button>
+            <%= button_to "Export Cards", {action: 'export_cards'}, class: "btn btn-primary", id: 'export_button', method: :get  %>
             <p>
             <div class="progress progress-success progress-striped active">
               <div id="export_cards_progress" class="bar" style="width: 0%;"></div>
