@@ -43,21 +43,23 @@ class MagicCardsInfo
   ##############################################################################
   def self.fetch_info(card)
 
-    card_num = self.info(:number, card)
-    ed_code = card.latest_edition.online_code
-    raise "Edition code not set for '#{card.latest_edition.name}'" if ed_code.nil?
+    info = {}
 
-    url = "/#{ed_code}/en/#{card_num}.html"
-    r = self.get(url)
-    raise "#{url} -- #{r.message}" unless r.code == 200
+    # Type & Subtype: "Creature — Human Wizard 2/2"
+    type_line = self.info(:type_line, card)
+    (type, sub_type) =  type_line.split(/\xE2\x80\x94/, 2)
+    type.strip!
+    type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
+    info[:main_type] = type
+    
+    sub_type ||= ''
+    sub_type.strip!
+    sub_type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
+    info[:sub_type] = sub_type
 
-    html = r.body
-
-    raise "MagicCardsInfo Error: Card named '#{card.name}' not found." if
-      html =~ /Your query did not match any cards/
-
-    info = parse_html(html)
-    info[:rarity] = self.info(:rarity, card)
+    info[:mana_cost] = self.info(:mana_cost, card)
+    info[:rarity]    = self.info(:rarity, card)
+    info[:text_box]  = self.fetch_text_box(card) 
 
     return info
   end
@@ -119,45 +121,31 @@ class MagicCardsInfo
     return (card_row)
   end
   ##############################################################################
-  # TODO: change to use edition card list
-  def self.parse_html(html)
+  def self.fetch_text_box(card)
 
-    info = {}
+    card_num = self.info(:number, card)
+    ed_code = card.latest_edition.online_code
+    raise "Edition code not set for '#{card.latest_edition.name}'" if ed_code.nil?
+
+    url = "/#{ed_code}/en/#{card_num}.html"
+    r = self.get(url)
+    raise "#{url} -- #{r.message}" unless r.code == 200
+
+    html = r.body
+
+    raise "MagicCardsInfo Error: Card named '#{card.name}' not found." if
+      html =~ /Your query did not match any cards/
+
     doc = Nokogiri::HTML(html)
 
-    # info[:image_url] = doc.at_xpath('/html/body/table[3]/tr/td/img').attr(:src)
-    # info[:image_url].sub!(/^http:\/\/magiccards.info/, '')
-
-    type_str = doc.at_xpath('/html/body/table[3]/tr/td[2]/p').content
-    type_str.gsub!(/\n/,'')
-    (type_info, mana_cost) =  type_str.split(/,/, 2)
-
-    # Type & Subtype
-    (type, sub_type) =  type_info.split(/\xE2\x80\x94/, 2)
-    type.strip!
-    type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
-    info[:main_type] = type
-    
-    sub_type ||= ''
-    sub_type.strip!
-    sub_type.sub!(/\s+[0-9*]+\/[0-9*]+$/,'') #strip off power/toughness
-    info[:sub_type] = sub_type
-
-    # Mana Cost
-    unless (mana_cost.nil?)
-      mana_cost.strip!
-      (cost, converted_cost) =  mana_cost.split(/\s+/, 2)
-      info[:mana_cost] = cost
-    end
-
     ctext = doc.at_xpath('/html/body/table[3]/tr/td[2]/p[2]/b').inner_html
-    info[:text_box] = ''
+    text_box = ''
     if (!ctext.empty?)
-      info[:text_box] = ctext
-      info[:text_box].gsub!(/<br>/, "\n")
+      text_box = ctext
+      text_box.gsub!(/<br>/, "\n")
     end
 
-    return (info)
+    return (text_box)
   end
 
 end

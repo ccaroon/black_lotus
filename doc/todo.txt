@@ -47,6 +47,6 @@ X. When fetching image, fetch image from newest edition of owned editions
 X. show count on list page
 3. Info/Image Fetching
     X use image of the latest version owned
-    - re-vamp to use `http://magiccards.info/ONLINE_CODE/en.html` card list for
+    X re-vamp to use `http://magiccards.info/ONLINE_CODE/en.html` card list for
       `fetch_info`
 X. Cards can have X and N in their cost, i.e. X2B (Soul Burn)
