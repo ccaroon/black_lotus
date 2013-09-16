@@ -7,6 +7,7 @@ class Card < ActiveRecord::Base
     a:    true,
     to:   true,
     by:   true,
+    for:  true,
     from: true
   }
     
