@@ -48,7 +48,7 @@
           <li><span class="label label-default"><%= e.name %></span></li>
         <% end %>
       </ul>
-      <%= f.collection_select :editions, @card.available_editions, :id, :name, {:include_blank => true} %>
+      <%= f.collection_select :editions, @card.available_editions.reverse, :id, :name, {:include_blank => true} %>
       <%= card_error? :editions %>
     </div>
   </div>

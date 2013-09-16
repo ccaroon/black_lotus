@@ -16,6 +16,8 @@ class CardsController < ApplicationController
           where << "name like \"%#{value}%\""
         when 'color'
           where << "mana_cost like \"%#{value}%\""
+        when 'text_box'
+          where << "text_box like \"%#{value}%\""
         else
           where << "#{key} = \"#{value}\""
         end
@@ -56,7 +58,10 @@ class CardsController < ApplicationController
       @card = Card.where(:name => name).first
     end
 
-    @card = Card.new if @card.nil?
+    if @card.nil?
+      @card = Card.new
+      @card.count = 1
+    end
 
     respond_to do |format|
       format.html {

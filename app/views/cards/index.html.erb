@@ -19,6 +19,12 @@
     :value         => params[:card].present? ? params[:card][:sub_type] : '' 
   }%>
 
+  <%= text_field :card, :text_box, {
+    class: "input-small search-query", 
+    placeholder: "Text Box", 
+    value: params[:card].present? ? params[:card][:text_box] : ''
+  }%>
+
   <%= select :card, :main_type, Card::CARD_TYPES.values, {
     include_blank: 'Card Type...', 
     selected: params[:card].present? ? params[:card][:main_type] : ''
