@@ -18,6 +18,8 @@ class CardsController < ApplicationController
           where << "mana_cost like \"%#{value}%\""
         when 'text_box'
           where << "text_box like \"%#{value}%\""
+        when 'sub_type'
+          where << "sub_type like \"%#{value}%\""
         else
           where << "#{key} = \"#{value}\""
         end
