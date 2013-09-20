@@ -36,7 +36,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @cards }
+      format.json { render json: @cards, methods: :available_count }
     end
   end
 
@@ -47,7 +47,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @card }
+      format.json { render json: @card, methods: :available_count }
     end
   end
 

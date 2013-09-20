@@ -61,7 +61,7 @@ class Card < ActiveRecord::Base
                   
   has_and_belongs_to_many :editions, -> {order :release_date}
   
-  has_many :card_in_deck
+  has_many :card_in_deck, :dependent => :destroy
   has_many :decks, :through => :card_in_deck
   ##############################################################################
   def gen_image_name
@@ -83,6 +83,21 @@ class Card < ActiveRecord::Base
   ##############################################################################
   def latest_edition
     return (editions.last)
+  end
+  ##############################################################################
+  def available_count
+    return (self.count - self.used_count)
+  end
+  ##############################################################################
+  def used_count
+    count = 0
+
+    card_in_deck.each do |cid|
+      count += cid.main_copies
+      count += cid.side_copies
+    end
+
+    return count
   end
   ##############################################################################
   def is_red?

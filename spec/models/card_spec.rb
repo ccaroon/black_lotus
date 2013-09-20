@@ -257,4 +257,27 @@ describe Card do
     Card.total.should == total
   end
 
+  it "can determine used count" do
+    deck = FactoryGirl.build(:deck)
+    card = FactoryGirl.build(:card, :count => 10)
+
+    deck.add_card(card, {:main_copies => 2, :side_copies => 2})
+    deck.cards.count.should == 1
+
+    card.count.should == 10
+    card.used_count.should == 4
+  end
+
+  it "can determing available count" do
+    deck = FactoryGirl.build(:deck)
+    card = FactoryGirl.build(:card, :count => 7)
+
+    deck.add_card(card, {:main_copies => 2, :side_copies => 1})
+    deck.cards.count.should == 1
+
+    card.count.should == 7
+    card.used_count.should == 3
+    card.available_count.should == 4
+  end
+
 end

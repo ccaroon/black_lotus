@@ -28,7 +28,16 @@
         <dd><%= @card.foil ? "Yes" : "No" %></dd>
       
         <dt>Copies</dt>
-        <dd><%= @card.count %></dd>
+        <dd><%= @card.count %> &mdash; <%= @card.available_count %> available.</dd>
+
+        <dt>Decks</dt>
+        <dd>
+          <ol>
+          <% @card.card_in_deck.each do |cid| %>
+            <li><%= cid.deck.name %> (<%= cid.main_copies %>/<%= cid.side_copies %>) </li>
+          <% end %>
+        </ol>
+        </dd>
 
         <div class="well"><%= raw @card.text_box.present? ? @card.text_box.sub(/\n/, "<br>") : '' %></div>
       </dl>

@@ -5,7 +5,7 @@ class Deck < ActiveRecord::Base
 
   validates_presence_of :name, :format
 
-  has_many :card_in_deck, -> {order 'main_copies asc'}
+  has_many :card_in_deck, -> {order 'main_copies asc'}, :dependent => :destroy
   has_many :cards,        -> {order :name}, :through => :card_in_deck
   ##############################################################################
   def main_count

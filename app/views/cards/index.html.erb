@@ -80,7 +80,8 @@
         <i class="icon-pencil"></i>
       <% end %>
       
-      <%= link_to card, :class => 'btn btn-small btn-danger', method: :delete, data: { confirm: "Delete '#{card.name}'?" } do %>
+      <%= link_to card, :class => 'btn btn-small btn-danger', method: :delete, data: { 
+        confirm: "'#{card.name}' is used in #{card.decks.count} decks.\n\nDelete?" } do %>
         <i class="icon-trash"></i>
       <% end %>
     </td>
