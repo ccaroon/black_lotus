@@ -7,14 +7,11 @@ class Format
     :sideboard_size => 15,
     :max_copies     => 4,
     :legal_editions => [
-      'Innistrad',
-      'Dark Ascension',
-      'Avacyn Restored',
-      'Magic 2013',
       'Return to Ravnica',
       'Gatecrash',
       'Dragon\'s Maze',
-      'Magic 2014'
+      'Magic 2014',
+      'Theros'
     ],
     :banned_cards     => nil,
     :restricted_cards => nil
@@ -66,7 +63,8 @@ class Format
       'Return to Ravnica',
       'Gatecrash',
       'Dragon\'s Maze',
-      'Magic 2014'
+      'Magic 2014',
+      'Theros'
     ],
     :banned_cards => [
       'Ancestral Vision',

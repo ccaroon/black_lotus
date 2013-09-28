@@ -2,7 +2,9 @@ class DecksController < ApplicationController
   # GET /decks
   # GET /decks.json
   def index
-    @decks = Deck.order(:name).page(params[:page])
+    @decks = Deck.where("name like '%#{params[:search_string]}%'")
+                  .order(:name)
+                  .page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

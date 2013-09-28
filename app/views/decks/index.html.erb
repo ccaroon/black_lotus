@@ -2,6 +2,13 @@
 
 <%= paginate @decks %>
 
+<form class="form-search">
+  <div class="input-append">
+    <input type="text" name="search_string" class="input-medium search-query" autofocus>
+    <i class="add-on icon-search"></i>
+  </div>
+</form>
+
 <table class="table table-striped table-condensed">
   <tr>
     <th>Name</th>
