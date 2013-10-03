@@ -34,7 +34,7 @@
         <dd>
           <ol>
           <% @card.card_in_deck.each do |cid| %>
-            <li><%= cid.deck.name %> (<%= cid.main_copies %>/<%= cid.side_copies %>) </li>
+            <li><%= link_to cid.deck.name, cid.deck %> (<%= cid.main_copies %>/<%= cid.side_copies %>) </li>
           <% end %>
         </ol>
         </dd>

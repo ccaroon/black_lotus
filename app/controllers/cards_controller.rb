@@ -115,6 +115,8 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
+        add_to_deck()
+
         format.html {
           if redirect_action == :edit
             render 'cards/edit'
@@ -140,6 +142,8 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
+        add_to_deck()
+
         format.html { redirect_to @card, notice: 'Card was successfully updated.' }
         format.json { head :no_content }
       else
@@ -175,6 +179,13 @@ class CardsController < ApplicationController
   ##############################################################################
   private
   
+  def add_to_deck
+    if (params[:deck][:deck_id].present?)
+      deck = Deck.find(params[:deck][:deck_id])
+      deck.add_card(@card, {:main_copies => params[:deck][:count]})
+    end
+  end
+
   def add_edition
     ed_id = params[:card].delete(:editions)
     if (ed_id.present?)

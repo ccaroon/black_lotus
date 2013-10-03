@@ -147,7 +147,7 @@ class Deck < ActiveRecord::Base
       :deck => self,
       :card => card,
       :main_copies => options[:main_copies],
-      :side_copies => options[:side_copies]
+      :side_copies => options[:side_copies] || 0
     )
 
     card_in_deck.save!

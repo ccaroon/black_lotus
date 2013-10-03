@@ -68,6 +68,7 @@
         <%= f.radio_button :rarity,  r, :class => 'radio inline' %> <span class="badge <%= rarity_to_css(r) %>"><%= r %></span>
       <% end %>
       <%= card_error? :rarity %>
+      <%= card_data_mismatch? :rarity %>
     </div>
   </div>
   
@@ -83,6 +84,15 @@
     </div>
   </div>
   
+  <div class="control-group">
+    <%= f.label :deck, :class => "control-label" %>
+    <div class="controls">
+      <%= collection_select :deck, :deck_id, Deck.order(:name).all, :id, :name, {:include_blank => true} %>
+      <%= text_field :deck, :count, :class => 'input-mini' %>
+    </div>
+  </div>
+
+
   <div class="control-group">
     <div class="form-actions">
       <%= f.submit nil, :class => "btn btn-primary" %>
