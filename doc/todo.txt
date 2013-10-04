@@ -18,7 +18,7 @@ X. Validate deck
     - Indicate why deck is not legal
 3. Filters on Deck list page
     - format
-    - name search 
+    X name search 
 
 Deck Builder
 ------------
