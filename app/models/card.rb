@@ -170,8 +170,11 @@ class Card < ActiveRecord::Base
     return new_str
   end
   ##############################################################################
-  def self.total
-    total = Card.connection.select_one("select sum(count) as count from cards")
+  def self.total(type = nil)
+    sql = "select sum(count) as count from cards"
+    sql += " where main_type = '#{CARD_TYPES[type]}'" unless type.nil?
+
+    total = Card.connection.select_one(sql)
     return(total['count'])
   end
   ##############################################################################

@@ -23,8 +23,9 @@
   </div>
 <!-- </div> -->
 
-<div class="well">
-  <h2 class="text-center">Main Deck (<%= @deck.main_count %>)</h2>
+<div id="main_cards" class="well collapse in">
+  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main_cards"><i class="icon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button></p>
+
   <div class="container-fluid">
     <ul id="main" class="thumbnails">
       <% @deck.card_in_deck.each do |cid| %>
@@ -41,8 +42,9 @@
   </div>
 </div>
 
-<div class="well">
-  <h2 class="text-center">Sideboard (<%= @deck.side_count %>)</h2>
+<div id="side_cards" class="well collapse in">
+  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side_cards"><i class="icon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button></p>
+
   <div class="container-fluid">
     <ul id="side" class="thumbnails">
       <% @deck.card_in_deck.each do |cid| %>
@@ -60,19 +62,11 @@
 
 </div>
 
-<div>
-  <form id="deck_builder_form" method="post" action="<%= save_build_deck_path %>">
-    <div id="cards_to_add"></div>
-    <div id="cards_to_remove"></div>
-    <button class="btn btn-primary">Save</button>
-    <%= link_to "Done", @deck, :class => "btn btn-small" %>
-  </form>
-</div>
-
 <!-- ####################################################################### -->
 
 <% content_for :sidebar do %>
 <div class="well">
+
   <ul class="inline">
   <% @deck.stats[:main_type].sort.each do |mt| %>
     <li><span class="label label-inverse"><%= mt[0] %>: <%= mt[1] %></span></li>
@@ -86,6 +80,12 @@
     <% end %>
   </ul>
 
+  <form id="deck_builder_form" method="post" action="<%= save_build_deck_path %>">
+    <div id="cards_to_add"></div>
+    <div id="cards_to_remove"></div>
+    <button class="btn btn-primary">Save</button>
+    <%= link_to "Done", @deck, :class => "btn btn-small" %>
+  </form>
 </div>
 <% end %>
 
