@@ -1,22 +1,22 @@
-<li id='sr_card_<%= card.id %>' data-id='<%= card.id %>' class='span2 search_result'>
-  <div id='sr_card_img_<%= card.id %>' class='thumbnail' style='display:none'>
+<li id='sr_card_<%= card.id %>' data-id='<%= card.id %>' class='col-md-2 search_result'>
+  <div id='sr_card_img_<%= card.id %>' class='img-thumbnail' style='display:none'>
       <img src='/card_images/<%= card.image_name %>'>
       <% if (card.available_count > 0) { %>
       <p>
       <p class="text-center">Available: <%= card.available_count %></p>
       <div class='btn-group'>
-          <button class='btn btn-small btn-primary' disabled='disabled'>Main</button>
-          <button class='btn btn-small' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 1)'>+1</button>
-          <button class='btn btn-small' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 4)'>+4</button>
-          <button class='btn btn-small' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 10)'>+10</button>
+          <button class='btn btn-sm btn-primary' disabled='disabled'>Main</button>
+          <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 1)'>+1</button>
+          <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 4)'>+4</button>
+          <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 10)'>+10</button>
       </div>
       </p>
       <p>
       <div class='btn-group'>
-          <button class='btn btn-small btn-inverse' disabled='disabled'>Side</button>
-          <button class='btn btn-small' onClick='BlackLotus.Deckbuilder.add_card("side", <%= card.id %>, "<%= card.image_name %>", 1)'>+1</button>
-          <button class='btn btn-small' onClick='BlackLotus.Deckbuilder.add_card("side", <%= card.id %>, "<%= card.image_name %>", 4)'>+4</button>
-          <button class='btn btn-small' onClick='BlackLotus.Deckbuilder.add_card("side", <%= card.id %>, "<%= card.image_name %>", 10)'>+10</button>
+          <button class='btn btn-sm btn-inverse' disabled='disabled'>Side</button>
+          <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("side", <%= card.id %>, "<%= card.image_name %>", 1)'>+1</button>
+          <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("side", <%= card.id %>, "<%= card.image_name %>", 4)'>+4</button>
+          <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("side", <%= card.id %>, "<%= card.image_name %>", 10)'>+10</button>
       </div>
       </p>
       <% } else { %>

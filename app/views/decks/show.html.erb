@@ -1,17 +1,17 @@
 <div class="page-header">
   <h1><%= @deck.name %> &mdash; <%= @deck.format %> (<%= @deck.main_count %>/<%= @deck.side_count %>)</h1>
-  <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-mini" %>
-  <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-mini" %>
-  <%= link_to 'Back', :back, :class => "btn btn-mini" %>
+  <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-default btn-xs" %>
+  <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-default btn-xs" %>
+  <%= link_to 'Back', :back, :class => "btn btn-default btn-xs" %>
 </div>
 
 <h2 class="text-center">Main Deck (<%= @deck.main_count %>)</h2>
-<div class="container-fluid">
-  <ul id="main_deck" class="thumbnails">
+<div class="container">
+  <ul id="main_deck" class="img-thumbnail">
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <% next unless card_in_deck.main_copies > 0 %>
-    <li class="span2">
-      <div class="thumbnail">
+    <li class="col-md-2">
+      <div class="img-thumbnail">
         <img src="<%= card_image_path(card_in_deck.card) %>">
         <p class="text-center"><strong>x <%= card_in_deck.main_copies %></strong></p>
       </div>
@@ -21,12 +21,12 @@
 </div>
 
 <h2 class="text-center">Sideboard (<%= @deck.side_count %>)</h2>
-<div class="container-fluid">
-  <ul id="sideboard" class="thumbnails">
+<div class="container">
+  <ul id="sideboard" class="img-thumbnail">
     <% @deck.card_in_deck.each do |card_in_deck| %>
     <% next unless card_in_deck.side_copies > 0 %>
-    <li class="span2">
-      <div class="thumbnail">
+    <li class="col-md-2">
+      <div class="img-thumbnail">
         <img src="<%= card_image_path(card_in_deck.card) %>">
         <p class="text-center"><strong>x <%= card_in_deck.side_copies %></strong></p>
       </div>

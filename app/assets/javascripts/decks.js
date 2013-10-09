@@ -121,8 +121,8 @@ BlackLotus.Deckbuilder = {
         }
         else {
             template = this.template_from_string(
-                "<li id='card_<%= id %>' data-id='<%= id %>' class='span2'>                        \
-                    <div id='card_img_<%= id %>' class='thumbnail' style='display:none'>           \
+                "<li id='card_<%= id %>' data-id='<%= id %>' class='col-md-2'>                        \
+                    <div id='card_img_<%= id %>' class='img-thumbnail' style='display:none'>           \
                         <img src='/card_images/<%= image_name %>'>                                 \
                         <p class='text-center'>                                                    \
                             <strong>x <span id='card_<%= id %>_count'><%= count %></span></strong> \

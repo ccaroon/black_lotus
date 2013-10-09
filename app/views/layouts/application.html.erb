@@ -21,29 +21,27 @@
   <body>
 
     <div class="navbar navbar-fluid-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <span class="brand"><abbr title="{T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.">BlackLotus</abbr></span>
-          <div class="container-fluid nav-collapse">
-            <ul class="nav">
-              <li class="<%= menu_item_active?('home') %>"><%= link_to "Home", root_path  %></li>
-              <li class="<%= menu_item_active?('cards') %>"><%= link_to "Cards", cards_path  %></li>
-              <li class="<%= menu_item_active?('decks') %>"><%= link_to "Decks", decks_path  %></li>
-              <li class="<%= menu_item_active?('editions') %>"><%= link_to "Editions", editions_path  %></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+      <div class="container">
+        <a class="navbar-btn" data-target=".navbar-collapse" data-toggle="collapse">
+          <span class="glyphicon glyphicon-bar"></span>
+          <span class="glyphicon glyphicon-bar"></span>
+          <span class="glyphicon glyphicon-bar"></span>
+        </a>
+        <span class="navbar-brand"><abbr title="{T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.">BlackLotus</abbr></span>
+        <div class="container navbar-collapse">
+          <ul class="nav">
+            <li class="<%= menu_item_active?('home') %>"><%= link_to "Home", root_path  %></li>
+            <li class="<%= menu_item_active?('cards') %>"><%= link_to "Cards", cards_path  %></li>
+            <li class="<%= menu_item_active?('decks') %>"><%= link_to "Decks", decks_path  %></li>
+            <li class="<%= menu_item_active?('editions') %>"><%= link_to "Editions", editions_path  %></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
       </div>
     </div>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
           <div class="well well-small sidebar-nav">
             <% if Rails.env == 'development' %>
               <p><%= image_tag 'http://placehold.it/251x204/888888/000000&text=Bl', :class => 'img-rounded', :alt => 'Bl Development'%></p>
@@ -60,8 +58,7 @@
             <%= yield(:sidebar) %>
           </div>
         </div>
-        <div class="span10">
-          <%= bootstrap_flash %>
+        <div class="col-md-10">
           <%= yield %>
         </div>
       </div>

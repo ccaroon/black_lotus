@@ -1,10 +1,10 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span3">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
       <img src="<%= card_image_path(@card) %>">
-      <%= button_to 'Re-fetch Info', card_fetch_info_path, method: :get, class: "btn btn-small btn-inverse"%>
+      <%= button_to 'Re-fetch Info', card_fetch_info_path, method: :get, class: "btn btn-sm btn-inverse"%>
     </div>
-    <div class="span7">
+    <div class="col-md-7">
       <dl>
         <dt>Name</dt>
         <dd><%= @card.name %></dd>
@@ -17,7 +17,7 @@
         
         <dt>Editions/Rarity</dt>
         <dd>
-          <ul class="inline">
+          <ul class="list-inline">
             <% @card.editions.each do |e| %>
               <li><span class="<%= rarity_to_css(@card) %>"><%= e.name %></span></li>
             <% end %>            

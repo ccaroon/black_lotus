@@ -3,36 +3,34 @@
 </div>
 
 <div class="navbar">
-  <div class="navbar-inner">
-    <form class="navbar-search pull-left" onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
-      <input id="search_string" 
-             type="text" 
-             name="search_string" 
-             class="search-query"
-             autocomplete="off"
-             placeholder="Search Cards..."
-             autofocus >
-      <span id="search_error"></span>
-    </form>
-  </div>
+  <form class="navbar-search pull-left" onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
+    <input id="search_string" 
+           type="text" 
+           name="search_string" 
+           class="search-query"
+           autocomplete="off"
+           placeholder="Search Cards..."
+           autofocus >
+    <span id="search_error"></span>
+  </form>
 </div>
 
 <!-- <div class="well"> -->
-  <div class="container-fluid">
-    <ul id="search_results" class="thumbnails"></ul>
+  <div class="container">
+    <ul id="search_results" class="img-thumbnail"></ul>
   </div>
 <!-- </div> -->
 
 <div id="main_cards" class="well collapse in">
-  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main_cards"><i class="icon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button></p>
+  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main_cards"><i class="glyphicon glyphicon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button></p>
 
-  <div class="container-fluid">
-    <ul id="main" class="thumbnails">
+  <div class="container">
+    <ul id="main" class="img-thumbnail">
       <% @deck.card_in_deck.each do |cid| %>
       <% next unless cid.main_copies > 0 %>
       <% card = cid.card %>
-      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
-        <div id="card_img_<%= card.id %>" class="thumbnail">
+      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-2 existing_card">
+        <div id="card_img_<%= card.id %>" class="img-thumbnail">
           <img src="<%= card_image_path(card) %>">
           <p class="text-center"><strong>x <%= cid.main_copies %></strong></p>
         </div>
@@ -43,15 +41,15 @@
 </div>
 
 <div id="side_cards" class="well collapse in">
-  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side_cards"><i class="icon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button></p>
+  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side_cards"><i class="glyphicon glyphicon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button></p>
 
-  <div class="container-fluid">
-    <ul id="side" class="thumbnails">
+  <div class="container">
+    <ul id="side" class="img-thumbnail">
       <% @deck.card_in_deck.each do |cid| %>
       <% next unless cid.side_copies > 0 %>
       <% card = cid.card %>
-      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="span2 existing_card">
-        <div id="card_img_<%= card.id %>" class="thumbnail">
+      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-2 existing_card">
+        <div id="card_img_<%= card.id %>" class="img-thumbnail">
           <img src="<%= card_image_path(card) %>">
           <p class="text-center"><strong>x <%= cid.side_copies %></strong></p>
         </div>
@@ -67,13 +65,13 @@
 <% content_for :sidebar do %>
 <div class="well">
 
-  <ul class="inline">
+  <ul class="list-inline">
   <% @deck.stats[:main_type].sort.each do |mt| %>
     <li><span class="label label-inverse"><%= mt[0] %>: <%= mt[1] %></span></li>
   <% end %>
   </ul>
 
-  <ul class="inline">
+  <ul class="list-inline">
     <% @deck.stats[:color].sort.each do |color|%>
         <% next if color[1] <= 0 %>
         <li><span class="badge <%=color_to_badge(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
@@ -84,7 +82,7 @@
     <div id="cards_to_add"></div>
     <div id="cards_to_remove"></div>
     <button class="btn btn-primary">Save</button>
-    <%= link_to "Done", @deck, :class => "btn btn-small" %>
+    <%= link_to "Done", @deck, :class => "btn btn-default btn-sm" %>
   </form>
 </div>
 <% end %>

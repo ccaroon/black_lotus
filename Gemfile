@@ -10,7 +10,6 @@ gem 'jquery-rails'
 gem 'httparty',      '~> 0.11.0'
 gem 'httmultiparty', '~> 0.3.10'
 gem 'nokogiri',      '~> 1.6.0'
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'sass-rails',   '~> 4.0.0'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier',     '>= 1.3.0'

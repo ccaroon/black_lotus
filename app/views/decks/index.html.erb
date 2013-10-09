@@ -2,10 +2,10 @@
 
 <%= paginate @decks %>
 
-<form class="form-search">
-  <div class="input-append">
+<form>
+  <div class="input-group">
     <input type="text" name="search_string" class="input-medium search-query" autofocus>
-    <i class="add-on icon-search"></i>
+    <i class="input-group-addon glyphicon glyphicon-search"></i>
   </div>
 </form>
 
@@ -25,14 +25,14 @@
     <td><%= deck.main_count %> (<%= deck.side_count %>)</td>
     
     <td>
-      <%= link_to deck, :class => "btn btn-small" do %>
-        <i class="icon-eye-open"></i>
+      <%= link_to deck, :class => "btn btn-default btn-sm" do %>
+        <i class="glyphicon glyphicon-eye-open"></i>
       <% end %>
-      <%= link_to edit_deck_path(deck), :class => "btn btn-small" do %>
-        <i class="icon-pencil"></i>
+      <%= link_to edit_deck_path(deck), :class => "btn btn-default btn-sm" do %>
+        <i class="glyphicon glyphicon-pencil"></i>
       <% end %>
-      <%= link_to deck, method: :delete, :class => "btn btn-small btn-danger", data: { confirm: "Delete '#{deck.name}'?" } do %>
-        <i class="icon-trash"></i>
+      <%= link_to deck, method: :delete, :class => "btn btn-sm btn-danger", data: { confirm: "Delete '#{deck.name}'?" } do %>
+        <i class="glyphicon glyphicon-trash"></i>
       <% end %>
     </td>
   </tr>

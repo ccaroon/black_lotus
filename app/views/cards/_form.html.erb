@@ -43,7 +43,7 @@
   <div class="control-group">
     <%= f.label :editions, :class => "control-label" %>
     <div class="controls">
-      <ul class="inline">
+      <ul class="list-inline">
         <% @card.editions.each do |e| %>
           <li><span class="label label-default"><%= e.name %></span></li>
         <% end %>
@@ -65,7 +65,7 @@
     <%= f.label :rarity, :class => "control-label" %>
     <div class="controls">
       <% Card::RARITIES.each do |r| %>
-        <%= f.radio_button :rarity,  r, :class => 'radio inline' %> <span class="badge <%= rarity_to_css(r) %>"><%= r %></span>
+        <%= f.radio_button :rarity,  r, :class => 'radio-inline' %> <span class="badge <%= rarity_to_css(r) %>"><%= r %></span>
       <% end %>
       <%= card_error? :rarity %>
       <%= card_data_mismatch? :rarity %>
@@ -75,10 +75,10 @@
   <div class="control-group">
     <%= f.label :count, :class => "control-label" %>
     <div class="controls">
-      <div class="input-prepend input-append">
-        <button id="card_count_dec" class="btn" type="button"><i class="icon-minus"></i></button>
-        <%= f.number_field :count, :class => "input-mini", :disabled => false %>  
-        <button id="card_count_inc" class="btn" type="button"><i class="icon-plus"></i></button>
+      <div class="input-group">
+        <button id="card_count_dec" class="btn btn-default" type="button"><i class="glyphicon glyphicon-minus"></i></button>
+        <%= f.number_field :count, :class => "input-sm", :disabled => false %>  
+        <button id="card_count_inc" class="btn btn-default" type="button"><i class="glyphicon glyphicon-plus"></i></button>
       </div>
       <%= card_error? :count %>
     </div>
@@ -88,15 +88,13 @@
     <%= f.label :deck, :class => "control-label" %>
     <div class="controls">
       <%= collection_select :deck, :deck_id, Deck.order(:name).all, :id, :name, {:include_blank => true} %>
-      <%= text_field :deck, :count, :class => 'input-mini' %>
+      <%= text_field :deck, :count, :class => 'input-sm' %>
     </div>
   </div>
 
 
   <div class="control-group">
-    <div class="form-actions">
-      <%= f.submit nil, :class => "btn btn-primary" %>
-      <%= link_to 'Back', :back, :class => "btn" %>
-    </div>
+    <%= f.submit nil, :class => "btn btn-primary" %>
+    <%= link_to 'Back', :back, :class => "btn btn-default" %>
   </div>
 <% end %>

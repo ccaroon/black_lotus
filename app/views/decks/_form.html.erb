@@ -22,13 +22,11 @@
   </div>
 
   <div class="control-group">
-    <div class="form-actions">
-      <%= f.submit nil, :class => "btn btn-primary" %>
-      <% unless @deck.id.nil? %>
-        <%= link_to 'Builder', build_deck_path(@deck), :class => "btn"  %>
-      <% end %>
-      <%= link_to 'Back', :back, :class => "btn" %>
-    </div>
+    <%= f.submit nil, :class => "btn btn-primary" %>
+    <% unless @deck.id.nil? %>
+      <%= link_to 'Builder', build_deck_path(@deck), :class => "btn"  %>
+    <% end %>
+    <%= link_to 'Back', :back, :class => "btn" %>
   </div>
 
 <% end %>

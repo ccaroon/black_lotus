@@ -1,20 +1,20 @@
-<div class="hero-unit">
+<div class="jumbotron">
   <h1>BlackLotus</h1>
   <p>A <strong><a href="http://www.wizards.com/Magic/TCG/Default.aspx" target="_blank">Magic: The Gathering</a></strong> card database.</p>
   <p>
-    <a href="<%= cards_path %>" class="btn btn-primary btn-large">Get Started!</a>
+    <a href="<%= cards_path %>" class="btn btn-primary btn-lg">Get Started!</a>
   </p>
 </div>
 
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="well span7">
+<div class="container">
+  <div class="row">
+    <div class="well col-md-7">
       <p class="text-center">
-        <ul class="unstyled">
-          <li><h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Card.count) %> Unique Cards</h3></li>
-        <li><h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Edition.count) %> Editions spanning <%= Edition.order(:release_date).first.release_date.year %> to <%= Edition.order(:release_date).last.release_date.year%></h3></li>
+        <ul class="list-unstyled">
+          <li><h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Card.count) %> Unique Cards</h3></li>
+        <li><h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Edition.count) %> Editions spanning <%= Edition.order(:release_date).first.release_date.year %> to <%= Edition.order(:release_date).last.release_date.year%></h3></li>
         <li>
-          <h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Card.total) %> Total Cards</h3>
+          <h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Card.total) %> Total Cards</h3>
           <ul>
             <li><h4><%= number_with_delimiter(Card.total(:basic_land)) %> Basic Lands</h4></li>
             <li><h4><%= number_with_delimiter(Card.total(:creature)) %> Creatures</h4></li>
@@ -22,11 +22,11 @@
             <li><h4><%= number_with_delimiter(Card.total(:planeswalker)) %> Planeswalkers</h4></li>
           </ul>
         </li>
-        <li><h3><i class="icon-hand-right"></i> <%= number_with_delimiter(Deck.count) %> Total Decks</h3></li>
+        <li><h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Deck.count) %> Total Decks</h3></li>
         </ul>
       </p>   
     </div>
-    <div class="span3">
+    <div class="col-md-3">
       <div id="card_slides" class="carousel slide">
       
         <!-- items -->
