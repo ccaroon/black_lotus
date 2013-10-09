@@ -1,6 +1,6 @@
 <%= form_for @deck, :html => {:class => 'form-horizontal'} do |f| %>
   <% if @deck.errors.any? %>
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
       <h4>Unable to save Deck: <%= @deck.errors.count %> errors.</h4>
     </div>
   <% end %>

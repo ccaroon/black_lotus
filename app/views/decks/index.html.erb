@@ -2,12 +2,16 @@
 
 <%= paginate @decks %>
 
-<form>
-  <div class="input-group">
-    <input type="text" name="search_string" class="input-medium search-query" autofocus>
-    <i class="input-group-addon glyphicon glyphicon-search"></i>
+<form role="form">
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" name="search_string" class="form-control" autofocus>
+      <i class="input-group-addon glyphicon glyphicon-search"></i>
+    </div>
   </div>
 </form>
+
+<p></p>
 
 <table class="table table-striped table-condensed">
   <tr>
@@ -18,8 +22,8 @@
   </tr>
 
 <% @decks.each do |deck| %>
-  <tr class="<%= deck.validate.empty? ? '' : 'error' %>">
-    <td><%= deck.name %></td>
+  <tr class="<%= deck.validate.empty? ? '' : 'danger' %>">
+    <td><%= link_to deck.name, deck %></td>
     <td><%= deck.format %></td>
     
     <td><%= deck.main_count %> (<%= deck.side_count %>)</td>

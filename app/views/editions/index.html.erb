@@ -3,9 +3,11 @@
 <%= paginate @editions %>
 
 <form>
-  <div class="input-group">
-    <input type="text" name="search_string" class=" input-medium search-query" autofocus>
-    <i class="input-group-addon glyphicon glyphicon-search"></i>
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" name="search_string" class="input form-control" autofocus>
+      <i class="input-group-addon glyphicon glyphicon-search"></i>
+    </div>
   </div>
 </form>
 
@@ -20,7 +22,7 @@
 
 <% @editions.each do |edition| %>
   <tr>
-    <td><%= edition.name %></td>
+    <td><%= link_to edition.name, edition %></td>
     <td><%= edition.release_date %></td>
     <td>
       <%= edition.cards.count %>/<%= edition.card_count %>
@@ -28,7 +30,7 @@
     <td>
       <% percent = ((edition.cards.count.to_f/edition.card_count) * 100).to_i %>
       <div title="<%= percent %>%" class="progress progress-striped">
-        <div class="bar" style="width: <%= percent %>%;"></div>
+        <div class="progress-bar" style="width: <%= percent %>%;"></div>
       </div>
     </td>
     <td>

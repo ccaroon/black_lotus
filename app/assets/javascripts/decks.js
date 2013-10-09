@@ -56,7 +56,7 @@ BlackLotus.Deckbuilder = {
     },
 
     set_search_error: function (msg) {
-        $('#search_error').addClass('alert').text(msg);
+        $('#search_error').addClass('alert alert-warning').text(msg);
     },
 
     clear_search_results: function () {
@@ -64,7 +64,7 @@ BlackLotus.Deckbuilder = {
     },
 
     clear_search_error: function () {
-        $('#search_error').removeClass('alert').text('');
+        $('#search_error').removeClass('alert alert-warning').text('');
     },
 
     display_search_results: function (cards) {
