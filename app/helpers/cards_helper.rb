@@ -6,10 +6,10 @@ module CardsHelper
     rarity = card_or_rarity.is_a?(Card) ? card_or_rarity.rarity : card_or_rarity
     
     case rarity
-    when 'Common'      then css_class = 'badge badge-inverse'
-    when 'Uncommon'    then css_class = 'badge'
-    when 'Rare'        then css_class = 'badge badge-warning'
-    when 'Mythic Rare' then css_class = 'badge badge-important'
+    when 'Common'      then css_class = 'label label-inverse'
+    when 'Uncommon'    then css_class = 'label label-default'
+    when 'Rare'        then css_class = 'label label-warning'
+    when 'Mythic Rare' then css_class = 'label label-danger'
     end
 
     return css_class;

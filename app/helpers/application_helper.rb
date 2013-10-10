@@ -22,7 +22,7 @@ module ApplicationHelper
     html = '';
     if model.errors[attr.to_sym].present?
       model.errors[attr.to_sym].each do |msg|
-        html += "<span class='label label-important'>...#{msg.titlecase}</span>"
+        html += "<span class='label label-danger'>...#{msg.titlecase}</span>"
       end
     end
 

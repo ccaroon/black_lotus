@@ -26,9 +26,10 @@
     <td><%= link_to deck.name, deck %></td>
     <td><%= deck.format %></td>
     
-    <td><%= deck.main_count %> (<%= deck.side_count %>)</td>
+    <td><span class="badge"><%= deck.main_count %></span></td>
     
     <td>
+      <div class="pull-right">
       <%= link_to deck, :class => "btn btn-default btn-sm" do %>
         <i class="glyphicon glyphicon-eye-open"></i>
       <% end %>
@@ -38,6 +39,7 @@
       <%= link_to deck, method: :delete, :class => "btn btn-sm btn-danger", data: { confirm: "Delete '#{deck.name}'?" } do %>
         <i class="glyphicon glyphicon-trash"></i>
       <% end %>
+    </div>
     </td>
   </tr>
 <% end %>

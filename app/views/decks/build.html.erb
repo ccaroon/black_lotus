@@ -73,7 +73,7 @@
   <ul class="list-inline">
     <% @deck.stats[:color].sort.each do |color|%>
         <% next if color[1] <= 0 %>
-        <li><span class="badge <%=color_to_badge(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
+        <li><span class="<%=color_to_label(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
     <% end %>
   </ul>
 

@@ -1,25 +1,29 @@
 module DecksHelper
 
-  def color_to_badge(color)
-    badge = case color
+  def color_to_label(color)
+    label = case color
     when :red
-      'badge-important'
+      'label label-danger'
     when :green
-      'badge-success'
+      'label label-success'
     when :blue
-      'badge-info'
+      'label label-primary'
     when :black
-      'badge-inverse'
+      'label label-default'
     when :white
-      'badge-warning'
+      'label label-warning'
     else
       ''
     end
 
-    return(badge)
+    return(label)
   end
 
   def deck_error?(attr)
+    return @deck.errors[attr].present?
+  end
+
+  def display_deck_error(attr)
     display_error_if_error @deck, attr
   end
   

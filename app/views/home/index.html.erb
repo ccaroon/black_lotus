@@ -11,10 +11,10 @@
     <div class="well col-md-7">
       <p class="text-center">
         <ul class="list-unstyled">
-          <li><h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Card.count) %> Unique Cards</h3></li>
-        <li><h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Edition.count) %> Editions spanning <%= Edition.order(:release_date).first.release_date.year %> to <%= Edition.order(:release_date).last.release_date.year%></h3></li>
+          <li><h3><i class="glyphicon glyphicon-fire"></i> <%= number_with_delimiter(Card.count) %> Unique Cards</h3></li>
+        <li><h3><i class="glyphicon glyphicon-tree-conifer"></i> <%= number_with_delimiter(Edition.count) %> Editions spanning <%= Edition.order(:release_date).first.release_date.year %> to <%= Edition.order(:release_date).last.release_date.year%></h3></li>
         <li>
-          <h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Card.total) %> Total Cards</h3>
+          <h3><i class="glyphicon glyphicon-tint"></i> <%= number_with_delimiter(Card.total) %> Total Cards</h3>
           <ul>
             <li><h4><%= number_with_delimiter(Card.total(:basic_land)) %> Basic Lands</h4></li>
             <li><h4><%= number_with_delimiter(Card.total(:creature)) %> Creatures</h4></li>
@@ -22,13 +22,13 @@
             <li><h4><%= number_with_delimiter(Card.total(:planeswalker)) %> Planeswalkers</h4></li>
           </ul>
         </li>
-        <li><h3><i class="glyphicon glyphicon-hand-right"></i> <%= number_with_delimiter(Deck.count) %> Total Decks</h3></li>
+        <li><h3><i class="glyphicon glyphicon-certificate"></i> <%= number_with_delimiter(Deck.count) %> Total Decks</h3></li>
         </ul>
       </p>   
     </div>
     <div class="col-md-3">
       <div id="card_slides" class="carousel slide">
-      
+
         <!-- items -->
         <div class="carousel-inner">
           <% is_first = true %>
@@ -39,7 +39,8 @@
             <% is_first = false %>
           <% end %>
         </div>
-      </div>      
+      </div>
+
     </div>
   </div>
 </div>
