@@ -1,10 +1,10 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <img src="<%= card_image_path(@card) %>">
-      <%= button_to 'Re-fetch Info', card_fetch_info_path, method: :get, class: "btn btn-sm btn-inverse"%>
-    </div>
-    <div class="col-md-7">
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag card_image_path(@card), :class => "img-rounded" %>
+    <%= button_to 'Re-fetch Info', card_fetch_info_path, method: :get, class: "btn btn-sm btn-default"%>
+  </div>
+  <div class="col-md-8">
+    <div class="container">
       <dl>
         <dt>Name</dt>
         <dd><%= @card.name %></dd>
@@ -41,9 +41,10 @@
 
         <div class="well"><%= raw @card.text_box.present? ? @card.text_box.sub(/\n/, "<br>") : '' %></div>
       </dl>
+
+      <%= link_to 'Edit', edit_card_path(@card), :class => "btn btn-primary" %>
+      <%= link_to 'Back', :back, :class => "btn btn-default" %>
       
-      <%= link_to 'Edit', edit_card_path(@card), :class => "btn" %>
-      <%= link_to 'Back', :back, :class => "btn" %>
     </div>
   </div>
 </div>

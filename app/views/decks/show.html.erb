@@ -1,47 +1,60 @@
 <div class="page-header">
   <h1><%= @deck.name %> &mdash; <%= @deck.format %> (<%= @deck.main_count %>/<%= @deck.side_count %>)</h1>
-  <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-default btn-xs" %>
-  <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-default btn-xs" %>
+  <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-primary btn-xs" %>
+  <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-success btn-xs" %>
   <%= link_to 'Back', :back, :class => "btn btn-default btn-xs" %>
 </div>
 
-<h2 class="text-center">Main Deck (<%= @deck.main_count %>)</h2>
-<div class="container">
-  <ul id="main_deck" class="img-thumbnail">
-    <% @deck.card_in_deck.each do |card_in_deck| %>
-    <% next unless card_in_deck.main_copies > 0 %>
-    <li class="col-md-2">
-      <div class="img-thumbnail">
-        <img src="<%= card_image_path(card_in_deck.card) %>">
-        <p class="text-center"><strong>x <%= card_in_deck.main_copies %></strong></p>
-      </div>
-    </li>
-    <% end %>
-  </ul>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="text-center">Main Deck (<%= @deck.main_count %>)</h3>
+    </div>
+    <div class="panel-body">
+      <% @deck.card_in_deck.each do |card_in_deck| %>
+        <% next unless card_in_deck.main_copies > 0 %>
+        <div class="col-xs-4 col-md-3 col-lg-3">
+          <div class="thumbnail">
+            <img src="<%= card_image_path(card_in_deck.card) %>">
+            <div class="caption text-center">
+              x <strong><%= card_in_deck.main_copies %></strong>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<h2 class="text-center">Sideboard (<%= @deck.side_count %>)</h2>
-<div class="container">
-  <ul id="sideboard" class="img-thumbnail">
-    <% @deck.card_in_deck.each do |card_in_deck| %>
-    <% next unless card_in_deck.side_copies > 0 %>
-    <li class="col-md-2">
-      <div class="img-thumbnail">
-        <img src="<%= card_image_path(card_in_deck.card) %>">
-        <p class="text-center"><strong>x <%= card_in_deck.side_copies %></strong></p>
-      </div>
-    </li>
-    <% end %>
-  </ul>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="text-center">Sideboard (<%= @deck.side_count %>)</h3>
+    </div>
+    <div class="panel-body">
+      <% @deck.card_in_deck.each do |card_in_deck| %>
+        <% next unless card_in_deck.side_copies > 0 %>
+        <div class="col-xs-4 col-md-3 col-lg-3">
+          <div class="thumbnail">
+            <img src="<%= card_image_path(card_in_deck.card) %>">
+            <div class="caption text-center">
+              x <strong><%= card_in_deck.side_copies %></strong>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <% content_for :sidebar do %>
-<% reasons = @deck.validate %>
-<% if reasons.present? %>
-  <div>
-    <% reasons.each do |r|%>
-      <li><%= r %></li>
-    <% end %>
-  </div>
-<% end %>
+  <% reasons = @deck.validate %>
+  <% if reasons.present? %>
+    <div class="container">
+      <div class="page-header"><strong>Deck Invalid</strong></div>
+      <% reasons.each do |r|%>
+        <div class="alert alert-warning"><%= r %></div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

@@ -13,7 +13,4 @@
  *= require twitter/bootstrap-theme
  *= require_tree .
  */
-
-.label-inverse {
-  background-color: #000000;
-}
+ 
