@@ -16,7 +16,7 @@
   <div class="form-group">
     <%= f.label :mana_cost, :class => "col-sm-2 control-label" %>
     <div class="col-sm-5">
-      <%= f.text_field :mana_cost, :class => 'form-control' %>
+      <%= f.text_field :mana_cost, :autocomplete => 'off', :class => 'form-control' %>
       <%= card_error? :mana_cost %>
       <%= card_data_mismatch? :mana_cost %>
     </div>

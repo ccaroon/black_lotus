@@ -22,7 +22,7 @@ module CardsHelper
     html.gsub!(/U/, '<span class="badge badge-primary mana">U</span>')
     html.gsub!(/B/, '<span class="badge badge-inverse">B</span>')
     html.gsub!(/W/, '<span class="badge badge-white mana">W</span>')
-    html.gsub!(/(\d)/, '<span class="badge mana">\1</span>')
+    html.gsub!(/(X|\d+)/, '<span class="badge mana">\1</span>')
 
     return html.html_safe
   end
