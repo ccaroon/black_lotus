@@ -34,7 +34,7 @@
   <div class="form-group">
     <%= f.label :sub_type, :class => "col-sm-2 control-label" %>
     <div class="col-sm-5">
-      <%= f.text_field :sub_type, :autocomplete => 'off', :class=> 'form-control', 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
+      <%= f.text_field :sub_type, :autocomplete => 'off', :class=> 'typeahead form-control' %>
       <%= card_error? :sub_type %>
       <%= card_data_mismatch? :sub_type %>
     </div>

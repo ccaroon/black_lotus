@@ -11,7 +11,13 @@ BlackLotus.Card = {
             count = $('#card_count').val();
             count = Number(count) + 1;
             $('#card_count').val(count);        
-        });        
+        });
+
+        $('#card_sub_type').typeahead({
+          name: 'sub_type',
+          local: <%= Card.sub_types.to_json %>
+        });
+
     }
 
 };

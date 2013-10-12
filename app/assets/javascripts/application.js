@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require typeahead
 //= require bootstrap-datepicker
 //= require bootstrap-fixes
 //= require black_lotus
