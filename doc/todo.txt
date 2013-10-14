@@ -4,6 +4,7 @@ Todo
 Misc
 ----
 X. Get rid of coffeescript.
+* form validation input color (has-error). See deck new/edit template
 
 Decks
 -----
@@ -37,6 +38,10 @@ X. Show deck stats
    - include builder.js.coffee (move builder JS from decks.js.coffee)
    X show deck stats in left sidebar
 
+Editions
+--------
+* Add Block attribute
+
 Cards
 -----
 X. More filters on list page
@@ -45,7 +50,7 @@ X. More filters on list page
     X sub type
 X. When fetching image, fetch image from newest edition of owned editions
 X. show count on list page
-3. Info/Image Fetching
+X. Info/Image Fetching
     X use image of the latest version owned
     X re-vamp to use `http://magiccards.info/ONLINE_CODE/en.html` card list for
       `fetch_info`
