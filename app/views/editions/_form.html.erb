@@ -5,52 +5,54 @@
     </div>
   <% end %>
 
-  <div class="control-group">
-    <%= f.label :name, :class=> "control-label" %>
-    <div class="controls">
-      <%= f.text_field :name, :autofocus => true %>
-      <%= edition_error? :name %>
+  <div class="form-group <%= edition_error?(:name) ? 'has-error' : '' %>">
+    <%= f.label :name, :class=> "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :name, :autofocus => true, :class => 'form-control' %>
+      <%= display_edition_error :name %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :code_name, :class=> "control-label" %>
-    <div class="controls">
-      <%= f.text_field :code_name %>
-      <%= edition_error? :code_name %>
+  <div class="form-group <%= edition_error?(:code_name) ? 'has-error' : '' %>">
+    <%= f.label :code_name, :class=> "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :code_name, :class => 'form-control' %>
+      <%= display_edition_error :code_name %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :online_code, :class=> "control-label" %>
-    <div class="controls">
-      <%= f.text_field :online_code %>
-      <%= edition_error? :online_code %>
+  <div class="form-group <%= edition_error?(:online_code) ? 'has-error' : '' %>">
+    <%= f.label :online_code, :class=> "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :online_code, :class => 'form-control' %>
+      <%= display_edition_error :online_code %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :card_count, :class=> "control-label" %>
-    <div class="controls">
-      <%= f.text_field :card_count %>
-      <%= edition_error? :card_count %>
+  <div class="form-group <%= edition_error?(:card_count) ? 'has-error' : '' %>">
+    <%= f.label :card_count, :class=> "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :card_count, :class => 'form-control' %>
+      <%= display_edition_error :card_count %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :release_date, :class=> "control-label" %>
-    <div class="controls">
+  <div class="form-group <%= edition_error?(:release_date) ? 'has-error' : '' %>">
+    <%= f.label :release_date, :class=> "col-sm-2 control-label" %>
+    <div class="col-sm-5">
       <div class="input-group date" id="release_date" data-date="<% Date.today.to_s %>" data-date-format="yyyy-mm-dd">
-        <%= f.text_field :release_date %>
+        <%= f.text_field :release_date, :class => 'form-control' %>
         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
       </div>
-      <%= edition_error? :release_date %>
+      <%= display_edition_error :release_date %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.submit nil, :class => "btn btn-primary" %>
-    <%= link_to 'Back', :back, :class => "btn" %>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
+      <%= f.submit nil, :class => "btn btn-primary" %>
+      <%= link_to 'Back', :back, :class => "btn btn-default" %>
+    </div>
   </div>
 
 <% end %>

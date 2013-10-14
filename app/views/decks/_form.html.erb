@@ -22,7 +22,7 @@
   </div>
 
   <div class="form-group">
-    <div class="col-sm-6">
+    <div class="col-sm-offset-1 col-sm-5">
       <%= f.submit nil, :class => "btn btn-primary" %>
       <% unless @deck.id.nil? %>
         <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-default"  %>
