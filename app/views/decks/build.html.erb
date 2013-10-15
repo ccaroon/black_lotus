@@ -2,61 +2,66 @@
   <h1>Deck Builder:  <%= @deck.name %> &mdash; <%= @deck.format %></h1>
 </div>
 
-<div class="navbar">
-  <form class="navbar-search pull-left" onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
-    <input id="search_string" 
-           type="text" 
-           name="search_string"
-           autocomplete="off"
-           placeholder="Search Cards..."
-           autofocus >
-    <span id="search_error"></span>
+<div class="row">
+  <form onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
+    <div class="form-group">
+        <input id="search_string" 
+               type="text" 
+               name="search_string"
+               class="form-control"
+               autocomplete="off"
+               placeholder="Search Cards..."
+               autofocus >
+    </div>
   </form>
 </div>
 
-<!-- <div class="well"> -->
-  <div class="container">
-    <ul id="search_results" class="img-thumbnail"></ul>
-  </div>
-<!-- </div> -->
+<div class="row">
+    <div id="search_results"></div>
+</div>
 
-<div id="main_cards" class="well collapse in">
-  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main_cards"><i class="glyphicon glyphicon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button></p>
-
-  <div class="container">
-    <ul id="main" class="img-thumbnail">
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main"><i class="glyphicon glyphicon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button>
+    </div>
+    <div id="main" class="panel-body collapse in">
       <% @deck.card_in_deck.each do |cid| %>
       <% next unless cid.main_copies > 0 %>
       <% card = cid.card %>
-      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-2 existing_card">
-        <div id="card_img_<%= card.id %>" class="img-thumbnail">
-          <img src="<%= card_image_path(card) %>">
-          <p class="text-center"><strong>x <%= cid.main_copies %></strong></p>
+      <div id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-3 existing_card">
+        <div id="card_img_<%= card.id %>" class="thumbnail">
+          <img src="<%= card_image_path(card) %>" class="img-responsive">
+          <div class="caption text-center">
+            x <strong><%= cid.main_copies %></strong>
+          </div>
         </div>
-      </li>
+      </div>
       <% end %>
-    </ul>
+    </div>
   </div>
 </div>
 
-<div id="side_cards" class="well collapse in">
-  <p><button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side_cards"><i class="glyphicon glyphicon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button></p>
-
-  <div class="container">
-    <ul id="side" class="img-thumbnail">
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side"><i class="glyphicon glyphicon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button>
+    </div>
+    <div id="side" class="panel-body collapse in">
       <% @deck.card_in_deck.each do |cid| %>
       <% next unless cid.side_copies > 0 %>
       <% card = cid.card %>
-      <li id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-2 existing_card">
-        <div id="card_img_<%= card.id %>" class="img-thumbnail">
-          <img src="<%= card_image_path(card) %>">
-          <p class="text-center"><strong>x <%= cid.side_copies %></strong></p>
+      <div id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-3 existing_card">
+        <div id="card_img_<%= card.id %>" class="thumbnail">
+          <img src="<%= card_image_path(card) %>" class="img-responsive">
+          <div class="caption text-center">
+            x <strong><%= cid.side_copies %></strong>
+          </div>
         </div>
-      </li>
+      </div>
       <% end %>
-    </ul>
+    </div>
   </div>
-
 </div>
 
 <!-- ####################################################################### -->

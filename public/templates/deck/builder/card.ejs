@@ -1,9 +1,9 @@
-<li id='sr_card_<%= card.id %>' data-id='<%= card.id %>' class='col-md-2 search_result'>
-  <div id='sr_card_img_<%= card.id %>' class='img-thumbnail' style='display:none'>
-      <img src='/card_images/<%= card.image_name %>'>
+<div id='sr_card_<%= card.id %>' data-id='<%= card.id %>' class='col-md-3 search_result'>
+  <div id='sr_card_img_<%= card.id %>' class='thumbnail' style='display:none'>
+      <img src='/card_images/<%= card.image_name %>' class="img-responsive">
+      <div class="caption text-center">
       <% if (card.available_count > 0) { %>
-      <p>
-      <p class="text-center">Available: <%= card.available_count %></p>
+      <p>Available: <%= card.available_count %></p>
       <div class='btn-group'>
           <button class='btn btn-sm btn-primary' disabled='disabled'>Main</button>
           <button class='btn btn-default btn-sm' onClick='BlackLotus.Deckbuilder.add_card("main", <%= card.id %>, "<%= card.image_name %>", 1)'>+1</button>
@@ -20,8 +20,8 @@
       </div>
       </p>
       <% } else { %>
-        <p class="text-center">None Available</p>
+        <p>None Available</p>
       <% } %>
-
+      </div>
   </div>
-</li>
+</div>

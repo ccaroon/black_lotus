@@ -56,7 +56,7 @@ BlackLotus.Deckbuilder = {
     },
 
     set_search_error: function (msg) {
-        $('#search_error').addClass('alert alert-warning').text(msg);
+        $('#search_results').addClass('alert alert-warning').text(msg);
     },
 
     clear_search_results: function () {
@@ -64,7 +64,7 @@ BlackLotus.Deckbuilder = {
     },
 
     clear_search_error: function () {
-        $('#search_error').removeClass('alert alert-warning').text('');
+        $('#search_results').removeClass('alert alert-warning').text('');
     },
 
     display_search_results: function (cards) {
@@ -92,16 +92,17 @@ BlackLotus.Deckbuilder = {
     },
 
     add_card: function (deck_type, id, image_name, count) {
-        var deck         = $("#"+deck_type),
-            card_x       = "add_card_"+deck_type+"_"+id,
-            added_card   = $("#"+card_x),
-            curr_value   = null,
-            old_count    = null,
-            parts        = null,
-            new_count    = null,
-            card_img     = null,
-            cards_to_add = null,
-            template     = null;
+        var deck          = $("#"+deck_type),
+            card_x        = "add_card_"+deck_type+"_"+id,
+            added_card    = $("#"+card_x),
+            curr_value    = null,
+            old_count     = null,
+            count_element = null,
+            parts         = null,
+            new_count     = null,
+            card_img      = null,
+            cards_to_add  = null,
+            template      = null;
 
         if (added_card.length) {
             curr_value = added_card.val();
@@ -109,9 +110,8 @@ BlackLotus.Deckbuilder = {
             old_count  = parts[2];
             new_count  = Number(old_count) + Number(count);
 
-            // # TODO: get this working
-            // # count_element = $("card_#{id}_count");
-            // # count_element.html(new_count);
+            count_element = $("#card_"+id+"_count");
+            count_element.html(new_count);
 
             added_card.val(id + "|" + deck_type + "|" + new_count);
 
@@ -121,14 +121,14 @@ BlackLotus.Deckbuilder = {
         }
         else {
             template = this.template_from_string(
-                "<li id='card_<%= id %>' data-id='<%= id %>' class='col-md-2'>                        \
-                    <div id='card_img_<%= id %>' class='img-thumbnail' style='display:none'>           \
+                "<div id='card_<%= id %>' data-id='<%= id %>' class='col-md-3'>                    \
+                    <div id='card_img_<%= id %>' class='thumbnail' style='display:none'>           \
                         <img src='/card_images/<%= image_name %>'>                                 \
-                        <p class='text-center'>                                                    \
-                            <strong>x <span id='card_<%= id %>_count'><%= count %></span></strong> \
-                        </p>                                                                       \
+                        <div class='caption text-center'>                                          \
+                            x <strong><span id='card_<%= id %>_count'><%= count %></span></strong> \
+                        </div>                                                                     \
                     </div>                                                                         \
-                </li>"
+                </div>"
             );
             deck.prepend(template.render({ id: id, image_name: image_name, count: count}));
 
