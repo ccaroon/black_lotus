@@ -2,16 +2,19 @@
 
 <%= paginate @editions %>
 
-<form class="form-search">
-  <div class="input-append">
-    <input type="text" name="search_string" class=" input-medium search-query" autofocus>
-    <i class="add-on icon-search"></i>
+<form>
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" name="search_string" class="input form-control" autofocus>
+      <i class="input-group-addon glyphicon glyphicon-search"></i>
+    </div>
   </div>
 </form>
 
 <table class="table table-striped table-condensed">
   <tr>
     <th>Name</th>
+    <th>Symbol</th>
     <th>Released</th>
     <th>Cards</th>
     <th>Progress</th>
@@ -20,7 +23,8 @@
 
 <% @editions.each do |edition| %>
   <tr>
-    <td><%= edition.name %></td>
+    <td><%= link_to edition.name, edition %></td>
+    <td><%= image_tag "editions/#{edition.code_name}.gif" %></td>
     <td><%= edition.release_date %></td>
     <td>
       <%= edition.cards.count %>/<%= edition.card_count %>
@@ -28,18 +32,18 @@
     <td>
       <% percent = ((edition.cards.count.to_f/edition.card_count) * 100).to_i %>
       <div title="<%= percent %>%" class="progress progress-striped">
-        <div class="bar" style="width: <%= percent %>%;"></div>
+        <div class="progress-bar" style="width: <%= percent %>%;"></div>
       </div>
     </td>
     <td>
-      <%= link_to edition, :class => "btn btn-small" do %>
-        <i class="icon-eye-open"></i>
+      <%= link_to edition, :class => "btn btn-default btn-sm" do %>
+        <i class="glyphicon glyphicon-eye-open"></i>
       <% end %>
-      <%= link_to edit_edition_path(edition), :class => "btn btn-small"  do %>
-        <i class="icon-pencil"></i>
+      <%= link_to edit_edition_path(edition), :class => "btn btn-default btn-sm"  do %>
+        <i class="glyphicon glyphicon-pencil"></i>
       <% end %>
-      <%= link_to edition, :class => "btn btn-small btn-danger", method: :delete, data: { confirm: "Delete '#{edition.name}'?" } do %>
-        <i class="icon-trash  "></i>
+      <%= link_to edition, :class => "btn btn-sm btn-danger", method: :delete, data: { confirm: "Delete '#{edition.name}'?" } do %>
+        <i class="glyphicon glyphicon-trash  "></i>
       <% end %>
     </td>
   </tr>

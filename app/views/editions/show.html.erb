@@ -1,22 +1,15 @@
 <div class="page-header">
   <h1><%= @edition.name %> (<%= @edition.cards.count %>/<%= @edition.card_count %>)</h1>
-  <%= link_to 'Edit', edit_edition_path(@edition), :class => "btn btn-mini" %>
-  <%= link_to 'Back', :back, :class => "btn btn-mini" %>
+  <%= link_to 'Edit', edit_edition_path(@edition), :class => "btn btn-primary btn-xs" %>
+  <%= link_to 'Back', :back, :class => "btn btn-default btn-xs" %>
 </div>
 
-<div class="container-fluid">
-  <ul class="thumbnails">
-    <% @edition.cards.each do |card| %>
-    <li class="span2">
-      <div class="thumbnail">
-        <a rel="popover" href="javascript:void(0)"
-           data-placement="top"
-           data-html="true"
-           data-animation="false"
-           data-trigger="focus"
-           data-content='<%= (render :partial => 'shared/card', locals: {card: card, count: card.count } ).html_safe %>'><img src="<%= card_image_path(card) %>" alt="<%= card.name %>" style="cursor: help" width="200"></a>        
-      </div>
-    </li>
-    <% end %>
-  </ul>
+<div class="row">
+  <% @edition.cards.each do |card| %>
+  <div class="col-xs-4 col-md-2 col-lg-2">
+    <div class="thumbnail">
+        <a href="<%= card_path card%>"><img src="<%= card_image_path(card) %>" class="img-responsive"></a>
+    </div>
+  </div>
+  <% end %>
 </div>

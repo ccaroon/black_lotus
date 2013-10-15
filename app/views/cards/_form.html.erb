@@ -1,102 +1,107 @@
 <%= form_for @card, :html => {:class => 'form-horizontal'} do |f| %>
   <% if @card.errors.any? %>
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
       <h4>Unable to save Card: <%= @card.errors.count %> errors.</h4>
     </div>
   <% end %>
 
-  <div class="control-group">
-    <%= f.label :name, :class=> "control-label" %>
-    <div class="controls">
-      <%= f.text_field :name, :autofocus => true %>
+  <div class="form-group">
+    <%= f.label :name, :class=> "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :name, :autofocus => true, :class => 'form-control' %>
       <%= card_error? :name %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :mana_cost, :class => "control-label" %>
-    <div class="controls">
-      <%= f.text_field :mana_cost %>
+  <div class="form-group">
+    <%= f.label :mana_cost, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :mana_cost, :autocomplete => 'off', :class => 'form-control' %>
       <%= card_error? :mana_cost %>
       <%= card_data_mismatch? :mana_cost %>
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :main_type, :class => "control-label" %>
-    <div class="controls">
-      <%= f.select :main_type, Card::CARD_TYPES.values %>
+  <div class="form-group">
+    <%= f.label :main_type, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.select :main_type, Card::CARD_TYPES.values, {}, :class => 'form-control' %>
       <%= card_error? :main_type %>
       <%= card_data_mismatch? :main_type %>
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :sub_type, :class => "control-label" %>
-    <div class="controls">
-      <%= f.text_field :sub_type, :autocomplete => 'off', 'data-provide' => 'typeahead', 'data-source' => Card.sub_types.to_json %>
+  <div class="form-group">
+    <%= f.label :sub_type, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <%= f.text_field :sub_type, :autocomplete => 'off', :class=> 'typeahead form-control' %>
       <%= card_error? :sub_type %>
       <%= card_data_mismatch? :sub_type %>
     </div>
   </div>
 
-  <div class="control-group">
-    <%= f.label :editions, :class => "control-label" %>
-    <div class="controls">
-      <ul class="inline">
+  <div class="form-group">
+    <%= f.label :editions, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-5">
+      <ul class="list-inline">
         <% @card.editions.each do |e| %>
-          <li><span class="label label-default"><%= e.name %></span></li>
+          <li><span class="label label-inverse"><%= e.name %></span></li>
         <% end %>
       </ul>
-      <%= f.collection_select :editions, @card.available_editions.reverse, :id, :name, {:include_blank => true} %>
+      <%= f.collection_select :editions, @card.available_editions.reverse, :id, :name, {:include_blank => true}, :class => 'form-control' %>
       <%= card_error? :editions %>
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :foil, :class => "control-label" %>
-    <div class="controls">
+  <div class="form-group">
+    <%= f.label :foil, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-5">
       <%= f.check_box :foil %>
       <%= card_error? :foil %>
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :rarity, :class => "control-label" %>
-    <div class="controls">
+  <div class="form-group">
+    <%= f.label :rarity, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-5">
       <% Card::RARITIES.each do |r| %>
-        <%= f.radio_button :rarity,  r, :class => 'radio inline' %> <span class="badge <%= rarity_to_css(r) %>"><%= r %></span>
+        <%= f.radio_button :rarity,  r, :class => 'radio-inline' %> <span class="<%= rarity_to_css(r) %>"><%= r %></span>
       <% end %>
       <%= card_error? :rarity %>
       <%= card_data_mismatch? :rarity %>
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :count, :class => "control-label" %>
-    <div class="controls">
-      <div class="input-prepend input-append">
-        <button id="card_count_dec" class="btn" type="button"><i class="icon-minus"></i></button>
-        <%= f.number_field :count, :class => "input-mini", :disabled => false %>  
-        <button id="card_count_inc" class="btn" type="button"><i class="icon-plus"></i></button>
+  <div class="form-group">
+    <%= f.label :count, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-2">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button id="card_count_dec" class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-minus"></i></button>
+        </span>
+        <%= f.number_field :count, :class => "input-sm form-control", :disabled => false %>
+        <span class="input-group-btn">
+        <button id="card_count_inc" class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+        </span>
       </div>
       <%= card_error? :count %>
     </div>
   </div>
   
-  <div class="control-group">
-    <%= f.label :deck, :class => "control-label" %>
-    <div class="controls">
-      <%= collection_select :deck, :deck_id, Deck.order(:name).all, :id, :name, {:include_blank => true} %>
-      <%= text_field :deck, :count, :class => 'input-mini' %>
+  <div class="form-group">
+    <%= f.label :deck, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-3">
+      <%= collection_select :deck, :deck_id, Deck.order(:name).all, :id, :name, {:include_blank => true}, :class => 'form-control' %>
+    </div>
+    <div class="col-sm-1">
+      <%= text_field :deck, :count, :class => 'input-sm form-control' %>
     </div>
   </div>
 
-
-  <div class="control-group">
-    <div class="form-actions">
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
       <%= f.submit nil, :class => "btn btn-primary" %>
-      <%= link_to 'Back', :back, :class => "btn" %>
+      <%= link_to 'Back', :back, :class => "btn btn-default" %>
     </div>
   </div>
 <% end %>

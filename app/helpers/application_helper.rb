@@ -22,11 +22,19 @@ module ApplicationHelper
     html = '';
     if model.errors[attr.to_sym].present?
       model.errors[attr.to_sym].each do |msg|
-        html += "<span class='label label-important'>...#{msg.titlecase}</span>"
+        html += "<span class='label label-danger'>...#{msg.titlecase}</span>"
       end
     end
 
     return html.html_safe
   end
-  
+  ##############################################################################
+  def flash_class(level)
+      case level
+          when :notice then "alert-info"
+          when :success then "alert-success"
+          when :error then "alert-danger"
+          when :alert then "alert-warning"
+      end
+  end  
 end

@@ -3,46 +3,64 @@
 <%= paginate @cards %>
 
 <form class="form-inline" method="get">
-  <%= text_field :card, :name, {
-    class: "input-small search-query", 
-    autofocus: 1, 
-    placeholder: "Card Name", 
-    value: params[:card].present? ? params[:card][:name] : ''
-  }%>
+  <div class="form-group">
+    <%= text_field :card, :name, {
+      class: "input-sm form-control",
+      autofocus: 1, 
+      placeholder: "Card Name", 
+      value: params[:card].present? ? params[:card][:name] : ''
+    }%>
+  </div>
 
-  <%= text_field :card, :sub_type, {
-    :placeholder   => "Sub Type",
-    :class         => "input-small",
-    :autocomplete  => 'off', 
-    'data-provide' => 'typeahead', 
-    'data-source'  => Card.sub_types.to_json,
-    :value         => params[:card].present? ? params[:card][:sub_type] : '' 
-  }%>
+  <div class="form-group">
+    <%= text_field :card, :sub_type, {
+      :placeholder   => "Sub Type",
+      :class         => "typeahead input-sm form-control",
+      :autocomplete  => 'off', 
+      :value         => params[:card].present? ? params[:card][:sub_type] : '' 
+    }%>
+ </div>
+ 
+  <div class="form-group">
+    <%= text_field :card, :text_box, {
+      class: "input-sm form-control", 
+      placeholder: "Text Box", 
+      value: params[:card].present? ? params[:card][:text_box] : ''
+    }%>
+ </div> 
 
-  <%= text_field :card, :text_box, {
-    class: "input-small search-query", 
-    placeholder: "Text Box", 
-    value: params[:card].present? ? params[:card][:text_box] : ''
-  }%>
+  <div class="form-group">
+    <%= select :card, :main_type, Card::CARD_TYPES.values, {
+        include_blank: 'Card Type...', 
+        selected: params[:card].present? ? params[:card][:main_type] : ''
+      },    
+      class: "input-sm form-control"
+    %>
+  </div>
 
-  <%= select :card, :main_type, Card::CARD_TYPES.values, {
-    include_blank: 'Card Type...', 
-    selected: params[:card].present? ? params[:card][:main_type] : ''
-  }%>
+  <div class="form-group">
+    <%= select :card, :rarity, Card::RARITIES, {
+        include_blank: 'Rarity...', 
+        selected: params[:card].present? ? params[:card][:rarity] : ''
+      },
+      class: "input-sm form-control"
+    %>
+  </div>
 
-  <%= select :card, :rarity, Card::RARITIES, {
-    include_blank: 'Rarity...', 
-    selected: params[:card].present? ? params[:card][:rarity] : ''
-  }%>
+  <div class="form-group">
+    <%= select :card, :color, Card::COLORS.values.collect {|c| [c[:name], c[:code]]}, {
+        include_blank: 'Color...', 
+        selected: params[:card].present? ? params[:card][:color] : ''
+      },
+      class: "input-sm form-control"
+    %>
+  </div>
 
-  <%= select :card, :color, Card::COLORS.values.collect {|c| [c[:name], c[:code]]}, {
-    include_blank: 'Color...', 
-    selected: params[:card].present? ? params[:card][:color] : ''
-  }%>
-
-  <button class="btn">Filter</button>
+  <button class="btn btn-default btn-sm">Filter</button>
  
 </form>
+
+<p></p>
 
 <table class="table table-striped table-condensed">
   <tr>
@@ -58,12 +76,12 @@
 <% @cards.each do |card| %>
   <tr>
     <td>
-      <a rel="popover" href="#"
+      <a rel="popover" href="<%= card_path card%>"
          data-placement="right"
          data-html="true"
          data-animation="false"
          data-trigger="hover"
-         data-content="<img src='<%= card_image_path(card) %>'>"><%= card.name %></a>
+         data-content="<img src='<%= card_image_path(card) %>' class='img-responsive'>"><%= card.name %></a>
     </td>
     <td><%= card.mana_cost %></td>
     <td><%= card.main_type %></td>
@@ -72,17 +90,17 @@
     <td><%= card.count %></td>
     
     <td>
-      <%= link_to card, :class => 'btn btn-small' do %>
-        <i class="icon-eye-open"></i>
+      <%= link_to card, :class => 'btn btn-default btn-sm' do %>
+        <i class="glyphicon glyphicon-eye-open"></i>
       <% end %>
       
-      <%= link_to  edit_card_path(card), :class => 'btn btn-small' do %>
-        <i class="icon-pencil"></i>
+      <%= link_to  edit_card_path(card), :class => 'btn btn-default btn-sm' do %>
+        <i class="glyphicon glyphicon-pencil"></i>
       <% end %>
       
-      <%= link_to card, :class => 'btn btn-small btn-danger', method: :delete, data: { 
+      <%= link_to card, :class => 'btn btn-sm btn-danger', method: :delete, data: { 
         confirm: "'#{card.name}' is used in #{card.decks.count} decks.\n\nDelete?" } do %>
-        <i class="icon-trash"></i>
+        <i class="glyphicon glyphicon-trash"></i>
       <% end %>
     </td>
   </tr>

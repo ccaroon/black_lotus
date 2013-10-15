@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "BlackLotus" %></title>
     <%= csrf_meta_tags %>
@@ -20,37 +19,35 @@
   </head>
   <body>
 
-    <div class="navbar navbar-fluid-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <span class="brand"><abbr title="{T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.">BlackLotus</abbr></span>
-          <div class="container-fluid nav-collapse">
-            <ul class="nav">
-              <li class="<%= menu_item_active?('home') %>"><%= link_to "Home", root_path  %></li>
-              <li class="<%= menu_item_active?('cards') %>"><%= link_to "Cards", cards_path  %></li>
-              <li class="<%= menu_item_active?('decks') %>"><%= link_to "Decks", decks_path  %></li>
-              <li class="<%= menu_item_active?('editions') %>"><%= link_to "Editions", editions_path  %></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse">
+          <span class="glyphicon glyphicon-bar"></span>
+          <span class="glyphicon glyphicon-bar"></span>
+          <span class="glyphicon glyphicon-bar"></span>
+        </button>
+        <span class="navbar-brand"><abbr title="{T}, Sacrifice Black Lotus: Add three mana of any one color to your mana pool.">BlackLotus</abbr></span>
       </div>
-    </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li class="<%= menu_item_active?('home') %>"><%= link_to "Home", root_path  %></li>
+          <li class="<%= menu_item_active?('cards') %>"><%= link_to "Cards", cards_path  %></li>
+          <li class="<%= menu_item_active?('decks') %>"><%= link_to "Decks", decks_path  %></li>
+          <li class="<%= menu_item_active?('editions') %>"><%= link_to "Editions", editions_path  %></li>
+        </ul>
+      </div>
+    </nav>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span2">
-          <div class="well well-small sidebar-nav">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <div>
             <% if Rails.env == 'development' %>
-              <p><%= image_tag 'http://placehold.it/251x204/888888/000000&text=Bl', :class => 'img-rounded', :alt => 'Bl Development'%></p>
+              <p><%= image_tag 'http://placehold.it/250x200/888888/000000&text=Bl', :class => 'img-rounded img-responsive', :alt => 'Bl Development'%></p>
             <% else %>
-              <p><%= image_tag "black_lotus.jpg", :class => 'img-rounded' %></p>
+              <p><%= image_tag "black_lotus.jpg", :class => 'img-rounded img-responsive'%></p>
             <% end %>
-            <ul class="nav nav-tabs nav-stacked">
+            <ul class="nav nav-pills nav-stacked">
               <li><%= link_to "Add Card", new_card_path %></li>
               <li><%= link_to "Add Deck", new_deck_path %></li>
               <li><%= link_to "Utilities", utilities_path %></li>
@@ -60,13 +57,19 @@
             <%= yield(:sidebar) %>
           </div>
         </div>
-        <div class="span10">
-          <%= bootstrap_flash %>
+        <div class="col-md-10">
+          <% flash.each do |type, message| %>
+            <div class="alert <%= flash_class(type) %> alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <%= message %>
+            </div>
+          <% end %>          
           <%= yield %>
         </div>
       </div>
 
       <p></p>
+
       <footer>
         <p class="muted well well-small text-center">&copy; Craig N. Caroon 2013</p>
       </footer>

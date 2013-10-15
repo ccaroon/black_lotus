@@ -1,0 +1,34 @@
+/*Add back inverse label from TB2*/
+.label-inverse {
+  background-color: #1a1a1a;
+}
+
+/*Add back colored badges from TB2*/
+.badge.badge-primary {
+  background-color: #428bca;
+}
+
+.badge.badge-success {
+  background-color: #5cb85c;
+}
+
+.badge.badge-info {
+  background-color: #5bc0de;
+}
+
+.badge.badge-warning {
+  background-color: #f0ad4e;
+}
+
+.badge.badge-danger {
+  background-color: #d9534f;
+}
+
+.badge.badge-inverse {
+  background-color: #1a1a1a;
+}
+
+.badge.badge-white {
+  background-color: #fefbd5;
+  color: black;
+}

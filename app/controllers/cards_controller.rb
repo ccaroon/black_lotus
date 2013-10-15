@@ -68,7 +68,7 @@ class CardsController < ApplicationController
     respond_to do |format|
       format.html {
         if (@card.id.present?)
-          flash[:info] = "Found Card: '#{@card.name}'"
+          flash[:notice] = "Found Card: '#{@card.name}'"
           redirect_to :action => 'edit', :id => @card.id
         else
           if (name.present?)

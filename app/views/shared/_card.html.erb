@@ -1,6 +1,6 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
       <dl>
         <dt>Name</dt>
         <dd><%= card.name %></dd>
@@ -13,7 +13,7 @@
         
         <dt>Editions/Rarity</dt>
         <dd>
-          <ul class="inline">
+          <ul class="list-inline">
             <% card.editions.each do |e| %>
               <li><span class="<%= rarity_to_css(card) %>"><%= e.name %></span></li>
             <% end %>            

@@ -1,35 +1,32 @@
 <div class="page-header"><h1>Utilities</h1></div>
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span10 well">
-    
-      <div class="tabbable tabs-left">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#export" data-toggle="tab">Export...</a></li>
-          <li><a href="#sync" data-toggle="tab">Sync...</a></li>
-          <li><a href="#fetch" data-toggle="tab">Fetch...</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="export">
-            <%= button_to "Export Cards", {action: 'export_cards'}, class: "btn btn-primary", id: 'export_button', method: :get  %>
-            <p>
-            <div class="progress progress-success progress-striped active">
-              <div id="export_cards_progress" class="bar" style="width: 0%;"></div>
-            </div>
-          </div>
-          <div class="tab-pane" id="sync">
-            <form id="sync_db" class="form-inline" method="post" action="<%= utils_sync_db_path %>">
-              <input type="text" class="input-small" placeholder="Host or IP" name="host">
-              <button class="btn btn-primary" type="submit">Sync Db</button>
-            </form>
-          </div>
-          <div class="tab-pane" id="fetch">
-            Fetch tools here
-          </div>
-        </div>
-      </div>
 
+<div class="row">
+  
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#export" data-toggle="tab">Export...</a></li>
+    <li><a href="#sync" data-toggle="tab">Sync...</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="export">
+      <%= button_to "Export Cards", {action: 'export_cards'}, class: "btn btn-primary", id: 'export_button', method: :get  %>
+      <p>
+      <div class="progress progress-striped active">
+        <div id="export_cards_progress" class="progress-bar progress-bar-success" style="width: 0%;"></div>
+      </div>
+    </div>
+    <div class="tab-pane" id="sync">
+      <div class="row">
+        <form id="sync_db" class="form-inline" method="post" action="<%= utils_sync_db_path %>">
+            <div class="col-sm-3">
+              <input type="text" class="input-sm form-control" placeholder="Host or IP" name="host">
+            </div>
+            <div class="col-sm-3">
+              <button class="btn btn-primary" type="submit">Sync Db</button>
+            </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
+</div>
