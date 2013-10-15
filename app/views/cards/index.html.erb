@@ -2,7 +2,7 @@
 
 <%= paginate @cards %>
 
-<form class="form-inline" method="get" role="form">
+<form class="form-inline" method="get">
   <div class="form-group">
     <%= text_field :card, :name, {
       class: "input-sm form-control",
@@ -15,10 +15,8 @@
   <div class="form-group">
     <%= text_field :card, :sub_type, {
       :placeholder   => "Sub Type",
-      :class         => "input-sm form-control",
+      :class         => "typeahead input-sm form-control",
       :autocomplete  => 'off', 
-      'data-provide' => 'typeahead', 
-      'data-source'  => Card.sub_types.to_json,
       :value         => params[:card].present? ? params[:card][:sub_type] : '' 
     }%>
  </div>
@@ -36,7 +34,7 @@
         include_blank: 'Card Type...', 
         selected: params[:card].present? ? params[:card][:main_type] : ''
       },    
-      class: "form-control"
+      class: "input-sm form-control"
     %>
   </div>
 
@@ -45,7 +43,7 @@
         include_blank: 'Rarity...', 
         selected: params[:card].present? ? params[:card][:rarity] : ''
       },
-      class: "form-control"
+      class: "input-sm form-control"
     %>
   </div>
 
@@ -54,7 +52,7 @@
         include_blank: 'Color...', 
         selected: params[:card].present? ? params[:card][:color] : ''
       },
-      class: "form-control"
+      class: "input-sm form-control"
     %>
   </div>
 

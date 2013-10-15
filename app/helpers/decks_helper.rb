@@ -9,11 +9,11 @@ module DecksHelper
     when :blue
       'label label-primary'
     when :black
-      'label label-default'
+      'label label-inverse'
     when :white
       'label label-warning'
     else
-      ''
+      'label label-default'
     end
 
     return(label)
