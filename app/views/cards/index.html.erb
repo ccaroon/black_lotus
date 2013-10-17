@@ -1,8 +1,10 @@
-<div class="page-header"><h1>Cards (<%= @card_count %>/<%= @total_card_count %>)</h1></div>
+<div class="page-header">
+  <h1>Cards (<%= @card_count %>/<%= @total_card_count %>)</h1>
+</div>
 
 <%= paginate @cards %>
 
-<form class="form-inline" method="get">
+<form class=" form-inline" method="get">
   <div class="form-group">
     <%= text_field :card, :name, {
       class: "input-sm form-control",
@@ -19,21 +21,21 @@
       :autocomplete  => 'off', 
       :value         => params[:card].present? ? params[:card][:sub_type] : '' 
     }%>
- </div>
- 
+  </div>
+
   <div class="form-group">
     <%= text_field :card, :text_box, {
       class: "input-sm form-control", 
       placeholder: "Text Box", 
       value: params[:card].present? ? params[:card][:text_box] : ''
     }%>
- </div> 
+  </div> 
 
   <div class="form-group">
     <%= select :card, :main_type, Card::CARD_TYPES.values, {
         include_blank: 'Card Type...', 
         selected: params[:card].present? ? params[:card][:main_type] : ''
-      },    
+      },
       class: "input-sm form-control"
     %>
   </div>
@@ -56,53 +58,18 @@
     %>
   </div>
 
-  <button class="btn btn-default btn-sm">Filter</button>
- 
+  <button type="submit" name="view" value="list" class="btn btn-default btn-sm">
+    <i class="glyphicon glyphicon-list"></i>
+  </button>
+  <button type="submit" name="view" value="grid" class="btn btn-default btn-sm">
+    <i class="glyphicon glyphicon-th"></i>
+  </button>
 </form>
 
-<p></p>
-
-<table class="table table-striped table-condensed">
-  <tr>
-    <th>Name</th>
-    <th>Mana Cost</th>
-    <th>Main Type</th>
-    <th>Sub Type</th>
-    <th>Rarity</th>
-    <th>Count</th>
-    <th></th>
-  </tr>
-
-<% @cards.each do |card| %>
-  <tr>
-    <td>
-      <a rel="popover" href="<%= card_path card%>"
-         data-placement="right"
-         data-html="true"
-         data-animation="false"
-         data-trigger="hover"
-         data-content="<img src='<%= card_image_path(card) %>' class='img-responsive'>"><%= card.name %></a>
-    </td>
-    <td><%= card.mana_cost %></td>
-    <td><%= card.main_type %></td>
-    <td><%= card.sub_type %></td>
-    <td><%= card.rarity %></td>
-    <td><%= card.count %></td>
-    
-    <td>
-      <%= link_to card, :class => 'btn btn-default btn-sm' do %>
-        <i class="glyphicon glyphicon-eye-open"></i>
-      <% end %>
-      
-      <%= link_to  edit_card_path(card), :class => 'btn btn-default btn-sm' do %>
-        <i class="glyphicon glyphicon-pencil"></i>
-      <% end %>
-      
-      <%= link_to card, :class => 'btn btn-sm btn-danger', method: :delete, data: { 
-        confirm: "'#{card.name}' is used in #{card.decks.count} decks.\n\nDelete?" } do %>
-        <i class="glyphicon glyphicon-trash"></i>
-      <% end %>
-    </td>
-  </tr>
+<p>
+<% if params[:view] == 'grid' %>
+  <%= render 'grid_view' %>
+<% else %>
+  <%= render 'list_view' %>
 <% end %>
-</table>
+</p>

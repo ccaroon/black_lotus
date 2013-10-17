@@ -1,0 +1,44 @@
+<table class="table table-striped table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>Mana Cost</th>
+    <th>Main Type</th>
+    <th>Sub Type</th>
+    <th>Rarity</th>
+    <th>Count</th>
+    <th></th>
+  </tr>
+
+<% @cards.each do |card| %>
+  <tr>
+    <td>
+      <a rel="popover" href="<%= card_path card%>"
+         data-placement="right"
+         data-html="true"
+         data-animation="false"
+         data-trigger="hover"
+         data-content="<img src='<%= card_image_path(card) %>' class='img-responsive'>"><%= card.name %></a>
+    </td>
+    <td><%= card.mana_cost %></td>
+    <td><%= card.main_type %></td>
+    <td><%= card.sub_type %></td>
+    <td><%= card.rarity %></td>
+    <td><%= card.count %></td>
+    
+    <td>
+      <%= link_to card, :class => 'btn btn-default btn-sm' do %>
+        <i class="glyphicon glyphicon-eye-open"></i>
+      <% end %>
+      
+      <%= link_to  edit_card_path(card), :class => 'btn btn-default btn-sm' do %>
+        <i class="glyphicon glyphicon-pencil"></i>
+      <% end %>
+      
+      <%= link_to card, :class => 'btn btn-sm btn-danger', method: :delete, data: { 
+        confirm: "'#{card.name}' is used in #{card.decks.count} decks.\n\nDelete?" } do %>
+        <i class="glyphicon glyphicon-trash"></i>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
