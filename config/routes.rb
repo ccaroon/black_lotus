@@ -6,6 +6,7 @@ BlackLotus::Application.routes.draw do
   resources :decks
   get 'decks/:id/build'       => 'decks#build',      :as => :build_deck
   post 'decks/:id/build_save' => 'decks#build_save', :as => :save_build_deck
+  get 'decks/:id/print'       => 'decks#print',      :as => :deck_print
 
   resources :editions
 

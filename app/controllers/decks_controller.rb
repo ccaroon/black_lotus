@@ -18,8 +18,18 @@ class DecksController < ApplicationController
     @deck = Deck.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @deck }
+    end
+  end
+
+  def print
+    @deck = Deck.find(params[:id])
+
+    respond_to do |format|
+      format.html {
+        render :layout => false
+      }
     end
   end
 

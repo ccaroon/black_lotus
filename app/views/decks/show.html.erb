@@ -2,6 +2,7 @@
   <h1><%= @deck.name %> &mdash; <%= @deck.format %> (<%= @deck.main_count %>/<%= @deck.side_count %>)</h1>
   <%= link_to 'Edit', edit_deck_path(@deck), :class => "btn btn-primary btn-xs" %>
   <%= link_to 'Builder', build_deck_path(@deck), :class => "btn btn-success btn-xs" %>
+  <%= link_to 'Print', deck_print_path(@deck), :class => "btn btn-warning btn-xs" %>
   <%= link_to 'Back', :back, :class => "btn btn-default btn-xs" %>
 </div>
 
