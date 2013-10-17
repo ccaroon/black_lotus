@@ -71,14 +71,15 @@
 
   <ul class="list-inline">
   <% @deck.stats[:main_type].sort.each do |mt| %>
-    <li><span class="label label-inverse"><%= mt[0] %>: <%= mt[1] %></span></li>
+    <li class="label label-inverse"><%= mt[0] %>: <%= mt[1] %></li>
   <% end %>
   </ul>
 
   <ul class="list-inline">
-    <% @deck.stats[:color].sort.each do |color|%>
-        <% next if color[1] <= 0 %>
-        <li><span class="<%=color_to_label(color[0].to_sym)%>"><%= color[0]%>: <%= color[1]%></span></li>
+    <% [:red, :green, :blue, :black, :white, :colorless].each do |color| %>
+      <% count = @deck.stats[:color][color] %>
+      <% next if count <= 0 %>
+      <li class="<%=color_to_label(color)%>"><%= color %>: <%= count %></li>
     <% end %>
   </ul>
 

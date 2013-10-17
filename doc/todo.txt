@@ -5,6 +5,8 @@ Misc
 ----
 X. Get rid of coffeescript.
 * form validation input color (has-error). See deck new/edit template
+* Card list...display as grid
+* Send deck list to MTG info for proxy printing 
 
 Decks
 -----
