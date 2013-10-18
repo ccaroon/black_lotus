@@ -67,21 +67,7 @@
 <!-- ####################################################################### -->
 
 <% content_for :sidebar do %>
-<div class="well">
-
-  <ul class="list-inline">
-  <% @deck.stats[:main_type].sort.each do |mt| %>
-    <li class="label label-inverse"><%= mt[0] %>: <%= mt[1] %></li>
-  <% end %>
-  </ul>
-
-  <ul class="list-inline">
-    <% [:red, :green, :blue, :black, :white, :colorless].each do |color| %>
-      <% count = @deck.stats[:color][color] %>
-      <% next if count <= 0 %>
-      <li class="<%=color_to_label(color)%>"><%= color %>: <%= count %></li>
-    <% end %>
-  </ul>
+<div class="well well-sm">
 
   <form id="deck_builder_form" method="post" action="<%= save_build_deck_path %>">
     <div id="cards_to_add"></div>
@@ -89,6 +75,10 @@
     <button class="btn btn-primary">Save</button>
     <%= link_to "Done", @deck, :class => "btn btn-default btn-sm" %>
   </form>
+
+  <%= render 'stats' %>
+
+  <%= render 'validation' %>
 </div>
 <% end %>
 

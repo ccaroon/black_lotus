@@ -1,0 +1,56 @@
+<% stats = @deck.stats %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title text-center">Color</div>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <% [:red, :green, :blue, :black, :white, :colorless].each do |color| %>
+        <% count = stats[:color][color] %>
+        <li class="list-group-item">
+          <span class="badge"><%= count %></span>
+          <div class="<%= color_to_label(color) %>"><%= color.capitalize %></div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title text-center">Type</div>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <% stats[:main_type].sort.each do |mt| %>
+        <li class="list-group-item"> 
+          <span class="badge"><%= mt[1] %></span>
+          <span class="label label-white"><%= mt[0] %></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title text-center">Mana Distribution</div>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <% cost = 0 %>
+      <% stats[:cost].each do |count| %>
+        <li class="list-group-item">
+          <span class="badge"><%= cost %><%= cost >= 6 ? '+' : '' %></span>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" style="width: <%= (count.to_f / @deck.main_count) * 100 %>%">
+              <%= count > 0 ? count : '' %>
+            </div>
+          </div>
+        </li>
+      <% cost = cost + 1 %>
+      <% end %>
+    </ul>
+  </div>
+</div>

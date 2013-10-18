@@ -1,0 +1,20 @@
+<% reasons = @deck.validate %>
+<% unless reasons.empty? %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title text-center">Deck Validation</div>
+  </div>
+  <div class="panel-body">
+  <% if reasons.present? %>
+      <ul class="list-group">
+      <% reasons.each do |r|%>
+        <li class="alert alert-danger list-group-item">
+          <small><%= r[:card].nil? ? '' : link_to("#{r[:card].name}:", card_path(r[:card])) %> <%= r[:msg]%></small>
+        </li>
+      <% end %>
+      </ul>
+  <% end %>
+  </div>
+</div>
+
+<% end %>

@@ -38,10 +38,10 @@
       </div>
     </nav>
 
-    <div class="container">
+    <!-- <div class="container"> -->
       <div class="row">
-        <div class="col-md-2">
-          <div>
+        <div class="col-md-3">
+          <div class="container">
             <% if Rails.env == 'development' %>
               <p><%= image_tag 'http://placehold.it/250x200/888888/000000&text=Bl', :class => 'img-rounded img-responsive', :alt => 'Bl Development'%></p>
             <% else %>
@@ -53,11 +53,13 @@
               <li><%= link_to "Utilities", utilities_path %></li>
             </ul>
           </div>
-          <div>
+          <hr>
+          <div class="container">
             <%= yield(:sidebar) %>
           </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9">
+          <div class="container">
           <% flash.each do |type, message| %>
             <div class="alert <%= flash_class(type) %> alert-dismissable">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -65,6 +67,7 @@
             </div>
           <% end %>          
           <%= yield %>
+          </div>
         </div>
       </div>
 
@@ -74,7 +77,7 @@
         <p class="muted well well-small text-center">&copy; Craig N. Caroon 2013</p>
       </footer>
 
-    </div>
+    <!-- </div> -->
 
     <!-- Javascripts
     ================================================== -->

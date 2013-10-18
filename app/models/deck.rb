@@ -35,7 +35,7 @@ class Deck < ActiveRecord::Base
     unless format[:min_cards].nil?
       if self.main_count < format[:min_cards]
         is_valid = false
-        reasons << "Not enough cards in main deck (#{self.main_count})."
+        reasons << {card: nil, msg: "Not enough cards in main deck (#{self.main_count})."}
       end
     end
 
@@ -43,7 +43,7 @@ class Deck < ActiveRecord::Base
     unless format[:max_cards].nil?
       if self.main_count > format[:max_cards]
         is_valid = false
-        reasons << "Too many cards in main deck (#{self.main_count})."
+        reasons << {card: nil, msg: "Too many cards in main deck (#{self.main_count})."}
       end
     end
 
@@ -51,7 +51,7 @@ class Deck < ActiveRecord::Base
     unless format[:sideboard_size].nil?
       if self.side_count != 0 && self.side_count != format[:sideboard_size]
         is_valid = false
-        reasons << "Sideboard does not have exactly #{format[:sideboard_size]} cards."
+        reasons << {card: nil, msg: "Sideboard does not have exactly #{format[:sideboard_size]} cards."}
       end
     end
 
@@ -65,7 +65,7 @@ class Deck < ActiveRecord::Base
       # Max copies of each card
       if (cid.main_copies > 4 || cid.side_copies > 4)
         is_valid = false
-        reasons << "Too many copies of '#{card.name}' in deck."
+        reasons << {card: card, msg: "Too many copies."}
       end
 
       # legal editions
@@ -80,21 +80,21 @@ class Deck < ActiveRecord::Base
 
         unless is_legal
           is_valid = false
-          reasons << "No legal edition for '#{card.name}'"
+          reasons << {card: card, msg: "No legal edition."}
         end
       end
 
       # banned cards
       if banned_cards.include?(card.name)
         is_valid = false
-        reasons << "Banned Card: '#{card.name}'"
+        reasons << {card: card, msg: "Banned."}
       end
 
       # restricted cards -- can only have 1 copy in deck
       if restricted_cards.include?(card.name)
         if (cid.main_copies > 1 || cid.side_copies > 1)
           is_valid = false
-          reasons << "Too many copies of restricted card: '#{card.name}'"
+          reasons << {card: card, msg: "Restricted. Too many copies."}
         end
       end
 
@@ -113,7 +113,8 @@ class Deck < ActiveRecord::Base
         :black      => 0,
         :white      => 0,
         :colorless  => 0
-      }
+      },
+      :cost => Array.new(7,0)
     };
 
     card_in_deck.each do |cid|
@@ -121,6 +122,13 @@ class Deck < ActiveRecord::Base
 
       card = cid.card
       copies = cid.main_copies
+
+      # Cost
+      unless (card.is_land?)
+        cost = card.converted_mana_cost
+        cost = 6 if cost >= 6
+        stats[:cost][cost] += 1
+      end
 
       # Main Type
       if (stats[:main_type][card.main_type].nil?)

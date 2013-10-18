@@ -102,6 +102,10 @@ class Card < ActiveRecord::Base
     return count
   end
   ##############################################################################
+  def is_land?
+    main_type == CARD_TYPES[:land] || main_type == CARD_TYPES[:basic_land]
+  end
+  ##############################################################################
   def is_red?
     !(mana_cost =~ /#{COLORS[:red][:code]}/).nil?
   end
@@ -128,7 +132,7 @@ class Card < ActiveRecord::Base
   ##############################################################################
   def converted_mana_cost
     cost = nil
-    mc = self.mana_cost
+    mc = self.mana_cost.dup
 
     # Find instances of either/or colors and change to M for Multi b/c they will
     # only count as 1

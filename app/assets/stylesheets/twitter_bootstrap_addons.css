@@ -3,6 +3,12 @@
   background-color: #1a1a1a;
 }
 
+.label-white {
+  border: 1px black solid;
+  color: black;
+  background-color: #FFFFFF
+}
+
 /*Add back colored badges from TB2*/
 .badge.badge-primary {
   background-color: #428bca;
