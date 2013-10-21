@@ -127,7 +127,7 @@ class Deck < ActiveRecord::Base
       unless (card.is_land?)
         cost = card.converted_mana_cost
         cost = 6 if cost >= 6
-        stats[:cost][cost] += 1
+        stats[:cost][cost] += copies
       end
 
       # Main Type

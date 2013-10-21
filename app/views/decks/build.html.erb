@@ -67,19 +67,19 @@
 <!-- ####################################################################### -->
 
 <% content_for :sidebar do %>
-<div class="well well-sm">
-
-  <form id="deck_builder_form" method="post" action="<%= save_build_deck_path %>">
-    <div id="cards_to_add"></div>
-    <div id="cards_to_remove"></div>
-    <button class="btn btn-primary">Save</button>
-    <%= link_to "Done", @deck, :class => "btn btn-default btn-sm" %>
-  </form>
-
-  <%= render 'stats' %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form class="col-md-12" id="deck_builder_form" method="post" action="<%= save_build_deck_path %>">
+        <div id="cards_to_add"></div>
+        <div id="cards_to_remove"></div>
+        <button class="btn btn-primary">Save</button>
+        <%= link_to "Done", @deck, :class => "btn btn-default btn-sm" %>
+      </form>
+    </div>
+  </div>
 
   <%= render 'validation' %>
-</div>
+  <%= render 'stats' %>
 <% end %>
 
 <% content_for :javascript do %>
