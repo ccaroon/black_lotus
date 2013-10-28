@@ -30,6 +30,7 @@ class CardsController < ApplicationController
     @cards = Card.where(where_str)
                  .order(:name)
                  .page(params[:page])
+                 .per(params[:view] == 'grid' ? 12 : 10)
 
     @card_count = Card.where(where_str).count
     @total_card_count = Card.count

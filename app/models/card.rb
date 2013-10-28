@@ -8,9 +8,10 @@ class Card < ActiveRecord::Base
     to:   true,
     by:   true,
     for:  true,
-    from: true
+    from: true,
+    at:   true
   }
-    
+
   CARD_TYPES = {
     land:                 'Land',
     basic_land:           'Basic Land',
