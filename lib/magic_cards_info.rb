@@ -29,16 +29,20 @@ class MagicCardsInfo
     return (card_data[key_index])
   end
   ##############################################################################
-  def self.download_image(card, edition = nil)
+  def self.download_images(card)
     card.gen_image_name
-    img_url = image_url(card, edition)
 
-    r = self.get(img_url)
-    raise "#{img_url} -- #{r.message}" unless r.code == 200
+    card.editions.each do |edition|
+      img_url = image_url(card, edition)
 
-    File.open( "#{Rails.public_path}/card_images/#{card.image_name}", "wb") do |img|
-      img << r.body
+      r = self.get(img_url)
+      raise "#{img_url} -- #{r.message}" unless r.code == 200
+
+      File.open( "#{Rails.public_path}#{card.image_path(edition)}", "wb") do |img|
+        img << r.body
+      end
     end
+
   end
   ##############################################################################
   def self.fetch_info(card)
@@ -66,8 +70,7 @@ class MagicCardsInfo
   ##############################################################################
   private
   ##############################################################################
-  def self.image_url(card, edition = nil)
-    edition = card.latest_edition if edition.nil?
+  def self.image_url(card, edition)
     ed_code = edition.online_code
     card_num = self.info(:number, card, edition)
 

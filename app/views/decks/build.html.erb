@@ -2,66 +2,69 @@
   <h1>Deck Builder:  <%= @deck.name %> &mdash; <%= @deck.format %></h1>
 </div>
 
-<div class="row">
-  <form onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
-    <div class="form-group">
-        <input id="search_string" 
-               type="text" 
-               name="search_string"
-               class="form-control"
-               autocomplete="off"
-               placeholder="Search Cards..."
-               autofocus >
-    </div>
-  </form>
-</div>
+<div class="container">
 
-<div class="row">
-    <div id="search_results"></div>
-</div>
+  <div class="row">
+    <form onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
+      <div class="form-group">
+          <input id="search_string" 
+                 type="text" 
+                 name="search_string"
+                 class="form-control"
+                 autocomplete="off"
+                 placeholder="Search Cards...">
+      </div>
+    </form>
+  </div>
 
-<div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main"><i class="glyphicon glyphicon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button>
-    </div>
-    <div id="main" class="panel-body collapse in">
-      <% @deck.card_in_deck.each do |cid| %>
-      <% next unless cid.main_copies > 0 %>
-      <% card = cid.card %>
-      <div id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-3 existing_card">
-        <div id="card_img_<%= card.id %>" class="thumbnail">
-          <img src="<%= card_image_path(card) %>" class="img-responsive">
-          <div class="caption text-center">
-            x <strong><%= cid.main_copies %></strong>
+  <div class="row">
+      <div id="search_results"></div>
+  </div>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#main"><i class="glyphicon glyphicon-eye-open"></i> Main Deck (<%= @deck.main_count %>)</button>
+      </div>
+      <div id="main" class="panel-body collapse in">
+        <% @deck.card_in_deck.each do |cid| %>
+        <% next unless cid.main_copies > 0 %>
+        <% card = cid.card %>
+        <div id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-3 existing_card">
+          <div id="card_img_<%= card.id %>" class="thumbnail">
+            <img src="<%= card_image_path(card) %>" class="img-responsive">
+            <div class="caption text-center">
+              x <strong><%= cid.main_copies %></strong>
+            </div>
           </div>
         </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side"><i class="glyphicon glyphicon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button>
-    </div>
-    <div id="side" class="panel-body collapse in">
-      <% @deck.card_in_deck.each do |cid| %>
-      <% next unless cid.side_copies > 0 %>
-      <% card = cid.card %>
-      <div id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-3 existing_card">
-        <div id="card_img_<%= card.id %>" class="thumbnail">
-          <img src="<%= card_image_path(card) %>" class="img-responsive">
-          <div class="caption text-center">
-            x <strong><%= cid.side_copies %></strong>
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <button type="button" class="btn btn-block" data-toggle="collapse" data-target="#side"><i class="glyphicon glyphicon-eye-open"></i> Sideboard (<%= @deck.side_count %>)</button>
+      </div>
+      <div id="side" class="panel-body collapse in">
+        <% @deck.card_in_deck.each do |cid| %>
+        <% next unless cid.side_copies > 0 %>
+        <% card = cid.card %>
+        <div id="card_<%= card.id %>" data-id="<%= card.id %>" class="col-md-3 existing_card">
+          <div id="card_img_<%= card.id %>" class="thumbnail">
+            <img src="<%= card_image_path(card) %>" class="img-responsive">
+            <div class="caption text-center">
+              x <strong><%= cid.side_copies %></strong>
+            </div>
           </div>
         </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
+
 </div>
 
 <!-- ####################################################################### -->

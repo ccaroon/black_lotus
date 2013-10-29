@@ -75,6 +75,15 @@ class Card < ActiveRecord::Base
       self.image_name = iname + ".jpg"
   end
   ##############################################################################
+  def image_path(edition = nil)
+    edition = latest_edition if edition.nil?
+
+    img_name = File.basename(image_name, '.jpg')
+    img_name += '-' + edition.code_name.downcase + '.jpg'
+
+    return("/card_images/#{img_name}")
+  end
+  ##############################################################################
   def available_editions
     all_editions = Edition.order('release_date').to_a
     card_editions = self.editions

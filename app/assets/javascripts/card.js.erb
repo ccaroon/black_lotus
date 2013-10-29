@@ -17,7 +17,11 @@ BlackLotus.Card = {
           name: 'sub_type',
           local: <%= Card.sub_types.to_json %>
         });
+    },
 
+    showImage: function (image_id) {
+        $('.card-image').hide();
+        $("#"+image_id).show();
     }
 
 };

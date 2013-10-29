@@ -8,7 +8,7 @@
   <% @edition.cards.each do |card| %>
   <div class="col-xs-4 col-md-2 col-lg-2">
     <div class="thumbnail">
-        <a href="<%= card_path card%>"><img src="<%= card_image_path(card) %>" class="img-responsive"></a>
+        <a href="<%= card_path card%>"><img src="<%= card_image_path(card, @edition) %>" class="img-responsive"></a>
     </div>
   </div>
   <% end %>

@@ -65,7 +65,7 @@ class Utility
   def self.fetch_card_info(card)
       info = MagicCardsInfo.fetch_info(card)
 
-      MagicCardsInfo.download_image(card)
+      MagicCardsInfo.download_images(card)
 
       card.text_box = info.delete(:text_box)
 

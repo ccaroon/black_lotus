@@ -23,7 +23,7 @@
 
 <% @editions.each do |edition| %>
   <tr>
-    <td><%= link_to edition.name, edition %></td>
+    <td class="col-md-3"><%= link_to edition.name, edition %></td>
     <td><%= image_tag "editions/#{edition.code_name}.gif" %></td>
     <td><%= edition.release_date %></td>
     <td>
