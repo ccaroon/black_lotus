@@ -79,6 +79,13 @@ describe Card do
         c.mana_cost = 'X12GW'
         c.should be_valid
 
+        # Can contain multiple X's i.e. Meteor Shower
+        c.mana_cost = 'XXR'
+        c.should be_valid
+
+        c.mana_cost = 'XX2g'
+        c.should be_valid
+
         # If contain number and X, X must be first
         c.mana_cost = '7X'
         c.should_not be_valid

@@ -22,6 +22,7 @@ class Card < ActiveRecord::Base
     legendary_enchantment_artifact: 'Legendary Enchantment Artifact',
     snow_creature:        'Snow Creature',
     instant:              'Instant',
+    tribal_instant:       'Tribal Instant',
     sorcery:              'Sorcery',
     artifact:             'Artifact',
     snow_artifact:        'Snow Artifact',
@@ -51,7 +52,7 @@ class Card < ActiveRecord::Base
     :unless => Proc.new {|card| card.main_type =~ /Land$/ }
   validates_numericality_of :count, :only_integer => true, :greater_than => 0
   validates_format_of :mana_cost, 
-    :with => /\AX?(\d+)?({[RGUBW]\/[RGUBW]}|[RGUBW])*\z/
+    :with => /\AX*(\d+)?({[RGUBW]\/[RGUBW]}|[RGUBW])*\z/
   validates_inclusion_of :main_type, :in => CARD_TYPES.values,
     :message => "'%{value}' is not a valid main type"
   validates_inclusion_of :rarity, :in => RARITIES,
