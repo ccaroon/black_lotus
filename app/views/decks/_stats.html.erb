@@ -35,6 +35,22 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+    <div class="panel-title text-center">Editions</div>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <% stats[:editions].sort.each do |e| %>
+        <li class="list-group-item">
+          <span class="badge"><%= e[1] %></span>
+          <span class="label label-white"><%= e[0] %></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
     <div class="panel-title text-center">Mana Distribution</div>
   </div>
   <div class="panel-body">

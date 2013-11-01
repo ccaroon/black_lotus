@@ -6,7 +6,8 @@ class CardsController < ApplicationController
   # GET /cards.json
   def index
 
-    where = [];
+    where = []
+    filter_unavailable = false
     if (params[:card].present?)
       params[:card].each do |key,value|
         next unless value.present?
@@ -20,6 +21,8 @@ class CardsController < ApplicationController
           where << "text_box like \"%#{value}%\""
         when 'sub_type'
           where << "sub_type like \"%#{value}%\""
+        when 'is_available'
+          filter_unavailable = value ? true : false
         else
           where << "#{key} = \"#{value}\""
         end
@@ -33,11 +36,18 @@ class CardsController < ApplicationController
                  .per(params[:view] == 'grid' ? 12 : 10)
 
     @card_count = Card.where(where_str).count
+    if (filter_unavailable)
+      @cards.keep_if do |card|
+        # @card_count -= 1
+        card.available_count > 0
+      end
+    end
+
     @total_card_count = Card.count
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @cards, methods: :available_count }
+      format.json { render json: @cards, methods: [:available_count, :image_path] }
     end
   end
 

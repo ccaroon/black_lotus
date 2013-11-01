@@ -114,7 +114,8 @@ class Deck < ActiveRecord::Base
         :white      => 0,
         :colorless  => 0
       },
-      :cost => Array.new(7,0)
+      :editions => {},
+      :cost     => Array.new(7,0)
     };
 
     card_in_deck.each do |cid|
@@ -135,6 +136,15 @@ class Deck < ActiveRecord::Base
         stats[:main_type][card.main_type] = copies
       else
         stats[:main_type][card.main_type] += copies
+      end
+
+      # Editions
+      unless (card.is_land?)
+        if (stats[:editions][card.latest_edition.name].nil?)
+          stats[:editions][card.latest_edition.name] = copies
+        else
+          stats[:editions][card.latest_edition.name] += copies
+        end
       end
 
       # Color

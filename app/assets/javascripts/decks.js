@@ -91,7 +91,7 @@ BlackLotus.Deckbuilder = {
         }
     },
 
-    add_card: function (deck_type, id, image_name, count) {
+    add_card: function (deck_type, id, image_path, count) {
         var deck          = $("#"+deck_type),
             card_x        = "add_card_"+deck_type+"_"+id,
             added_card    = $("#"+card_x),
@@ -123,14 +123,14 @@ BlackLotus.Deckbuilder = {
             template = this.template_from_string(
                 "<div id='card_<%= id %>' data-id='<%= id %>' class='col-md-3'>                    \
                     <div id='card_img_<%= id %>' class='thumbnail' style='display:none'>           \
-                        <img src='/card_images/<%= image_name %>'>                                 \
+                        <img src='<%= image_path %>'>                                              \
                         <div class='caption text-center'>                                          \
                             x <strong><span id='card_<%= id %>_count'><%= count %></span></strong> \
                         </div>                                                                     \
                     </div>                                                                         \
                 </div>"
             );
-            deck.prepend(template.render({ id: id, image_name: image_name, count: count}));
+            deck.prepend(template.render({ id: id, image_path: image_path, count: count}));
 
             card_img = $("#card_img_" + id);
             card_img.slideDown("slow", "linear");
