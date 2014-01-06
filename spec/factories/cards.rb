@@ -9,5 +9,6 @@ FactoryGirl.define do
     foil false
     count { (rand 999) + 1 }
     editions { FactoryGirl.build_list(:edition, 2) }
+    image_name { name.nil? ? nil : gen_image_name }
   end
 end

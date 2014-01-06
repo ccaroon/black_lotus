@@ -142,6 +142,19 @@ class Card < ActiveRecord::Base
     !mana_cost.empty? and !is_red? and !is_green? and !is_blue? and !is_black? and !is_white?
   end
   ##############################################################################
+  def is_multicolored?
+    mcost = mana_cost.nil? ? '' : mana_cost.dup
+
+    mcost.gsub!(/[^RGUBW]/, '')
+
+    !mcost.empty?          and 
+    (mcost =~ /^R+$/).nil? and 
+    (mcost =~ /^G+$/).nil? and 
+    (mcost =~ /^U+$/).nil? and 
+    (mcost =~ /^B+$/).nil? and 
+    (mcost =~ /^W+$/).nil?
+  end
+  ##############################################################################
   def converted_mana_cost
     cost = nil
     mc = self.mana_cost.dup
@@ -174,10 +187,10 @@ class Card < ActiveRecord::Base
     str.split(/\s+/).each do |word|
       word.downcase!
       if (word.gsub!(/-/, ' '))
-          word = title_case(word)
-          word.gsub!(/ /, '-')
+        word = title_case(word)
+        word.gsub!(/ /, '-')
       else
-          word.capitalize! unless LOWER_WORDS.has_key?(word.to_sym)
+        word.capitalize! unless LOWER_WORDS.has_key?(word.to_sym)
       end
 
       new_str += "#{word} "

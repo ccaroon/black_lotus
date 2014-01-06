@@ -179,14 +179,6 @@ describe Card do
     end
   end
 
-  it "can generate it's own image name" do
-    c = FactoryGirl.build(:card, :name => 'Card 1')
-
-    c.gen_image_name
-    c.image_name.should_not be_nil
-    c.image_name.should == 'card_1.jpg'
-  end
-
   it "should fix_up data before validation" do
     c = FactoryGirl.build(:card, 
       :name      => 'bob the fisherman', 
@@ -275,7 +267,7 @@ describe Card do
     card.used_count.should == 4
   end
 
-  it "can determing available count" do
+  it "can determine available count" do
     deck = FactoryGirl.build(:deck)
     card = FactoryGirl.build(:card, :count => 7)
 
@@ -285,6 +277,125 @@ describe Card do
     card.count.should == 7
     card.used_count.should == 3
     card.available_count.should == 4
+  end
+
+  context "title case" do
+    it "knows how to title case a string with hyphens" do
+      name = Card.title_case('akki blizzard-herder')
+      name.should == 'Akki Blizzard-Herder'
+    end
+
+    it "honors lower-case word list" do
+      lower_words_str = Card::LOWER_WORDS.keys.join(' ').upcase
+      name = Card.title_case(lower_words_str)
+
+      name.should == lower_words_str.downcase
+    end
+
+  end
+
+  context "image_name and image_path" do
+
+    it "can generate it's own image name" do
+      c = FactoryGirl.build(:card, :name => 'Card 1')
+
+      c.gen_image_name
+      c.image_name.should_not be_nil
+      c.image_name.should == 'card_1.jpg'
+    end
+
+    it "should use the image of the latest edition by default" do
+      card = FactoryGirl.build(:card)
+
+      latest_ed    = card.latest_edition
+      image_name   = card.image_name
+      name_with_ed = image_name.sub(/\.jpg/, "-#{latest_ed.code_name.downcase}.jpg")
+
+      image_path = card.image_path
+      image_path.should == "/card_images/#{name_with_ed}"
+    end
+
+    it "can determine the image_path based on the card's edition" do
+      card    = FactoryGirl.build(:card) 
+      edition = FactoryGirl.build(:edition)
+
+      image_name   = card.image_name
+      name_with_ed = image_name.sub(/\.jpg/, "-#{edition.code_name.downcase}.jpg")
+
+      image_path = card.image_path(edition)
+      image_path.should == "/card_images/#{name_with_ed}"
+    end  
+
+  end
+
+  context "introspection" do
+
+    it "can determine if it's a land" do
+      card1 = FactoryGirl.build(:card, :main_type => Card::CARD_TYPES[:land])
+      card2 = FactoryGirl.build(:card, :main_type => Card::CARD_TYPES[:basic_land])
+      card3 = FactoryGirl.build(:card, :main_type => Card::CARD_TYPES[:creature])
+
+      card1.is_land?.should be_true
+      card2.is_land?.should be_true
+      card3.is_land?.should be_false
+    end
+
+    it "can determine if it's red" do
+      card = FactoryGirl.build(:card, :mana_cost => 'R')
+      card.is_red?.should be_true
+    end
+
+    it "can determine if it's green" do
+      card = FactoryGirl.build(:card, :mana_cost => 'G')
+      card.is_green?.should be_true
+    end
+
+    it "can determine if it's blue" do
+      card = FactoryGirl.build(:card, :mana_cost => 'U')
+      card.is_blue?.should be_true
+    end
+
+    it "can determine if it's black" do
+      card = FactoryGirl.build(:card, :mana_cost => 'B')
+      card.is_black?.should be_true
+    end
+
+    it "can determine if it's white" do
+      card = FactoryGirl.build(:card, :mana_cost => 'W')
+      card.is_white?.should be_true
+    end
+
+    it "can determine if it's colorless" do
+      card = FactoryGirl.build(:card, :mana_cost => '15')
+      card.is_colorless?.should be_true
+    end
+
+    it "can determine if it's multi-colored" do
+      card1 = FactoryGirl.build(:card, :mana_cost => 'RG')
+      card1.is_multicolored?.should be_true
+
+      card2 = FactoryGirl.build(:card, :mana_cost => 'X{R/B}')
+      card2.is_multicolored?.should be_true
+
+      card3 = FactoryGirl.build(:card, :mana_cost => '2UW')
+      card3.is_multicolored?.should be_true
+
+      card4 = FactoryGirl.build(:card, :mana_cost => 'G')
+      card4.is_multicolored?.should be_false
+
+      card5 = FactoryGirl.build(:card, :mana_cost => 'GG')
+      card5.is_multicolored?.should be_false
+
+      card6 = FactoryGirl.build(:card, :mana_cost => '')
+      card6.is_multicolored?.should be_false
+
+      card7 = FactoryGirl.build(:card, :mana_cost => nil)
+      card7.is_multicolored?.should be_false
+
+      card8 = FactoryGirl.build(:card, :mana_cost => '7')
+      card8.is_multicolored?.should be_false
+    end
+
   end
 
 end
