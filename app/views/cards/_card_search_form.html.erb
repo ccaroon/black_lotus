@@ -1,0 +1,58 @@
+  <div class="form-group">
+    <%= text_field :card, :name, {
+      class:       "input-sm form-control",
+      id:          'card_name',
+      autofocus:   1, 
+      placeholder: "Card Name", 
+      value:       params[:card].present? ? params[:card][:name] : ''
+    }%>
+  </div>
+
+  <div class="form-group">
+    <%= text_field :card, :sub_type, {
+      placeholder:  "Sub Type",
+      class:        "typeahead input-sm form-control",
+      id:           'card_sub_type',
+      autocomplete: 'off', 
+      value:        params[:card].present? ? params[:card][:sub_type] : '' 
+    }%>
+  </div>
+
+  <div class="form-group">
+    <%= text_field :card, :text_box, {
+      class:       "input-sm form-control",
+      id:          'card_text_box',
+      placeholder: "Text Box", 
+      value:       params[:card].present? ? params[:card][:text_box] : ''
+    }%>
+  </div> 
+
+  <div class="form-group">
+    <%= select :card, :main_type, Card::CARD_TYPES.values, {
+        id:            'card_main_type',
+        include_blank: 'Card Type...', 
+        selected:      params[:card].present? ? params[:card][:main_type] : ''
+      },
+      class: "input-sm form-control"
+    %>
+  </div>
+
+  <div class="form-group">
+    <%= select :card, :rarity, Card::RARITIES, {
+        id:            'card_rarity',
+        include_blank: 'Rarity...', 
+        selected:      params[:card].present? ? params[:card][:rarity] : ''
+      },
+      class: "input-sm form-control"
+    %>
+  </div>
+
+  <div class="form-group">
+    <%= select :card, :color, Card::COLORS.values.collect {|c| [c[:name], c[:code]]}, {
+        id:       'card_color',
+        prompt:   'Color...', 
+        selected: params[:card].present? ? params[:card][:color] : ''
+      },
+      class: "input-sm form-control"
+    %>
+  </div>

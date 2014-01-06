@@ -4,59 +4,9 @@
 
 <%= paginate @cards %>
 
-<form class=" form-inline" method="get">
-  <div class="form-group">
-    <%= text_field :card, :name, {
-      class: "input-sm form-control",
-      autofocus: 1, 
-      placeholder: "Card Name", 
-      value: params[:card].present? ? params[:card][:name] : ''
-    }%>
-  </div>
+<form class="form-inline" method="get">
 
-  <div class="form-group">
-    <%= text_field :card, :sub_type, {
-      :placeholder   => "Sub Type",
-      :class         => "typeahead input-sm form-control",
-      :autocomplete  => 'off', 
-      :value         => params[:card].present? ? params[:card][:sub_type] : '' 
-    }%>
-  </div>
-
-  <div class="form-group">
-    <%= text_field :card, :text_box, {
-      class: "input-sm form-control", 
-      placeholder: "Text Box", 
-      value: params[:card].present? ? params[:card][:text_box] : ''
-    }%>
-  </div> 
-
-  <div class="form-group">
-    <%= select :card, :main_type, Card::CARD_TYPES.values, {
-        include_blank: 'Card Type...', 
-        selected: params[:card].present? ? params[:card][:main_type] : ''
-      },
-      class: "input-sm form-control"
-    %>
-  </div>
-
-  <div class="form-group">
-    <%= select :card, :rarity, Card::RARITIES, {
-        include_blank: 'Rarity...', 
-        selected: params[:card].present? ? params[:card][:rarity] : ''
-      },
-      class: "input-sm form-control"
-    %>
-  </div>
-
-  <div class="form-group">
-    <%= select :card, :color, Card::COLORS.values.collect {|c| [c[:name], c[:code]]}, {
-        include_blank: 'Color...', 
-        selected: params[:card].present? ? params[:card][:color] : ''
-      },
-      class: "input-sm form-control"
-    %>
-  </div>
+  <%= render 'card_search_form' %>
 
   <button type="submit" name="view" value="list" class="btn btn-default btn-sm">
     <i class="glyphicon glyphicon-list"></i>

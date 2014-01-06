@@ -7,6 +7,9 @@ BlackLotus.Deckbuilder = {
 
     init: function () {
         var that = this;
+            
+        this.page = 1;
+
         $(document).ready(function () {
             // set up click handler to remove cards already part of the deck
             $('.existing_card').click(function () {
@@ -26,23 +29,31 @@ BlackLotus.Deckbuilder = {
         });
     },
 
-    card_search: function () {
+    card_search: function (new_search) {
         var that          = this,
-            search_string = $('#search_string').val();
+            card_name     = $('#card_name').val(),
+            card_color    = $('#card_color').val(),
+            card_mtype    = $('#card_main_type').val(),
+            page          = this.page;
+
+        if (new_search) {
+            page      = 1;
+            this.page = page;
+        }
 
         this.clear_search_error();
         this.clear_search_results();
 
-        if (search_string.length < 3) {
-            this.set_search_error("Search string too short: '"+search_string+"'");
+        if (card_name.length < 3 && card_color.length < 1 && card_mtype.length < 1) {
+            this.set_search_error("Search too broad. Narrow it down.");
         }
         else {
             $.ajax({
-                url: "/cards.json?card[name]="+search_string,
+                url: "/cards.json?per=8;page="+page+";card[name]="+card_name+";card[color]="+card_color+";card[main_type]="+card_mtype,
                 dataType: "json"
             }).done(function (data) {
                 if (data.length === 0) {
-                    that.set_search_error("No Cards Found for '"+search_string+"'!");
+                    that.set_search_error("No Cards Found for '"+card_name+"'!");
                 }
                 else {
                     that.display_search_results(data);
@@ -52,7 +63,20 @@ BlackLotus.Deckbuilder = {
             });        
         }
 
-        $('#search_string').select();
+        $('#card_name').select();
+    },
+
+    card_search_next: function () {
+        this.page = this.page + 1;
+        this.card_search();
+    },
+
+    card_search_prev: function () {
+        if (this.page > 1) {
+            this.page = this.page - 1;
+        }
+
+        this.card_search();
     },
 
     set_search_error: function (msg) {
@@ -83,7 +107,7 @@ BlackLotus.Deckbuilder = {
                 card: card
             });
 
-            sr_list.prepend(html);
+            sr_list.append(html);
             $("#sr_card_po_"+card.id).popover();
 
             card_img = $("#sr_card_img_"+card.id);

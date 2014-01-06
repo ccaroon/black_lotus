@@ -16,7 +16,11 @@ class CardsController < ApplicationController
         when 'name'
           where << "name like \"%#{value}%\""
         when 'color'
-          where << "mana_cost like \"%#{value}%\""
+          if value == '0'
+            where << '(mana_cost not like "%R%" and mana_cost not like "%G%" and mana_cost not like "%U%" and mana_cost not like "%B%" and mana_cost not like "%W%" and mana_cost != "")'
+          else
+            where << "mana_cost like \"%#{value}%\""
+          end
         when 'text_box'
           where << "text_box like \"%#{value}%\""
         when 'sub_type'
@@ -29,11 +33,20 @@ class CardsController < ApplicationController
       end
     end
 
+    case params[:view]
+    when 'grid'
+      per_page = 12
+    when 'list'
+      per_page = 10
+    else
+      per_page = params[:per]
+    end
+
     where_str = where.join(' and ')
     @cards = Card.where(where_str)
                  .order(:name)
                  .page(params[:page])
-                 .per(params[:view] == 'grid' ? 12 : 10)
+                 .per(per_page)
 
     @card_count = Card.where(where_str).count
     if (filter_unavailable)

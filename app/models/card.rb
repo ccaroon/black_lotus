@@ -33,11 +33,12 @@ class Card < ActiveRecord::Base
   }
   
   COLORS = {
-    red:   { name: 'Red',   code: 'R' },
-    green: { name: 'Green', code: 'G' },
-    blue:  { name: 'Blue',  code: 'U' },
-    black: { name: 'Black', code: 'B' },
-    white: { name: 'White', code: 'W' }
+    red:       { name: 'Red',       code: 'R' },
+    green:     { name: 'Green',     code: 'G' },
+    blue:      { name: 'Blue',      code: 'U' },
+    black:     { name: 'Black',     code: 'B' },
+    white:     { name: 'White',     code: 'W' },
+    colorless: { name: 'Colorless', code: '0' }
   }
 
   RARITIES = [

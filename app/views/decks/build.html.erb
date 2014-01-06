@@ -5,20 +5,31 @@
 <div class="container">
 
   <div class="row">
-    <form onSubmit="BlackLotus.Deckbuilder.card_search();return false;">
-      <div class="form-group">
-          <input id="search_string" 
-                 type="text" 
-                 name="search_string"
-                 class="form-control"
-                 autocomplete="off"
-                 placeholder="Search Cards...">
-      </div>
+    <form class="form-inline" id="search_form" onSubmit="BlackLotus.Deckbuilder.card_search(1);return false;">
+      <%= render 'cards/card_search_form' %>
+      <button type="submit" id="search_button" name="search" class="btn btn-default btn-sm">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+      <button type="reset" id="search_button" name="reset" class="btn btn-default btn-sm">
+        <i class="glyphicon glyphicon-remove"></i>
+      </button>
     </form>
   </div>
 
+  <p></p>
+
   <div class="row">
-      <div id="search_results"></div>
+    <div class="col-md-1">
+      <button type="button" name="prev" class="btn btn-default btn-sm" onClick="BlackLotus.Deckbuilder.card_search_prev()">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+      </button>
+    </div>
+    <div class="col-md-10" id="search_results"></div>
+    <div class="col-md-1">
+      <button type="button" name="next" class="btn btn-default btn-sm" onClick="BlackLotus.Deckbuilder.card_search_next()">
+        <i class="glyphicon glyphicon-arrow-right"></i>
+      </button>
+    </div>
   </div>
 
   <div class="row">
