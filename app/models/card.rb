@@ -24,10 +24,12 @@ class Card < ActiveRecord::Base
     instant:              'Instant',
     tribal_instant:       'Tribal Instant',
     sorcery:              'Sorcery',
+    tribal_sorcery:       'Tribal Sorcery',
     artifact:             'Artifact',
     snow_artifact:        'Snow Artifact',
     legendary_artifact:   'Legendary Artifact',
     enchantment:          'Enchantment',
+    tribal_enchantment:   'Tribal Enchantment',
     planeswalker:         'Planeswalker',
     scheme:               'Scheme'
   }
