@@ -11,7 +11,8 @@ class Format
       'Gatecrash',
       'Dragon\'s Maze',
       'Magic 2014',
-      'Theros'
+      'Theros',
+      'Born of the Gods'
     ],
     :banned_cards     => nil,
     :restricted_cards => nil
@@ -64,7 +65,8 @@ class Format
       'Gatecrash',
       'Dragon\'s Maze',
       'Magic 2014',
-      'Theros'
+      'Theros',
+      'Born of the Gods'
     ],
     :banned_cards => [
       'Ancestral Vision',
@@ -240,6 +242,10 @@ class Format
     :restricted_cards => nil
   }
 
+  CHALLENGE = {
+    :name => 'Challenge'
+  }
+
   COMMANDER = {
     :name           => 'Commander',
     :alt_name       => 'Elder Dragon Highlander',
@@ -257,7 +263,8 @@ class Format
     MODERN[:name]    => MODERN,
     LEGACY[:name]    => LEGACY,
     VINTAGE[:name]   => VINTAGE,
-    COMMANDER[:name] => COMMANDER
+    COMMANDER[:name] => COMMANDER,
+    CHALLENGE[:name] => CHALLENGE
   }
 
 end
