@@ -243,7 +243,10 @@ class Format
   }
 
   CHALLENGE = {
-    :name => 'Challenge'
+    :name       => 'Challenge',
+    :min_cards  => nil,
+    :max_cards  => nil,
+    :max_copies => 99
   }
 
   COMMANDER = {

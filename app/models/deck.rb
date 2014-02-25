@@ -63,7 +63,7 @@ class Deck < ActiveRecord::Base
       next if card.main_type == Card::CARD_TYPES[:basic_land]
 
       # Max copies of each card
-      if (cid.main_copies > 4 || cid.side_copies > 4)
+      if (cid.main_copies > format[:max_copies] || cid.side_copies > format[:max_copies])
         is_valid = false
         reasons << {card: card, msg: "Too many copies."}
       end
