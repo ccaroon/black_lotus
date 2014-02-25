@@ -16,6 +16,7 @@ class Card < ActiveRecord::Base
     land:                 'Land',
     basic_land:           'Basic Land',
     creature:             'Creature',
+    elite_creature:       'Elite Creature',
     artifact_creature:    'Artifact Creature',
     enchantment_creature: 'Enchantment Creature',
     legendary_creature:   'Legendary Creature',
