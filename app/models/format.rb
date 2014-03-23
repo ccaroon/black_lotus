@@ -71,12 +71,12 @@ class Format
     :banned_cards => [
       'Ancestral Vision',
       'Ancient Den',
-      'Bitterblossom',
       'Blazing Shoal',
       'Bloodbraid Elf',
       'Chrome Mox',
       'Cloudpost',
       'Dark Depths',
+      'Deathrite Shaman'
       'Dread Return',
       'Glimpse of Nature',
       'Golgari Grave-Troll',
@@ -98,8 +98,7 @@ class Format
       'Sword of the Meek',
       'Tree of Tales',
       'Umezawa\'s Jitte',
-      'Vault of Whispers',
-      'Wild Nacatl'
+      'Vault of Whispers'
     ],
     :restricted_cards => nil
   }
@@ -261,13 +260,22 @@ class Format
     :restricted_cards => VINTAGE[:restricted_cards]
   }
 
+  # Just a collection of cards
+  COLLECTION = {
+    :name       => 'Collection',
+    :min_cards  => nil,
+    :max_cards  => nil,
+    :max_copies => 99   
+  }
+
   FORMATS = {
-    STANDARD[:name]  => STANDARD,
-    MODERN[:name]    => MODERN,
-    LEGACY[:name]    => LEGACY,
-    VINTAGE[:name]   => VINTAGE,
-    COMMANDER[:name] => COMMANDER,
-    CHALLENGE[:name] => CHALLENGE
+    STANDARD[:name]   => STANDARD,
+    MODERN[:name]     => MODERN,
+    LEGACY[:name]     => LEGACY,
+    VINTAGE[:name]    => VINTAGE,
+    COMMANDER[:name]  => COMMANDER,
+    CHALLENGE[:name]  => CHALLENGE,
+    COLLECTION[:name] => COLLECTION
   }
 
 end
