@@ -76,7 +76,7 @@ class Format
       'Chrome Mox',
       'Cloudpost',
       'Dark Depths',
-      'Deathrite Shaman'
+      'Deathrite Shaman',
       'Dread Return',
       'Glimpse of Nature',
       'Golgari Grave-Troll',
