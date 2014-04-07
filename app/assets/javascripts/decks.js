@@ -32,8 +32,10 @@ BlackLotus.Deckbuilder = {
     card_search: function (new_search) {
         var that          = this,
             card_name     = $('#card_name').val(),
-            card_color    = $('#card_color').val(),
             card_mtype    = $('#card_main_type').val(),
+            card_stype    = $('#card_sub_type').val(),
+            card_color    = $('#card_color').val(),
+            card_rarity   = $('#card_rarity').val(),
             page          = this.page;
 
         if (new_search) {
@@ -44,12 +46,16 @@ BlackLotus.Deckbuilder = {
         this.clear_search_error();
         this.clear_search_results();
 
-        if (card_name.length < 3 && card_color.length < 1 && card_mtype.length < 1) {
+        if (card_name.length   < 3 && 
+            card_color.length  < 1 && 
+            card_mtype.length  < 1 &&
+            card_stype.length  < 1 &&
+            card_rarity.length < 1) {
             this.set_search_error("Search too broad. Narrow it down.");
         }
         else {
             $.ajax({
-                url: "/cards.json?per=8;page="+page+";card[name]="+card_name+";card[color]="+card_color+";card[main_type]="+card_mtype,
+                url: "/cards.json?per=8;page="+page+";card[name]="+card_name+";card[color]="+card_color+";card[main_type]="+card_mtype+";card[sub_type]="+card_stype+";card[rarity]="+card_rarity,
                 dataType: "json"
             }).done(function (data) {
                 if (data.length === 0) {
