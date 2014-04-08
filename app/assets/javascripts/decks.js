@@ -1,7 +1,38 @@
 BlackLotus.Deckbuilder = {};
+BlackLotus.DeckView    = {};
 
 (function () {
 "use strict";
+
+BlackLotus.DeckView = {
+
+    highlightEdition: function (name) {
+        // $("[data-type=card]").fadeTo("fast", 1.0);
+        // $("[data-type=card]:not([data-edition='"+name+"'])").fadeTo("fast", 0.2);
+        $("[data-type=card]").show();
+        $("[data-type=card]:not([data-edition='"+name+"'])").hide();
+    },
+
+    highlightMainType: function (name) {
+        $("[data-type=card]").show();
+        $("[data-type=card]:not([data-main-type='"+name+"'])").hide();
+    },
+
+    highlightColor: function (name) {
+        var colorMap = {
+            red:   'R',
+            green: 'G',
+            blue:  'U',
+            black: 'B',
+            white: 'W'
+        };
+
+        // $("[data-type=card]").fadeTo("fast", 1.0);
+        // $("[data-type=card]:not([data-mana-cost*='"+colorMap[name]+"'])").fadeTo("fast", 0.2);
+        $("[data-type=card]").show();
+        $("[data-type=card]:not([data-mana-cost*='"+colorMap[name]+"'])").hide();
+    }
+},
 
 BlackLotus.Deckbuilder = {
 
