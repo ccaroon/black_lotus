@@ -117,6 +117,19 @@ class Card < ActiveRecord::Base
     return count
   end
   ##############################################################################
+  def color
+    color = ''
+
+    color += COLORS[:red][:code]   if is_red?
+    color += COLORS[:green][:code] if is_green?
+    color += COLORS[:blue][:code]  if is_blue?
+    color += COLORS[:black][:code] if is_black?
+    color += COLORS[:white][:code] if is_white?
+    color =  COLORS[:colorless][:code]   if is_colorless?
+
+    return (color)
+  end
+  ##############################################################################
   def is_land?
     main_type == CARD_TYPES[:land] || main_type == CARD_TYPES[:basic_land]
   end

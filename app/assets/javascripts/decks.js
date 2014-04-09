@@ -6,31 +6,36 @@ BlackLotus.DeckView    = {};
 
 BlackLotus.DeckView = {
 
+    opacity: 0.2,
+
     highlightEdition: function (name) {
-        // $("[data-type=card]").fadeTo("fast", 1.0);
-        // $("[data-type=card]:not([data-edition='"+name+"'])").fadeTo("fast", 0.2);
-        $("[data-type=card]").show();
-        $("[data-type=card]:not([data-edition='"+name+"'])").hide();
+        $("[data-type=card]").fadeTo("slow", 1.0);
+        $("[data-type=card]:not([data-edition='"+name+"'])").fadeTo("normal", this.opacity);
+        // $("[data-type=card]").show();
+        // $("[data-type=card]:not([data-edition='"+name+"'])").hide();
     },
 
     highlightMainType: function (name) {
-        $("[data-type=card]").show();
-        $("[data-type=card]:not([data-main-type='"+name+"'])").hide();
+        $("[data-type=card]").fadeTo("slow", 1.0);
+        $("[data-type=card]:not([data-main-type='"+name+"'])").fadeTo("normal", this.opacity);
+        // $("[data-type=card]").show();
+        // $("[data-type=card]:not([data-main-type='"+name+"'])").hide();
     },
 
     highlightColor: function (name) {
         var colorMap = {
-            red:   'R',
-            green: 'G',
-            blue:  'U',
-            black: 'B',
-            white: 'W'
+            red:       'R',
+            green:     'G',
+            blue:      'U',
+            black:     'B',
+            white:     'W',
+            colorless: '0'
         };
 
-        // $("[data-type=card]").fadeTo("fast", 1.0);
-        // $("[data-type=card]:not([data-mana-cost*='"+colorMap[name]+"'])").fadeTo("fast", 0.2);
-        $("[data-type=card]").show();
-        $("[data-type=card]:not([data-mana-cost*='"+colorMap[name]+"'])").hide();
+        $("[data-type=card]").fadeTo("slow", 1.0);
+        $("[data-type=card]:not([data-color*='"+colorMap[name]+"'])").fadeTo("normal", this.opacity);
+        // $("[data-type=card]").show();
+        // $("[data-type=card]:not([data-color*='"+colorMap[name]+"'])").hide();
     }
 },
 
