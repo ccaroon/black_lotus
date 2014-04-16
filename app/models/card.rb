@@ -15,6 +15,8 @@ class Card < ActiveRecord::Base
   CARD_TYPES = {
     land:                 'Land',
     basic_land:           'Basic Land',
+    basic_snow_land:      'Basic Snow Land',
+    legendary_snow_land:  'Legendary Snow Land',
     creature:             'Creature',
     elite_creature:       'Elite Creature',
     artifact_creature:    'Artifact Creature',
