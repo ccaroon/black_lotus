@@ -186,7 +186,7 @@ describe Card do
       :sub_type  => 'human fisherman'
     )
 
-    c.valid?.should be_true
+    c.valid?.should be_truthy
 
     c.name.should == 'Bob the Fisherman'
     c.mana_cost.should == '2U'
@@ -335,65 +335,65 @@ describe Card do
       card2 = FactoryGirl.build(:card, :main_type => Card::CARD_TYPES[:basic_land])
       card3 = FactoryGirl.build(:card, :main_type => Card::CARD_TYPES[:creature])
 
-      card1.is_land?.should be_true
-      card2.is_land?.should be_true
-      card3.is_land?.should be_false
+      card1.is_land?.should be_truthy
+      card2.is_land?.should be_truthy
+      card3.is_land?.should be_falsey
     end
 
     it "can determine if it's red" do
       card = FactoryGirl.build(:card, :mana_cost => 'R')
-      card.is_red?.should be_true
+      card.is_red?.should be_truthy
     end
 
     it "can determine if it's green" do
       card = FactoryGirl.build(:card, :mana_cost => 'G')
-      card.is_green?.should be_true
+      card.is_green?.should be_truthy
     end
 
     it "can determine if it's blue" do
       card = FactoryGirl.build(:card, :mana_cost => 'U')
-      card.is_blue?.should be_true
+      card.is_blue?.should be_truthy
     end
 
     it "can determine if it's black" do
       card = FactoryGirl.build(:card, :mana_cost => 'B')
-      card.is_black?.should be_true
+      card.is_black?.should be_truthy
     end
 
     it "can determine if it's white" do
       card = FactoryGirl.build(:card, :mana_cost => 'W')
-      card.is_white?.should be_true
+      card.is_white?.should be_truthy
     end
 
     it "can determine if it's colorless" do
       card = FactoryGirl.build(:card, :mana_cost => '15')
-      card.is_colorless?.should be_true
+      card.is_colorless?.should be_truthy
     end
 
     it "can determine if it's multi-colored" do
       card1 = FactoryGirl.build(:card, :mana_cost => 'RG')
-      card1.is_multicolored?.should be_true
+      card1.is_multicolored?.should be_truthy
 
       card2 = FactoryGirl.build(:card, :mana_cost => 'X{R/B}')
-      card2.is_multicolored?.should be_true
+      card2.is_multicolored?.should be_truthy
 
       card3 = FactoryGirl.build(:card, :mana_cost => '2UW')
-      card3.is_multicolored?.should be_true
+      card3.is_multicolored?.should be_truthy
 
       card4 = FactoryGirl.build(:card, :mana_cost => 'G')
-      card4.is_multicolored?.should be_false
+      card4.is_multicolored?.should be_falsey
 
       card5 = FactoryGirl.build(:card, :mana_cost => 'GG')
-      card5.is_multicolored?.should be_false
+      card5.is_multicolored?.should be_falsey
 
       card6 = FactoryGirl.build(:card, :mana_cost => '')
-      card6.is_multicolored?.should be_false
+      card6.is_multicolored?.should be_falsey
 
       card7 = FactoryGirl.build(:card, :mana_cost => nil)
-      card7.is_multicolored?.should be_false
+      card7.is_multicolored?.should be_falsey
 
       card8 = FactoryGirl.build(:card, :mana_cost => '7')
-      card8.is_multicolored?.should be_false
+      card8.is_multicolored?.should be_falsey
     end
 
   end

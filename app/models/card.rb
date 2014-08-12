@@ -195,6 +195,7 @@ class Card < ActiveRecord::Base
   ##############################################################################
   def self.sub_types
     Card.select("distinct sub_type")
+      .to_a
       .delete_if {|c| c.sub_type.blank? }
       .collect! {|c| c.sub_type }
   end

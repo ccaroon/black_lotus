@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails',         '~> 4.0'
+gem 'rails',         '~> 4.1'
 gem 'protected_attributes', '~> 1.0'
 
 gem 'sqlite3',       '~> 1.3'
@@ -15,8 +15,8 @@ gem 'therubyracer', :platforms => :ruby
 gem 'uglifier',      '>= 1.3'
 
 group :test do
-    gem 'rspec',              '~> 2.14'
-    gem 'rspec-rails',        '~> 2.14'
+    gem 'rspec',              '~> 3.0'
+    gem 'rspec-rails',        '~> 3.0'
     gem 'factory_girl_rails', '~> 4.3'
     gem 'simplecov', :require => false
 end
