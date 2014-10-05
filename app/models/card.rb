@@ -23,6 +23,7 @@ class Card < ActiveRecord::Base
     enchantment_creature: 'Enchantment Creature',
     legendary_creature:   'Legendary Creature',
     legendary_enchantment_artifact: 'Legendary Enchantment Artifact',
+    legendary_enchantment_creature: 'Legendary Enchantment Creature',
     snow_creature:        'Snow Creature',
     instant:              'Instant',
     tribal_instant:       'Tribal Instant',
