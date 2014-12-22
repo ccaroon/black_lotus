@@ -61,6 +61,7 @@ class Deck < ActiveRecord::Base
     self.card_in_deck.each do |cid|
       card = cid.card
       next if card.main_type == Card::CARD_TYPES[:basic_land]
+      next if card.main_type == Card::CARD_TYPES[:basic_snow_land]
 
       # Max copies of each card
       if (cid.main_copies > format[:max_copies] || cid.side_copies > format[:max_copies])
