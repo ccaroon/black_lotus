@@ -140,7 +140,7 @@ class Deck < ActiveRecord::Base
       end
 
       # Editions
-      unless (card.is_land?)
+      unless (card.is_basic_land?)
         if (stats[:editions][card.latest_edition.name].nil?)
           stats[:editions][card.latest_edition.name] = copies
         else

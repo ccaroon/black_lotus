@@ -10,7 +10,7 @@
         <% count = stats[:color][color] %>
         <li class="list-group-item">
           <span class="badge"><%= count %></span>
-          <div class="<%= color_to_label(color) %>" onClick="BlackLotus.DeckView.highlightColor('<%= color %>')"><%= color.capitalize %></div>
+          <div class="deck-view-filter <%= color_to_label(color) %>" onClick="BlackLotus.DeckView.highlightColor('<%= color %>')"><%= color.capitalize %></div>
         </li>
       <% end %>
     </ul>
@@ -26,7 +26,7 @@
       <% stats[:main_type].sort.each do |mt| %>
         <li class="list-group-item"> 
           <span class="badge"><%= mt[1] %></span>
-          <span class="label label-white" onClick="BlackLotus.DeckView.highlightMainType('<%= mt[0] %>')"><%= mt[0] %></span>
+          <span class="deck-view-filter label label-white" onClick="BlackLotus.DeckView.highlightMainType('<%= mt[0] %>')"><%= mt[0] %></span>
         </li>
       <% end %>
     </ul>
@@ -42,7 +42,7 @@
       <% stats[:editions].sort.each do |e| %>
         <li class="list-group-item">
           <span class="badge"><%= e[1] %></span>
-          <span class="label label-white" onClick="BlackLotus.DeckView.highlightEdition('<%= e[0] %>')"><%= e[0] %></span>
+          <span class="deck-view-filter label label-white" onClick='BlackLotus.DeckView.highlightEdition("<%= e[0] %>")'><%= e[0] %></span>
         </li>
       <% end %>
     </ul>

@@ -133,8 +133,12 @@ class Card < ActiveRecord::Base
     return (color)
   end
   ##############################################################################
+  def is_basic_land?
+    main_type == CARD_TYPES[:basic_land] || main_type == CARD_TYPES[:basic_snow_land]
+  end
+    ##############################################################################
   def is_land?
-    main_type == CARD_TYPES[:land] || main_type == CARD_TYPES[:basic_land]
+    main_type == CARD_TYPES[:land] || main_type == CARD_TYPES[:basic_land] || main_type == CARD_TYPES[:basic_snow_land]
   end
   ##############################################################################
   def is_red?

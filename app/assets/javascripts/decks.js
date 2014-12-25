@@ -9,17 +9,17 @@ BlackLotus.DeckView = {
     opacity: 0.2,
 
     highlightEdition: function (name) {
-        $("[data-type=card]").fadeTo("slow", 1.0);
-        $("[data-type=card]:not([data-edition='"+name+"'])").fadeTo("normal", this.opacity);
-        // $("[data-type=card]").show();
-        // $("[data-type=card]:not([data-edition='"+name+"'])").hide();
+        // $("[data-type=card]").fadeTo("slow", 1.0);
+        // $('[data-type=card]:not([data-edition="'+name+'"])').fadeTo("normal", this.opacity);
+        $("[data-type=card]").show();
+        $('[data-type=card]:not([data-edition="'+name+'"])').hide();
     },
 
     highlightMainType: function (name) {
-        $("[data-type=card]").fadeTo("slow", 1.0);
-        $("[data-type=card]:not([data-main-type='"+name+"'])").fadeTo("normal", this.opacity);
-        // $("[data-type=card]").show();
-        // $("[data-type=card]:not([data-main-type='"+name+"'])").hide();
+        // $("[data-type=card]").fadeTo("slow", 1.0);
+        // $("[data-type=card]:not([data-main-type='"+name+"'])").fadeTo("normal", this.opacity);
+        $("[data-type=card]").show();
+        $("[data-type=card]:not([data-main-type='"+name+"'])").hide();
     },
 
     highlightColor: function (name) {
@@ -32,10 +32,10 @@ BlackLotus.DeckView = {
             colorless: '0'
         };
 
-        $("[data-type=card]").fadeTo("slow", 1.0);
-        $("[data-type=card]:not([data-color*='"+colorMap[name]+"'])").fadeTo("normal", this.opacity);
-        // $("[data-type=card]").show();
-        // $("[data-type=card]:not([data-color*='"+colorMap[name]+"'])").hide();
+        // $("[data-type=card]").fadeTo("slow", 1.0);
+        // $("[data-type=card]:not([data-color*='"+colorMap[name]+"'])").fadeTo("normal", this.opacity);
+        $("[data-type=card]").show();
+        $("[data-type=card]:not([data-color*='"+colorMap[name]+"'])").hide();
     }
 },
 
