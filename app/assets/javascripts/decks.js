@@ -91,7 +91,7 @@ BlackLotus.Deckbuilder = {
         }
         else {
             $.ajax({
-                url: "/cards.json?per=8;page="+page+";card[name]="+card_name+";card[color]="+card_color+";card[main_type]="+card_mtype+";card[sub_type]="+card_stype+";card[rarity]="+card_rarity,
+                url: "/cards.json?per=8&page="+page+"&card[name]="+card_name+"&card[color]="+card_color+"&card[main_type]="+card_mtype+"&card[sub_type]="+card_stype+"&card[rarity]="+card_rarity,
                 dataType: "json"
             }).done(function (data) {
                 if (data.length === 0) {
