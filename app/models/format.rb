@@ -7,10 +7,11 @@ class Format
     :sideboard_size => 15,
     :max_copies     => 4,
     :legal_editions => [
-      'Theros',
-      'Born of the Gods',
-      'Journey into Nyx',
-      'Magic 2015',
+      'Oath of the Gatewatch',
+      'Battle for Zendikar',
+      'Magic Origins',
+      'Dragons of Tarkir',
+      'Fate Reforged',
       'Khans of Tarkir'
     ],
     :banned_cards     => nil,
@@ -67,7 +68,12 @@ class Format
       'Theros',
       'Born of the Gods',
       'Journey Into Nyx',
-      'Magic 2015'
+      'Magic 2015',
+      'Khans of Tarkir',
+      'Fate Reforged',
+      'Dragons of Tarkir',
+      'Magic Origins',
+      'Battle for Zendikar'
     ],
     :banned_cards => [
       'Ancestral Vision',
