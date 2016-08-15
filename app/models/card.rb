@@ -1,5 +1,5 @@
 class Card < ActiveRecord::Base
-  
+
   LOWER_WORDS = {
     the:  true,
     in:   true,
@@ -37,14 +37,19 @@ class Card < ActiveRecord::Base
     planeswalker:         'Planeswalker',
     scheme:               'Scheme'
   }
-  
+
   COLORS = {
     red:       { name: 'Red',       code: 'R' },
     green:     { name: 'Green',     code: 'G' },
     blue:      { name: 'Blue',      code: 'U' },
     black:     { name: 'Black',     code: 'B' },
     white:     { name: 'White',     code: 'W' },
-    colorless: { name: 'Colorless', code: '0' }
+    colorless: { name: 'Colorless', code: 'C' },
+    none:      { name: 'None',      code: '-' },
+
+    # Nothing should be entered with this value. This is here purely to assist
+    # in card searches
+    generic:   { name: 'Generic',   code: '*' }
   }
 
   RARITIES = [
@@ -58,20 +63,20 @@ class Card < ActiveRecord::Base
   validates_presence_of :mana_cost,
     :unless => Proc.new {|card| card.main_type =~ /Land$/ }
   validates_numericality_of :count, :only_integer => true, :greater_than => 0
-  validates_format_of :mana_cost, 
-    :with => /\AX*(\d+)?({[RGUBW]\/[RGUBW]}|[RGUBW])*\z/
+  validates_format_of :mana_cost,
+    :with => /\AX*(\d+)?({[RGUBWC]\/[RGUBWC]}|[RGUBWC\-])*\z/
   validates_inclusion_of :main_type, :in => CARD_TYPES.values,
     :message => "'%{value}' is not a valid main type"
   validates_inclusion_of :rarity, :in => RARITIES,
     :message => "'%{value}' is not a valid rarity"
 
   before_validation :fixup_data
-  
+
   attr_accessible :count, :foil, :image_name, :main_type, :mana_cost, :name,
                   :rarity, :sub_type, :text_box
-                  
+
   has_and_belongs_to_many :editions, -> {order :release_date}
-  
+
   has_many :card_in_deck, :dependent => :destroy
   has_many :decks, :through => :card_in_deck
   ##############################################################################
@@ -79,7 +84,7 @@ class Card < ActiveRecord::Base
       iname = self.name.downcase
       iname.gsub!(/\s/, '_')
       iname.gsub!(/[^A-Za-z0-9\-_]/, '')
-  
+
       self.image_name = iname + ".jpg"
   end
   ##############################################################################
@@ -95,7 +100,7 @@ class Card < ActiveRecord::Base
   def available_editions
     all_editions = Edition.order('release_date').to_a
     card_editions = self.editions
-    
+
     avail_editions = all_editions.keep_if do |e|
       card_editions.find_index(e).nil?
     end
@@ -162,7 +167,15 @@ class Card < ActiveRecord::Base
   end
   ##############################################################################
   def is_colorless?
-    !mana_cost.empty? and !is_red? and !is_green? and !is_blue? and !is_black? and !is_white?
+    !(mana_cost =~ /#{COLORS[:colorless][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_none?
+    !(mana_cost =~ /#{COLORS[:none][:code]}/).nil?
+  end
+  ##############################################################################
+  def is_generic?
+    !mana_cost.empty? and !is_red? and !is_green? and !is_blue? and !is_black? and !is_white? and !is_colorless? and !is_none?
   end
   ##############################################################################
   def is_multicolored?
@@ -170,11 +183,11 @@ class Card < ActiveRecord::Base
 
     mcost.gsub!(/[^RGUBW]/, '')
 
-    !mcost.empty?          and 
-    (mcost =~ /^R+$/).nil? and 
-    (mcost =~ /^G+$/).nil? and 
-    (mcost =~ /^U+$/).nil? and 
-    (mcost =~ /^B+$/).nil? and 
+    !mcost.empty?          and
+    (mcost =~ /^R+$/).nil? and
+    (mcost =~ /^G+$/).nil? and
+    (mcost =~ /^U+$/).nil? and
+    (mcost =~ /^B+$/).nil? and
     (mcost =~ /^W+$/).nil?
   end
   ##############################################################################
@@ -233,7 +246,7 @@ class Card < ActiveRecord::Base
   end
   ##############################################################################
   private
-  
+
   def fixup_data
     unless (self.name.nil?)
       self.name = Card.title_case(self.name)
@@ -243,5 +256,5 @@ class Card < ActiveRecord::Base
     self.mana_cost.upcase! unless self.mana_cost.nil?
     self.sub_type = Card.title_case(self.sub_type) unless self.sub_type.nil?
   end
-  
+
 end

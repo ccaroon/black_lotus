@@ -2,9 +2,9 @@ module CardsHelper
 
   def rarity_to_css(card_or_rarity)
     css_class = ''
-    
+
     rarity = card_or_rarity.is_a?(Card) ? card_or_rarity.rarity : card_or_rarity
-    
+
     case rarity
     when 'Common'      then css_class = 'label label-inverse'
     when 'Uncommon'    then css_class = 'label label-default'
@@ -14,7 +14,7 @@ module CardsHelper
 
     return css_class;
   end
-  
+
   def mana_cost_to_html(mana_cost)
     html = mana_cost.dup
     html.gsub!(/R/, '<span class="badge badge-danger mana">R</span>')
@@ -22,7 +22,8 @@ module CardsHelper
     html.gsub!(/U/, '<span class="badge badge-primary mana">U</span>')
     html.gsub!(/B/, '<span class="badge badge-inverse">B</span>')
     html.gsub!(/W/, '<span class="badge badge-white mana">W</span>')
-    html.gsub!(/(X|\d+)/, '<span class="badge mana">\1</span>')
+    html.gsub!(/C/, '<span class="badge mana">♢</span>')
+    html.gsub!(/(X|-|\d+)/, '<span class="badge mana">\1</span>')
 
     return html.html_safe
   end
@@ -39,5 +40,5 @@ module CardsHelper
 
     return html.html_safe
   end
-  
+
 end

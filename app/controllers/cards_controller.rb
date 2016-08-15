@@ -16,8 +16,8 @@ class CardsController < ApplicationController
         when 'name'
           where << "name like \"%#{value}%\""
         when 'color'
-          if value == '0'
-            where << '(mana_cost not like "%R%" and mana_cost not like "%G%" and mana_cost not like "%U%" and mana_cost not like "%B%" and mana_cost not like "%W%" and mana_cost != "")'
+          if value == '*'
+            where << '(mana_cost not like "%R%" and mana_cost not like "%G%" and mana_cost not like "%U%" and mana_cost not like "%B%" and mana_cost not like "%W%" and mana_cost != "" and mana_cost not like "%C%" and mana_cost not like "%-%")'
           else
             where << "mana_cost like \"%#{value}%\""
           end
@@ -202,7 +202,7 @@ class CardsController < ApplicationController
   end
   ##############################################################################
   private
-  
+
   def add_to_deck
     if (params[:deck][:deck_id].present?)
       deck = Deck.find(params[:deck][:deck_id])
@@ -215,6 +215,6 @@ class CardsController < ApplicationController
     if (ed_id.present?)
       new_ed = Edition.find(ed_id)
       @card.editions << new_ed
-    end    
+    end
   end
 end
