@@ -48,7 +48,7 @@ class Card < ActiveRecord::Base
     none:      { name: 'None',      code: '-' },
 
     # Nothing should be entered with this value. This is here purely to assist
-    # in card searches
+    # in card searches. See cards_controller.rb, line 19(ish)
     generic:   { name: 'Generic',   code: '*' }
   }
 
