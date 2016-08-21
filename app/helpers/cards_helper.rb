@@ -17,13 +17,13 @@ module CardsHelper
 
   def mana_cost_to_html(mana_cost)
     html = mana_cost.dup
+    html.gsub!(/(X|-|\d+)/, '<span class="badge mana">\1</span>')
     html.gsub!(/R/, '<span class="badge badge-danger mana">R</span>')
     html.gsub!(/G/, '<span class="badge badge-success mana">G</span>')
     html.gsub!(/U/, '<span class="badge badge-primary mana">U</span>')
     html.gsub!(/B/, '<span class="badge badge-inverse">B</span>')
     html.gsub!(/W/, '<span class="badge badge-white mana">W</span>')
     html.gsub!(/C/, '<span class="badge mana">♢</span>')
-    html.gsub!(/(X|-|\d+)/, '<span class="badge mana">\1</span>')
 
     return html.html_safe
   end
