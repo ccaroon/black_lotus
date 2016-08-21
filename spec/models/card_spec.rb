@@ -86,6 +86,14 @@ describe Card do
         c.mana_cost = 'XX2g'
         c.should be_valid
 
+        # can contain colorless mana
+        c.mana_cost = '2C'
+        c.should be_valid
+        
+        # can be none. example: Most/all cards in Challenge Decks
+        c.mana_cost = '-'
+        c.should be_valid
+
         # If contain number and X, X must be first
         c.mana_cost = '7X'
         c.should_not be_valid
@@ -99,7 +107,7 @@ describe Card do
         # digits must be at the beginning
         c.mana_cost = 'RGB7'
         c.should_not be_valid
-        c.errors.messages.should have_key :mana_cost      
+        c.errors.messages.should have_key :mana_cost
 
       end
 
@@ -366,8 +374,18 @@ describe Card do
     end
 
     it "can determine if it's colorless" do
-      card = FactoryGirl.build(:card, :mana_cost => '15')
+      card = FactoryGirl.build(:card, :mana_cost => 'C')
       card.is_colorless?.should be_truthy
+    end
+    
+    it "can determine if it's generic" do
+      card = FactoryGirl.build(:card, :mana_cost => '15')
+      card.is_generic?.should be_truthy
+    end
+    
+    it "can determine if it's none" do
+      card = FactoryGirl.build(:card, :mana_cost => '-')
+      card.is_none?.should be_truthy
     end
 
     it "can determine if it's multi-colored" do
